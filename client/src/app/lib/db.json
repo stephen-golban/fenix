@@ -1,0 +1,209 @@
+{
+  "collections": [
+    {
+      "id": "summer-collection",
+      "title": "Summer Collection",
+      "description": "A collection of summer essentials."
+    },
+    {
+      "id": "beach-basics",
+      "title": "Beach Basics",
+      "description": "Everything you need for a day at the beach."
+    },
+    {
+      "id": "outdoor-adventures",
+      "title": "Outdoor Adventures",
+      "description": "Gear up for your next outdoor adventure."
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-1",
+      "availableForSale": true,
+      "title": "Summer T-Shirt",
+      "description": "A lightweight t-shirt perfect for summer.",
+      "descriptionHtml": "<p>A lightweight t-shirt perfect for summer.</p>",
+      "options": [
+        {
+          "id": "option-1",
+          "name": "Size",
+          "values": ["S", "M", "L", "XL"]
+        },
+        {
+          "id": "option-2",
+          "name": "Color",
+          "values": ["Red", "Blue", "Green"]
+        }
+      ],
+      "priceRange": {
+        "maxVariantPrice": {
+          "amount": "29.99",
+          "currencyCode": "USD"
+        },
+        "minVariantPrice": {
+          "amount": "19.99",
+          "currencyCode": "USD"
+        }
+      },
+      "variants": [
+        {
+          "id": "variant-1",
+          "title": "Small / Red",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Size",
+              "value": "S"
+            },
+            {
+              "name": "Color",
+              "value": "Red"
+            }
+          ],
+          "price": {
+            "amount": "19.99",
+            "currencyCode": "USD"
+          }
+        }
+      ],
+      "images": ["https://source.unsplash.com/random/800x800?summer"],
+      "thumbnail": "https://source.unsplash.com/random/800x800?summer",
+      "tags": ["summer", "t-shirt", "lightweight"],
+      "updatedAt": "2024-02-27T12:00:00Z",
+      "collectionHandle": "summer-collection"
+    },
+    {
+      "id": "prod-2",
+      "availableForSale": true,
+      "title": "Stylish Sunglasses",
+      "description": "Protect your eyes with these stylish sunglasses.",
+      "descriptionHtml": "<p>Protect your eyes with these stylish sunglasses.</p>",
+      "options": [
+        {
+          "id": "option-1",
+          "name": "Color",
+          "values": ["Black", "Brown", "Blue"]
+        }
+      ],
+      "priceRange": {
+        "maxVariantPrice": {
+          "amount": "50.00",
+          "currencyCode": "USD"
+        },
+        "minVariantPrice": {
+          "amount": "45.00",
+          "currencyCode": "USD"
+        }
+      },
+      "variants": [
+        {
+          "id": "variant-2",
+          "title": "Black",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Color",
+              "value": "Black"
+            }
+          ],
+          "price": {
+            "amount": "45.00",
+            "currencyCode": "USD"
+          }
+        }
+      ],
+      "images": ["https://source.unsplash.com/random/800x800?sunglasses"],
+      "thumbnail": "https://source.unsplash.com/random/800x800?sunglasses",
+      "tags": ["summer", "sunglasses", "style"],
+      "updatedAt": "2024-02-27T12:00:00Z",
+      "collectionHandle": "summer-collection"
+    },
+    {
+      "id": "prod-3",
+      "availableForSale": true,
+      "title": "Stylish Clothes",
+      "description": "Protect your eyes with these stylish clothes.",
+      "descriptionHtml": "<p>Protect your eyes with these stylish clothes.</p>",
+      "options": [
+        {
+          "id": "option-1",
+          "name": "Color",
+          "values": ["Black", "Brown", "Blue"]
+        }
+      ],
+      "priceRange": {
+        "maxVariantPrice": {
+          "amount": "133.00",
+          "currencyCode": "USD"
+        },
+        "minVariantPrice": {
+          "amount": "98.00",
+          "currencyCode": "USD"
+        }
+      },
+      "variants": [
+        {
+          "id": "variant-2",
+          "title": "Black",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Color",
+              "value": "Black"
+            }
+          ],
+          "price": {
+            "amount": "74.00",
+            "currencyCode": "USD"
+          }
+        }
+      ],
+      "images": ["https://source.unsplash.com/random/800x800?clothes"],
+      "thumbnail": "https://source.unsplash.com/random/800x800?clothes",
+      "tags": ["summer", "clothes", "style"],
+      "updatedAt": "2024-02-27T12:00:00Z",
+      "collectionHandle": "summer-collection"
+    }
+  ],
+  "pages": [
+    {
+      "id": "page-1",
+      "title": "About Us",
+      "handle": "about-us",
+      "body": "This is a detailed body text for About Us page. Here we share our story, mission, and values.",
+      "bodySummary": "Our story, mission, and values.",
+      "seo": {
+        "title": "About Us - Our Story",
+        "description": "Learn about our mission and values."
+      },
+      "createdAt": "2024-02-28T12:00:00Z",
+      "updatedAt": "2024-02-28T12:00:00Z"
+    },
+    {
+      "id": "page-2",
+      "title": "Contact",
+      "handle": "contact",
+      "body": "Here's how you can get in touch with us. Visit our store, email us, or call us at our hotline.",
+      "bodySummary": "Get in touch with us.",
+      "seo": {
+        "title": "Contact Us",
+        "description": "How to contact us."
+      },
+      "createdAt": "2024-02-28T12:00:00Z",
+      "updatedAt": "2024-02-28T12:00:00Z"
+    },
+    {
+      "id": "page-3",
+      "title": "FAQ",
+      "handle": "faq",
+      "body": "Frequently Asked Questions: Find answers to common questions about our products, shipping, returns, and services.",
+      "bodySummary": "Answers to common questions.",
+      "seo": {
+        "title": "Frequently Asked Questions",
+        "description": "Find answers to your questions."
+      },
+      "createdAt": "2024-02-28T12:00:00Z",
+      "updatedAt": "2024-02-28T12:00:00Z"
+    }
+  ]
+}
