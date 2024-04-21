@@ -1,6 +1,11 @@
 {
   "collections": [
     {
+      "id": "all-colection",
+      "title": "All",
+      "description": "Al collection."
+    },
+    {
       "id": "summer-collection",
       "title": "Summer Collection",
       "description": "A collection of summer essentials."
@@ -163,6 +168,153 @@
       "tags": ["summer", "clothes", "style"],
       "updatedAt": "2024-02-27T12:00:00Z",
       "collectionHandle": "summer-collection"
+    },
+    {
+      "id": "prod-4",
+      "availableForSale": true,
+      "title": "Summer T-Shirt",
+      "description": "A lightweight t-shirt perfect for summer.",
+      "descriptionHtml": "<p>A lightweight t-shirt perfect for summer.</p>",
+      "options": [
+        {
+          "id": "option-1",
+          "name": "Size",
+          "values": ["S", "M", "L", "XL"]
+        },
+        {
+          "id": "option-2",
+          "name": "Color",
+          "values": ["Red", "Blue", "Green"]
+        }
+      ],
+      "priceRange": {
+        "maxVariantPrice": {
+          "amount": "29.99",
+          "currencyCode": "USD"
+        },
+        "minVariantPrice": {
+          "amount": "19.99",
+          "currencyCode": "USD"
+        }
+      },
+      "variants": [
+        {
+          "id": "variant-1",
+          "title": "Small / Red",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Size",
+              "value": "S"
+            },
+            {
+              "name": "Color",
+              "value": "Red"
+            }
+          ],
+          "price": {
+            "amount": "19.99",
+            "currencyCode": "USD"
+          }
+        }
+      ],
+      "images": ["https://source.unsplash.com/random/800x800?summer"],
+      "thumbnail": "https://source.unsplash.com/random/800x800?summer",
+      "tags": ["summer", "t-shirt", "lightweight"],
+      "updatedAt": "2024-02-27T12:00:00Z",
+      "collectionHandle": "beach-basics"
+    },
+    {
+      "id": "prod-5",
+      "availableForSale": true,
+      "title": "Stylish Sunglasses",
+      "description": "Protect your eyes with these stylish sunglasses.",
+      "descriptionHtml": "<p>Protect your eyes with these stylish sunglasses.</p>",
+      "options": [
+        {
+          "id": "option-1",
+          "name": "Color",
+          "values": ["Black", "Brown", "Blue"]
+        }
+      ],
+      "priceRange": {
+        "maxVariantPrice": {
+          "amount": "50.00",
+          "currencyCode": "USD"
+        },
+        "minVariantPrice": {
+          "amount": "45.00",
+          "currencyCode": "USD"
+        }
+      },
+      "variants": [
+        {
+          "id": "variant-2",
+          "title": "Black",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Color",
+              "value": "Black"
+            }
+          ],
+          "price": {
+            "amount": "45.00",
+            "currencyCode": "USD"
+          }
+        }
+      ],
+      "images": ["https://source.unsplash.com/random/800x800?sunglasses"],
+      "thumbnail": "https://source.unsplash.com/random/800x800?sunglasses",
+      "tags": ["summer", "sunglasses", "style"],
+      "updatedAt": "2024-02-27T12:00:00Z",
+      "collectionHandle": "summer-collection"
+    },
+    {
+      "id": "prod-6",
+      "availableForSale": true,
+      "title": "Stylish Clothes",
+      "description": "Protect your eyes with these stylish clothes.",
+      "descriptionHtml": "<p>Protect your eyes with these stylish clothes.</p>",
+      "options": [
+        {
+          "id": "option-1",
+          "name": "Color",
+          "values": ["Black", "Brown", "Blue"]
+        }
+      ],
+      "priceRange": {
+        "maxVariantPrice": {
+          "amount": "133.00",
+          "currencyCode": "USD"
+        },
+        "minVariantPrice": {
+          "amount": "98.00",
+          "currencyCode": "USD"
+        }
+      },
+      "variants": [
+        {
+          "id": "variant-2",
+          "title": "Black",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Color",
+              "value": "Black"
+            }
+          ],
+          "price": {
+            "amount": "74.00",
+            "currencyCode": "USD"
+          }
+        }
+      ],
+      "images": ["https://source.unsplash.com/random/800x800?clothes"],
+      "thumbnail": "https://source.unsplash.com/random/800x800?clothes",
+      "tags": ["summer", "clothes", "style"],
+      "updatedAt": "2024-02-27T12:00:00Z",
+      "collectionHandle": "outdoor-adventures"
     }
   ],
   "pages": [
