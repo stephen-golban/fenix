@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Navbar } from "../ui";
+import { Footer, Navbar } from "../ui";
 
 const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
@@ -8,6 +8,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
       <Suspense>
         <main className="py-5">{children}</main>
       </Suspense>
+      <Footer />
     </div>
   );
 };
