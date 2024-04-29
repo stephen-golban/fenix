@@ -1,0 +1,17 @@
+.header > .demo-logo {
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  position: relative;
+}
+
+.logout-btn {
+  right: 0;
+  top: 50%;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  align-items: center;
+  transform: translateY(-50%);
+}

@@ -1,0 +1,40 @@
+import { Product } from "../typings/product";
+
+export const PRODUCTS_MOCK: Product[] = [
+  {
+    id: "1",
+    title: "Laptop",
+    description: "A powerful laptop for all your computing needs",
+    availableOnDemand: true,
+    provider: "Tech Inc.",
+    photos: [{ id: "1", productId: "1", url: "https://picsum.photos/200" }],
+    dimensions_with_price: [],
+    categoryId: "1",
+    category: { id: "1", title: "Electronics" },
+    colors: ["Silver", "Red"],
+  },
+  {
+    id: "2",
+    title: "Smartphone",
+    description: "The latest smartphone with amazing features",
+    availableOnDemand: true,
+    provider: "Gadget Store",
+    photos: [{ id: "1", productId: "1", url: "https://picsum.photos/200" }],
+    dimensions_with_price: [],
+    categoryId: "1",
+    category: { id: "1", title: "Electronics" },
+    colors: ["Black"],
+  },
+  {
+    id: "3",
+    title: "Sneakers",
+    description: "Comfortable sneakers for everyday wear",
+    availableOnDemand: false,
+    provider: "Footwear Outlet",
+    photos: [{ id: "1", productId: "1", url: "https://picsum.photos/200" }],
+    dimensions_with_price: [],
+    categoryId: "2",
+    category: { id: "2", title: "Fashion" },
+    colors: ["blue"],
+  },
+];

@@ -1,0 +1,29 @@
+.layout {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+}
+.layout > h1 {
+  text-align: center;
+}
+.layout > #basic {
+  margin-top: 20px;
+  max-width: 400px;
+  min-width: 400px;
+}
+.layout > #basic .submit-btn {
+  width: 100%;
+}
+
+@media screen and (max-width: 615px) {
+  .layout > #basic {
+    width: 80%;
+    min-width: 80%;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}
