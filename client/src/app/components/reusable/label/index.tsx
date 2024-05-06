@@ -1,20 +1,18 @@
-import React from "react";
+import React from "react"
 
-import clsx from "clsx";
+import clsx from "clsx"
 
-import { Price } from "../price";
+import { Price } from "../price"
 
 interface ILabel {
-  title: string;
-  amount: string;
-  currencyCode: string;
-  position?: "bottom" | "center";
+  title: string
+  amount: number
+  position?: "bottom" | "center"
 }
 
 const Label: React.FC<ILabel> = ({
   title,
   amount,
-  currencyCode,
   position = "bottom",
 }) => {
   return (
@@ -33,12 +31,10 @@ const Label: React.FC<ILabel> = ({
         <Price
           className="flex-none rounded-full bg-blue-600 p-2 text-white"
           amount={amount}
-          currencyCode={currencyCode}
-          currencyCodeClassName="hidden @[275px]/label:inline"
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { Label };
+export { Label }

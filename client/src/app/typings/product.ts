@@ -1,39 +1,40 @@
 export type ProductOption = {
-  id: string;
-  name: string;
-  values: string[];
-};
+  id: string
+  name: string
+  values: string[]
+}
 
 export type Money = {
-  amount: string;
-  currencyCode: string;
-};
+  amount: string
+}
 
 export type ProductVariant = {
-  id: string;
-  title: string;
-  availableForSale: boolean;
+  id: string
+  title: string
+  availableForSale: boolean
   selectedOptions: {
-    name: string;
-    value: string;
-  }[];
-  price: Money;
-};
+    name: string
+    value: string
+  }[]
+  price: Money
+}
 
 export type Product = {
-  id: string;
-  availableForSale: boolean;
-  title: string;
-  description: string;
-  descriptionHtml: string;
-  options: ProductOption[];
-  priceRange: {
-    maxVariantPrice: Money;
-    minVariantPrice: Money;
-  };
-  variants: ProductVariant[];
-  tags: string[];
-  images: string[];
-  thumbnail: string;
-  updatedAt: string;
-};
+  id: string
+  title: string
+  description: string
+  availableOnDemand: boolean
+  provider: string
+  color: string
+  photos: {
+    id: string
+    url: string
+  }[]
+  dimensions_with_price: {
+    id: string
+    width: number
+    length: number
+    height: number
+    price: number
+  }[]
+}

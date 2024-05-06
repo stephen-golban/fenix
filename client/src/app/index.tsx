@@ -12,10 +12,10 @@ const App = () => {
         {/* if user is authenticated the go to chats page else login page */}
         <Route path="/" element={<HomeModule />} />
         <Route
-          path="/categories/all-colection"
+          path="/categories/:id"
           element={<CategoriesModule />}
         />
-        <Route path="/product/prod-1" element={<Product />} />
+        <Route path="/product/:id" element={<Product />} />
         <Route path="*" element={<NotFoundModule />} />
       </Routes>
     </RootLayout>

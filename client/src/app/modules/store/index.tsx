@@ -1,92 +1,46 @@
-import React, { Suspense, useState } from "react";
-import Filter from "../../components/ui/filter";
-import { ProductGridItems } from "../../components/ui/product-grid";
-import Sort from "../../components/ui/sort";
-import db from "../../lib/db.json";
-
-// interface Product {
-//   id: string;
-//   availableForSale: boolean;
-//   title: string;
-//   description: string;
-//   options: {
-//     id: string;
-//     name: string;
-//     values: string[];
-//   }[];
-//   priceRange: {
-//     maxVariantPrice: {
-//       amount: string;
-//       currencyCode: string;
-//     };
-//     minVariantPrice: {
-//       amount: string;
-//       currencyCode: string;
-//     };
-//   };
-//   variants: {
-//     id: string;
-//     title: string;
-//     availableForSale: boolean;
-//     selectedOptions: {
-//       name: string;
-//       value: string;
-//     }[];
-//     price: {
-//       amount: string;
-//       currencyCode: string;
-//     };
-//   }[];
-//   images: string[];
-//   thumbnail: string;
-//   tags: string[];
-//   updatedAt: string;
-//   collectionHandle: string;
-// }
+import React, { Suspense, useState } from "react"
+import Filter from "../../components/ui/filter"
+import { ProductGridItems } from "../../components/ui/product-grid"
+import Sort from "../../components/ui/sort"
+import db from "../../lib/db.json"
 
 const CategoriesModule: React.FC = () => {
-  const [products, setProducts] = useState(db.products);
+  const [products, setProducts] = useState(db.products)
 
   const handleCategoryChange = (category: string | null) => {
-    if (category === "all-colection") {
-      setProducts(db.products);
+    if (category === "all") {
+      setProducts(db.products)
     } else {
       const filteredProducts = db.products.filter(
-        (product) => product.collectionHandle === category
-      );
-      setProducts(filteredProducts);
+        product => product.description === category
+      )
+      setProducts(filteredProducts)
     }
-  };
+  }
 
   const handleSortChange = (option: string) => {
-    let sortedProducts = [...products];
+    let sortedProducts = [...products]
     if (option === "Trending") {
       sortedProducts.sort((a, b) => {
-        return Math.random() - 0.5;
-      });
-    } else if (option === "Latest arrivals") {
-      sortedProducts.sort((a, b) => {
-        const dateA = new Date(a.updatedAt);
-        const dateB = new Date(b.updatedAt);
-        return dateB.getTime() - dateA.getTime();
-      });
+        return Math.random() - 0.5
+      })
     } else if (option === "Price: Low to high") {
       sortedProducts.sort((a, b) => {
         return (
-          Number(a.priceRange.minVariantPrice.amount) -
-          Number(b.priceRange.minVariantPrice.amount)
-        );
-      });
+          Number(a.dimensions_with_price[0].price) -
+          Number(b.dimensions_with_price[0].price)
+        )
+      })
     } else if (option === "Price: High to low") {
       sortedProducts.sort((a, b) => {
         return (
-          Number(b.priceRange.minVariantPrice.amount) -
-          Number(a.priceRange.minVariantPrice.amount)
-        );
-      });
+          Number(b.dimensions_with_price[0].price) -
+          Number(a.dimensions_with_price[0].price)
+        )
+      })
     }
-    setProducts(sortedProducts);
-  };
+    setProducts(sortedProducts)
+  }
 
   return (
     <Suspense>
@@ -100,7 +54,7 @@ const CategoriesModule: React.FC = () => {
         <Sort onSortChange={handleSortChange} />
       </div>
     </Suspense>
-  );
-};
+  )
+}
 
-export { CategoriesModule };
+export { CategoriesModule }

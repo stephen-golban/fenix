@@ -1,320 +1,226 @@
 {
   "collections": [
     {
-      "id": "all-colection",
-      "title": "All",
-      "description": "Al collection."
+      "id": "all",
+      "title": "All"
     },
     {
-      "id": "summer-collection",
-      "title": "Summer Collection",
-      "description": "A collection of summer essentials."
+      "id": "divan",
+      "title": "Divan"
     },
     {
-      "id": "beach-basics",
-      "title": "Beach Basics",
-      "description": "Everything you need for a day at the beach."
+      "id": "tumba",
+      "title": "Tumba"
     },
     {
-      "id": "outdoor-adventures",
-      "title": "Outdoor Adventures",
-      "description": "Gear up for your next outdoor adventure."
+      "id": "rafturi",
+      "title": "Rafturi"
     }
   ],
   "products": [
     {
-      "id": "prod-1",
-      "availableForSale": true,
-      "title": "Summer T-Shirt",
-      "description": "A lightweight t-shirt perfect for summer.",
-      "descriptionHtml": "<p>A lightweight t-shirt perfect for summer.</p>",
-      "options": [
+      "id": "0",
+      "title": "divan",
+      "description": "divan",
+      "availableOnDemand": true,
+      "provider": "Comfort",
+      "color": "red blue green",
+      "photos": [
         {
-          "id": "option-1",
-          "name": "Size",
-          "values": ["S", "M", "L", "XL"]
+          "id": "c27e995a-437c-4781-9312-b772eaa173d9",
+          "url": "https://metal-decor.md/image/cache/cache/1-1000/747/main/0a01-20846fc4ce0a2b8ac6027d47c2577214-0-3-1200x800.jpg"
         },
         {
-          "id": "option-2",
-          "name": "Color",
-          "values": ["Red", "Blue", "Green"]
+          "id": "eed41c10-c2e2-451e-b97e-f9bd70ea9046",
+          "url": "https://metal-decor.md/image/cache/cache/1-1000/747/main/0a01-20846fc4ce0a2b8ac6027d47c2577214-0-3-1200x800.jpg"
         }
       ],
-      "priceRange": {
-        "maxVariantPrice": {
-          "amount": "29.99",
-          "currencyCode": "USD"
-        },
-        "minVariantPrice": {
-          "amount": "19.99",
-          "currencyCode": "USD"
-        }
-      },
-      "variants": [
+      "dimensions_with_price": [
         {
-          "id": "variant-1",
-          "title": "Small / Red",
-          "availableForSale": true,
-          "selectedOptions": [
-            {
-              "name": "Size",
-              "value": "S"
-            },
-            {
-              "name": "Color",
-              "value": "Red"
-            }
-          ],
-          "price": {
-            "amount": "19.99",
-            "currencyCode": "USD"
-          }
+          "id": "01",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 1000
+        },
+        {
+          "id": "02",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
         }
-      ],
-      "images": ["https://source.unsplash.com/random/800x800?summer"],
-      "thumbnail": "https://source.unsplash.com/random/800x800?summer",
-      "tags": ["summer", "t-shirt", "lightweight"],
-      "updatedAt": "2024-02-27T12:00:00Z",
-      "collectionHandle": "summer-collection"
+      ]
     },
     {
-      "id": "prod-2",
-      "availableForSale": true,
-      "title": "Stylish Sunglasses",
-      "description": "Protect your eyes with these stylish sunglasses.",
-      "descriptionHtml": "<p>Protect your eyes with these stylish sunglasses.</p>",
-      "options": [
+      "id": "1",
+      "title": "tumba",
+      "description": "tumba",
+      "availableOnDemand": true,
+      "provider": "Comfort",
+      "color": "red blue green",
+      "photos": [
         {
-          "id": "option-1",
-          "name": "Color",
-          "values": ["Black", "Brown", "Blue"]
-        }
-      ],
-      "priceRange": {
-        "maxVariantPrice": {
-          "amount": "50.00",
-          "currencyCode": "USD"
+          "id": "c27e995a-437c-4781-9312-b772eaa173d9",
+          "url": "https://media.istockphoto.com/id/1031444360/photo/poster-above-white-cabinet-with-plant-next-to-grey-sofa-in-simple-living-room-interior-real.jpg?s=2048x2048&w=is&k=20&c=osbGM5n9B8gGIU6oDl3je2bDeja_ta-K2qX6q8OMwLs="
         },
-        "minVariantPrice": {
-          "amount": "45.00",
-          "currencyCode": "USD"
-        }
-      },
-      "variants": [
         {
-          "id": "variant-2",
-          "title": "Black",
-          "availableForSale": true,
-          "selectedOptions": [
-            {
-              "name": "Color",
-              "value": "Black"
-            }
-          ],
-          "price": {
-            "amount": "45.00",
-            "currencyCode": "USD"
-          }
+          "id": "eed41c10-c2e2-451e-b97e-f9bd70ea9046",
+          "url": "https://media.istockphoto.com/id/1031444360/photo/poster-above-white-cabinet-with-plant-next-to-grey-sofa-in-simple-living-room-interior-real.jpg?s=2048x2048&w=is&k=20&c=osbGM5n9B8gGIU6oDl3je2bDeja_ta-K2qX6q8OMwLs="
         }
       ],
-      "images": ["https://source.unsplash.com/random/800x800?sunglasses"],
-      "thumbnail": "https://source.unsplash.com/random/800x800?sunglasses",
-      "tags": ["summer", "sunglasses", "style"],
-      "updatedAt": "2024-02-27T12:00:00Z",
-      "collectionHandle": "summer-collection"
+      "dimensions_with_price": [
+        {
+          "id": "82946935-a466-4634-9e32-b4d7a8140eb2",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 2000
+        },
+        {
+          "id": "0ceb21d1-e02d-404f-ac87-7b9bdb559bea",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
+        }
+      ]
     },
     {
-      "id": "prod-3",
-      "availableForSale": true,
-      "title": "Stylish Clothes",
-      "description": "Protect your eyes with these stylish clothes.",
-      "descriptionHtml": "<p>Protect your eyes with these stylish clothes.</p>",
-      "options": [
+      "id": "2",
+      "title": "rafturi",
+      "description": "rafturi",
+      "availableOnDemand": true,
+      "provider": "Comfort",
+      "color": "red blue green",
+      "photos": [
         {
-          "id": "option-1",
-          "name": "Color",
-          "values": ["Black", "Brown", "Blue"]
-        }
-      ],
-      "priceRange": {
-        "maxVariantPrice": {
-          "amount": "133.00",
-          "currencyCode": "USD"
+          "id": "c27e995a-437c-4781-9312-b772eaa173d9",
+          "url": "https://enter.online/images/product/2023/08/dulap-pentru-haine-glisant-mobildor-lux-aron-p-1300-00561408-291682.webp"
         },
-        "minVariantPrice": {
-          "amount": "98.00",
-          "currencyCode": "USD"
-        }
-      },
-      "variants": [
         {
-          "id": "variant-2",
-          "title": "Black",
-          "availableForSale": true,
-          "selectedOptions": [
-            {
-              "name": "Color",
-              "value": "Black"
-            }
-          ],
-          "price": {
-            "amount": "74.00",
-            "currencyCode": "USD"
-          }
+          "id": "eed41c10-c2e2-451e-b97e-f9bd70ea9046",
+          "url": "https://enter.online/images/product/2023/08/dulap-pentru-haine-glisant-mobildor-lux-aron-p-1300-00561408-291682.webp"
         }
       ],
-      "images": ["https://source.unsplash.com/random/800x800?clothes"],
-      "thumbnail": "https://source.unsplash.com/random/800x800?clothes",
-      "tags": ["summer", "clothes", "style"],
-      "updatedAt": "2024-02-27T12:00:00Z",
-      "collectionHandle": "summer-collection"
+      "dimensions_with_price": [
+        {
+          "id": "82946935-a466-4634-9e32-b4d7a8140eb2",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 3000
+        },
+        {
+          "id": "0ceb21d1-e02d-404f-ac87-7b9bdb559bea",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
+        }
+      ]
     },
     {
-      "id": "prod-4",
-      "availableForSale": true,
-      "title": "Summer T-Shirt",
-      "description": "A lightweight t-shirt perfect for summer.",
-      "descriptionHtml": "<p>A lightweight t-shirt perfect for summer.</p>",
-      "options": [
+      "id": "3",
+      "title": "divan",
+      "description": "divan",
+      "availableOnDemand": true,
+      "provider": "Comfort",
+      "color": "red blue green",
+      "photos": [
         {
-          "id": "option-1",
-          "name": "Size",
-          "values": ["S", "M", "L", "XL"]
+          "id": "c27e995a-437c-4781-9312-b772eaa173d9",
+          "url": "https://metal-decor.md/image/cache/cache/1-1000/747/main/0a01-20846fc4ce0a2b8ac6027d47c2577214-0-3-1200x800.jpg"
         },
         {
-          "id": "option-2",
-          "name": "Color",
-          "values": ["Red", "Blue", "Green"]
+          "id": "eed41c10-c2e2-451e-b97e-f9bd70ea9046",
+          "url": "https://metal-decor.md/image/cache/cache/1-1000/747/main/0a01-20846fc4ce0a2b8ac6027d47c2577214-0-3-1200x800.jpg"
         }
       ],
-      "priceRange": {
-        "maxVariantPrice": {
-          "amount": "29.99",
-          "currencyCode": "USD"
-        },
-        "minVariantPrice": {
-          "amount": "19.99",
-          "currencyCode": "USD"
-        }
-      },
-      "variants": [
+      "dimensions_with_price": [
         {
-          "id": "variant-1",
-          "title": "Small / Red",
-          "availableForSale": true,
-          "selectedOptions": [
-            {
-              "name": "Size",
-              "value": "S"
-            },
-            {
-              "name": "Color",
-              "value": "Red"
-            }
-          ],
-          "price": {
-            "amount": "19.99",
-            "currencyCode": "USD"
-          }
+          "id": "01",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 1000
+        },
+        {
+          "id": "02",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
         }
-      ],
-      "images": ["https://source.unsplash.com/random/800x800?summer"],
-      "thumbnail": "https://source.unsplash.com/random/800x800?summer",
-      "tags": ["summer", "t-shirt", "lightweight"],
-      "updatedAt": "2024-02-27T12:00:00Z",
-      "collectionHandle": "beach-basics"
+      ]
     },
     {
-      "id": "prod-5",
-      "availableForSale": true,
-      "title": "Stylish Sunglasses",
-      "description": "Protect your eyes with these stylish sunglasses.",
-      "descriptionHtml": "<p>Protect your eyes with these stylish sunglasses.</p>",
-      "options": [
+      "id": "4",
+      "title": "tumba",
+      "description": "tumba",
+      "availableOnDemand": true,
+      "provider": "Comfort",
+      "color": "red blue green",
+      "photos": [
         {
-          "id": "option-1",
-          "name": "Color",
-          "values": ["Black", "Brown", "Blue"]
-        }
-      ],
-      "priceRange": {
-        "maxVariantPrice": {
-          "amount": "50.00",
-          "currencyCode": "USD"
+          "id": "c27e995a-437c-4781-9312-b772eaa173d9",
+          "url": "https://media.istockphoto.com/id/1031444360/photo/poster-above-white-cabinet-with-plant-next-to-grey-sofa-in-simple-living-room-interior-real.jpg?s=2048x2048&w=is&k=20&c=osbGM5n9B8gGIU6oDl3je2bDeja_ta-K2qX6q8OMwLs="
         },
-        "minVariantPrice": {
-          "amount": "45.00",
-          "currencyCode": "USD"
-        }
-      },
-      "variants": [
         {
-          "id": "variant-2",
-          "title": "Black",
-          "availableForSale": true,
-          "selectedOptions": [
-            {
-              "name": "Color",
-              "value": "Black"
-            }
-          ],
-          "price": {
-            "amount": "45.00",
-            "currencyCode": "USD"
-          }
+          "id": "eed41c10-c2e2-451e-b97e-f9bd70ea9046",
+          "url": "https://media.istockphoto.com/id/1031444360/photo/poster-above-white-cabinet-with-plant-next-to-grey-sofa-in-simple-living-room-interior-real.jpg?s=2048x2048&w=is&k=20&c=osbGM5n9B8gGIU6oDl3je2bDeja_ta-K2qX6q8OMwLs="
         }
       ],
-      "images": ["https://source.unsplash.com/random/800x800?sunglasses"],
-      "thumbnail": "https://source.unsplash.com/random/800x800?sunglasses",
-      "tags": ["summer", "sunglasses", "style"],
-      "updatedAt": "2024-02-27T12:00:00Z",
-      "collectionHandle": "summer-collection"
+      "dimensions_with_price": [
+        {
+          "id": "82946935-a466-4634-9e32-b4d7a8140eb2",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 2000
+        },
+        {
+          "id": "0ceb21d1-e02d-404f-ac87-7b9bdb559bea",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
+        }
+      ]
     },
     {
-      "id": "prod-6",
-      "availableForSale": true,
-      "title": "Stylish Clothes",
-      "description": "Protect your eyes with these stylish clothes.",
-      "descriptionHtml": "<p>Protect your eyes with these stylish clothes.</p>",
-      "options": [
+      "id": "5",
+      "title": "rafturi",
+      "description": "rafturi",
+      "availableOnDemand": true,
+      "provider": "Comfort",
+      "color": "red blue green",
+      "photos": [
         {
-          "id": "option-1",
-          "name": "Color",
-          "values": ["Black", "Brown", "Blue"]
-        }
-      ],
-      "priceRange": {
-        "maxVariantPrice": {
-          "amount": "133.00",
-          "currencyCode": "USD"
+          "id": "c27e995a-437c-4781-9312-b772eaa173d9",
+          "url": "https://enter.online/images/product/2023/08/dulap-pentru-haine-glisant-mobildor-lux-aron-p-1300-00561408-291682.webp"
         },
-        "minVariantPrice": {
-          "amount": "98.00",
-          "currencyCode": "USD"
-        }
-      },
-      "variants": [
         {
-          "id": "variant-2",
-          "title": "Black",
-          "availableForSale": true,
-          "selectedOptions": [
-            {
-              "name": "Color",
-              "value": "Black"
-            }
-          ],
-          "price": {
-            "amount": "74.00",
-            "currencyCode": "USD"
-          }
+          "id": "eed41c10-c2e2-451e-b97e-f9bd70ea9046",
+          "url": "https://enter.online/images/product/2023/08/dulap-pentru-haine-glisant-mobildor-lux-aron-p-1300-00561408-291682.webp"
         }
       ],
-      "images": ["https://source.unsplash.com/random/800x800?clothes"],
-      "thumbnail": "https://source.unsplash.com/random/800x800?clothes",
-      "tags": ["summer", "clothes", "style"],
-      "updatedAt": "2024-02-27T12:00:00Z",
-      "collectionHandle": "outdoor-adventures"
+      "dimensions_with_price": [
+        {
+          "id": "82946935-a466-4634-9e32-b4d7a8140eb2",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 3000
+        },
+        {
+          "id": "0ceb21d1-e02d-404f-ac87-7b9bdb559bea",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
+        }
+      ]
     }
   ],
   "pages": [

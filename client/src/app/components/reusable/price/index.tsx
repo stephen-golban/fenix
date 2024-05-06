@@ -1,28 +1,17 @@
-import clsx from "clsx";
+import clsx from "clsx"
 
 interface IPrice extends React.ComponentProps<"p"> {
-  amount: string;
-  className?: string;
-  currencyCode: string;
-  currencyCodeClassName?: string;
+  amount: number
+  className?: string
 }
 
-const Price: React.FC<IPrice> = ({
-  amount,
-  className,
-  currencyCode = "USD",
-  currencyCodeClassName,
-}) => (
+const Price: React.FC<IPrice> = ({ amount, className }) => (
   <p suppressHydrationWarning={true} className={className}>
     {`${new Intl.NumberFormat(undefined, {
-      style: "currency",
-      currency: currencyCode,
       currencyDisplay: "narrowSymbol",
-    }).format(parseFloat(amount))}`}
-    <span
-      className={clsx("ml-1 inline", currencyCodeClassName)}
-    >{`${currencyCode}`}</span>
+    }).format(amount)}`}
+    <span className={clsx("ml-1 inline")}>{"lei"}</span>
   </p>
-);
+)
 
-export { Price };
+export { Price }

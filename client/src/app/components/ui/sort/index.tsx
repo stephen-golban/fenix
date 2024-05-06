@@ -1,30 +1,28 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 interface SortOption {
-  label: string;
+  label: string
 }
 
 interface SortProps {
-  onSortChange: (option: string) => void;
+  onSortChange: (option: string) => void
 }
 
 const Sort: React.FC<SortProps> = ({ onSortChange }) => {
   const sortOptions: SortOption[] = [
-    { label: "Relevance" },
     { label: "Trending" },
-    { label: "Latest arrivals" },
     { label: "Price: Low to high" },
     { label: "Price: High to low" },
-  ];
+  ]
 
   const [activeItem, setActiveItem] = useState<string | null>(
     sortOptions[0].label
-  );
+  )
 
   const handleItemClick = (item: SortOption) => {
-    setActiveItem(item.label);
-    onSortChange(item.label);
-  };
+    setActiveItem(item.label)
+    onSortChange(item.label)
+  }
 
   return (
     <div className="order-none flex-none md:order-last md:w-[125px]">
@@ -74,7 +72,7 @@ const Sort: React.FC<SortProps> = ({ onSortChange }) => {
         </ul>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default Sort;
+export default Sort

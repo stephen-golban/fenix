@@ -1,16 +1,14 @@
-import { Link } from "react-router-dom";
-import db from "../../../lib/db.json";
-import { Grid } from "../../reusable";
+import { Link } from "react-router-dom"
+import db from "../../../lib/db.json"
+import { Grid } from "../../reusable"
 
 const Carousel = () => {
-  const products = db.products.filter(
-    (item) => item.collectionHandle === "summer-collection"
-  );
+  const products = db.products.filter(item => item.description === "divan")
 
-  if (!products?.length) return null;
+  if (!products?.length) return null
 
   // Purposefully duplicating products to make the carousel loop and not run out of products on wide screens.
-  const carouselProducts = [...products, ...products, ...products];
+  const carouselProducts = [...products, ...products, ...products]
 
   return (
     <div className=" w-full overflow-x-auto pb-6 pt-1">
@@ -28,10 +26,9 @@ const Carousel = () => {
                 alt={product.title}
                 label={{
                   title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode,
+                  amount: product.dimensions_with_price[0].price,
                 }}
-                src={product.thumbnail}
+                src={product.photos[0].url}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
               />
@@ -40,6 +37,6 @@ const Carousel = () => {
         ))}
       </ul>
     </div>
-  );
-};
-export { Carousel };
+  )
+}
+export { Carousel }

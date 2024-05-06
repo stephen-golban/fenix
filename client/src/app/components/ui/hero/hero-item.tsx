@@ -1,12 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Grid } from "../../reusable";
-import { Product } from "../../../typings";
+import React from "react"
+import { Link } from "react-router-dom"
+import { Grid } from "../../reusable"
+import { Product } from "../../../typings"
 
 interface IHeroItem {
-  item: Product;
-  size: "full" | "half";
-  priority?: boolean;
+  item: Product
+  size: "full" | "half"
+  priority?: boolean
 }
 
 const HeroItem: React.FC<IHeroItem> = ({ item, size }) => {
@@ -23,7 +23,7 @@ const HeroItem: React.FC<IHeroItem> = ({ item, size }) => {
         to={`/product/${item.id}`}
       >
         <Grid.Item.Tile
-          src={item.thumbnail}
+          src={item.photos[0].url}
           sizes={
             size === "full"
               ? "(min-width: 768px) 66vw, 100vw"
@@ -34,12 +34,11 @@ const HeroItem: React.FC<IHeroItem> = ({ item, size }) => {
           label={{
             position: size === "full" ? "center" : "bottom",
             title: item.title as string,
-            amount: item.priceRange.maxVariantPrice.amount,
-            currencyCode: item.priceRange.maxVariantPrice.currencyCode,
+            amount: item.dimensions_with_price[0].price,
           }}
         />
       </Link>
     </div>
-  );
-};
-export { HeroItem };
+  )
+}
+export { HeroItem }
