@@ -20,7 +20,7 @@
   "products": [
     {
       "id": "0",
-      "title": "divan",
+      "title": "Divan",
       "description": "divan",
       "availableOnDemand": true,
       "provider": "Comfort",
@@ -45,14 +45,14 @@
       ],
       "dimensions_with_price": [
         {
-          "id": "01",
+          "id": "8129469",
           "width": 300,
           "length": 400,
           "height": 500,
           "price": 1000
         },
         {
-          "id": "02",
+          "id": "8229469",
           "width": 600,
           "length": 800,
           "height": 900,
@@ -79,14 +79,28 @@
       ],
       "dimensions_with_price": [
         {
-          "id": "82946935-a466-4634-9e32-b4d7a8140eb2",
+          "id": "829469",
           "width": 300,
           "length": 400,
           "height": 500,
           "price": 2000
         },
         {
-          "id": "0ceb21d1-e02d-404f-ac87-7b9bdb559bea",
+          "id": "0ceb21",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
+        },
+        {
+          "id": "82229469",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 2000
+        },
+        {
+          "id": "110ceb21",
           "width": 600,
           "length": 800,
           "height": 900,
@@ -98,7 +112,7 @@
       "id": "2",
       "title": "rafturi",
       "description": "rafturi",
-      "availableOnDemand": true,
+      "availableOnDemand": false,
       "provider": "Comfort",
       "color": "red blue green",
       "photos": [
@@ -113,14 +127,14 @@
       ],
       "dimensions_with_price": [
         {
-          "id": "82946935-a466-4634-9e32-b4d7a8140eb2",
+          "id": "82946",
           "width": 300,
           "length": 400,
           "height": 500,
           "price": 3000
         },
         {
-          "id": "0ceb21d1-e02d-404f-ac87-7b9bdb559bea",
+          "id": "0ceb2",
           "width": 600,
           "length": 800,
           "height": 900,

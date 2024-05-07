@@ -1,44 +1,44 @@
-import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import db from "../../../lib/db.json"
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import db from "../../../lib/db.json";
 
 interface Product {
-  id: string
-  url: string
+  id: string;
+  url: string;
 }
 
 const ProductImage: React.FC = () => {
-  const { id } = useParams<{ id: string }>() 
-  const [productImages, setProductImages] = useState<Product[]>([])
+  const { id } = useParams<{ id: string }>();
+  const [productImages, setProductImages] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const product = db.products.find(product => product.id === id)
+        const product = db.products.find((product) => product.id === id);
         if (product) {
-          setProductImages(product.photos)
+          setProductImages(product.photos);
         }
       } catch (error) {
-        console.error("Error fetching product images:", error)
+        console.error("Error fetching product images:", error);
       }
-    }
+    };
 
-    fetchData()
-  }, [id])
+    fetchData();
+  }, [id]);
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = () => {
-    setCurrentImageIndex(prevIndex =>
+    setCurrentImageIndex((prevIndex) =>
       prevIndex === productImages.length - 1 ? 0 : prevIndex + 1
-    )
-  }
+    );
+  };
 
   const prevImage = () => {
-    setCurrentImageIndex(prevIndex =>
+    setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? productImages.length - 1 : prevIndex - 1
-    )
-  }
+    );
+  };
 
   return (
     <div className="h-full w-full basis-full lg:basis-4/6">
@@ -64,10 +64,10 @@ const ProductImage: React.FC = () => {
           />
         )}
         <div className="absolute bottom-[15%] flex w-full justify-center">
-          <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+          <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur">
             <button
               aria-label="Previous product image"
-              className="h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center"
+              className="h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black flex items-center justify-center"
               onClick={prevImage}
             >
               <svg
@@ -90,7 +90,7 @@ const ProductImage: React.FC = () => {
             <div className="mx-1 h-6 w-px bg-neutral-500"></div>
             <button
               aria-label="Next product image"
-              className="h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center"
+              className="h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black flex items-center justify-center"
               onClick={nextImage}
             >
               <svg
@@ -125,7 +125,7 @@ const ProductImage: React.FC = () => {
               <div
                 className={`group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border ${
                   currentImageIndex === index ? "border-blue-600" : "bg-white"
-                } hover:border-blue-600 dark:bg-black border-2`}
+                } hover:border-blue-600 border-2`}
               >
                 <img
                   alt={`Product Image ${item.id}`}
@@ -143,7 +143,7 @@ const ProductImage: React.FC = () => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default ProductImage
+export default ProductImage;

@@ -1,48 +1,46 @@
-import React, { Suspense, useState } from "react"
-import Filter from "../../components/ui/filter"
-import { ProductGridItems } from "../../components/ui/product-grid"
-import Sort from "../../components/ui/sort"
-import db from "../../lib/db.json"
-import { useParams } from "react-router-dom"
+import React, { Suspense, useState } from "react";
+import Filter from "../../components/ui/filter";
+import { ProductGridItems } from "../../components/ui/product-grid";
+import Sort from "../../components/ui/sort";
+import db from "../../lib/db.json";
 
 const CategoriesModule: React.FC = () => {
-  const [products, setProducts] = useState(db.products)
-const param = useParams()
+  const [products, setProducts] = useState(db.products);
 
   const handleCategoryChange = (category: string | null) => {
     if (category === "all") {
-      setProducts(db.products)
+      setProducts(db.products);
     } else {
       const filteredProducts = db.products.filter(
-        product => product.description === category
-      )
-      setProducts(filteredProducts)
+        (product) => product.description === category
+      );
+      setProducts(filteredProducts);
     }
-  }
+  };
 
   const handleSortChange = (option: string) => {
-    let sortedProducts = [...products]
+    let sortedProducts = [...products];
     if (option === "Trending") {
       sortedProducts.sort((a, b) => {
-        return Math.random() - 0.5
-      })
+        return Math.random() - 0.5;
+      });
     } else if (option === "Price: Low to high") {
       sortedProducts.sort((a, b) => {
         return (
           Number(a.dimensions_with_price[0].price) -
           Number(b.dimensions_with_price[0].price)
-        )
-      })
+        );
+      });
     } else if (option === "Price: High to low") {
       sortedProducts.sort((a, b) => {
         return (
           Number(b.dimensions_with_price[0].price) -
           Number(a.dimensions_with_price[0].price)
-        )
-      })
+        );
+      });
     }
-    setProducts(sortedProducts)
-  }
+    setProducts(sortedProducts);
+  };
 
   return (
     <Suspense>
@@ -56,7 +54,7 @@ const param = useParams()
         <Sort onSortChange={handleSortChange} />
       </div>
     </Suspense>
-  )
-}
+  );
+};
 
-export { CategoriesModule }
+export { CategoriesModule };

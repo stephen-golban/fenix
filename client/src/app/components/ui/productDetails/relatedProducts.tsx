@@ -1,22 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import db from "../../../lib/db.json";
+import { Product } from "../../../typings/product";
 
 interface RelatedProductProps {
-  href: string;
   imgSrc: string;
   title: string;
   price: string;
+  productId: string;
 }
 
 const RelatedProduct: FC<RelatedProductProps> = ({
-  href,
   imgSrc,
   title,
   price,
+  productId,
 }) => {
   return (
     <li className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
-      <a className="relative h-full w-full" href={href}>
-        <div className="related-products group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800">
+      <Link className="relative h-full w-full" to={`/product/${productId}`}>
+        <div className="related-products group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 relative border-neutral-200">
           <img
             alt={title}
             loading="lazy"
@@ -27,7 +30,7 @@ const RelatedProduct: FC<RelatedProductProps> = ({
             src={imgSrc}
           />
           <div className="absolute bottom-0 left-0 flex w-full px-4 pb-4 @container/label">
-            <div className="flex items-center rounded-full border bg-white/70 p-1 text-xs font-semibold text-black backdrop-blur-md dark:border-neutral-800 dark:bg-black/70 dark:text-white">
+            <div className="flex items-center rounded-full border bg-white/70 p-1 text-xs font-semibold text-black backdrop-blur-md">
               <h3 className="mr-4 line-clamp-2 flex-grow pl-2 leading-none tracking-tight">
                 {title}
               </h3>
@@ -40,35 +43,35 @@ const RelatedProduct: FC<RelatedProductProps> = ({
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </li>
   );
 };
 
 const RelatedProducts: FC = () => {
-  const relatedProductsData = [
-    {
-      id: 1,
-      href: "/product/acme-hoodie",
-      imgSrc: "https://source.unsplash.com/random/800x800?summer&1",
-      title: "Acme Hoodie",
-      price: "$50.00",
-    },
-    {
-      id: 2,
-      href: "/product/acme-shirt",
-      imgSrc: "https://source.unsplash.com/random/800x800?summer&2",
-      title: "Acme Shirt",
-      price: "$30.00",
-    },
-    {
-      id: 3,
-      href: "/product/acme-jeans",
-      imgSrc: "https://source.unsplash.com/random/800x800?summer&3",
-      title: "Acme Jeans",
-      price: "$40.00",
-    },
-  ];
+  const { id } = useParams<{ id: string }>();
+  const [productDetails, setProductDetails] = useState<Product | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const product = db.products.find((product) => product.id === id);
+        if (product) {
+          setProductDetails(product);
+        }
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const relatedProductsData = db.products.filter(
+    (product) => product.description === productDetails?.description
+  );
 
   return (
     <div className="py-8">
@@ -77,10 +80,10 @@ const RelatedProducts: FC = () => {
         {relatedProductsData.map((product) => (
           <RelatedProduct
             key={product.id}
-            href={product.href}
-            imgSrc={product.imgSrc}
+            productId={product.id}
+            imgSrc={product.photos[0].url}
             title={product.title}
-            price={product.price}
+            price={product.dimensions_with_price[0].price.toString()}
           />
         ))}
       </ul>
