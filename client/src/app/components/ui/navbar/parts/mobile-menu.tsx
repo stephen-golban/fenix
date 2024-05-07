@@ -1,39 +1,29 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react"
+import { SearchBar } from "./search-bar"
+import { Dialog, Transition } from "@headlessui/react"
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import { Link, useLocation, useSearchParams } from "react-router-dom"
 
-import { isEmpty } from "lodash";
-
-import { SearchBar } from "./search-bar";
-import { Dialog, Transition } from "@headlessui/react";
-
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
-
-import type { MenuItem } from "../../../../typings";
-
-interface IMobileMenu {
-  data: MenuItem[];
-}
-
-const MobileMenu: React.FC<IMobileMenu> = ({ data }) => {
-  const { pathname } = useLocation();
-  const searchParams = useSearchParams();
-  const [isOpen, setIsOpen] = useState(false);
-  const openMobileMenu = () => setIsOpen(true);
-  const closeMobileMenu = () => setIsOpen(false);
+const MobileMenu: React.FC = () => {
+  const { pathname } = useLocation()
+  const searchParams = useSearchParams()
+  const [isOpen, setIsOpen] = useState(false)
+  const openMobileMenu = () => setIsOpen(true)
+  const closeMobileMenu = () => setIsOpen(false)
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
-        setIsOpen(false);
+        setIsOpen(false)
       }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isOpen]);
+    }
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [isOpen])
 
   useEffect(() => {
-    setIsOpen(false);
-  }, [pathname, searchParams]);
+    setIsOpen(false)
+  }, [pathname, searchParams])
 
   return (
     <>
@@ -79,29 +69,19 @@ const MobileMenu: React.FC<IMobileMenu> = ({ data }) => {
                 <div className="mb-4 w-full">
                   <SearchBar />
                 </div>
-                {!isEmpty(data) ? (
-                  <ul className="flex w-full flex-col">
-                    {data.map((item) => (
-                      <li
-                        className="py-2 text-xl text-black transition-colors hover:text-neutral-500"
-                        key={item.title}
-                      >
-                        <Link
-                          to={`categories/${item.id}`}
-                          onClick={closeMobileMenu}
-                        >
-                          {item.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
+                <ul className="flex w-full flex-col">
+                  <li className="py-2 text-xl text-black transition-colors hover:text-neutral-500">
+                    <Link to={`categories/all`} onClick={closeMobileMenu}>
+                      Catalog
+                    </Link>
+                  </li>
+                </ul>
               </div>
             </Dialog.Panel>
           </Transition.Child>
         </Dialog>
       </Transition>
     </>
-  );
-};
-export { MobileMenu };
+  )
+}
+export { MobileMenu }

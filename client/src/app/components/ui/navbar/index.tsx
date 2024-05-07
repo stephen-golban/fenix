@@ -1,18 +1,15 @@
-import { Link } from "react-router-dom";
-import { LogoSquare } from "../../icons";
-import { MobileMenu, SearchBar } from "./parts";
-import { isEmpty } from "lodash";
-import db from "../../../lib/db.json";
-
-const { SITE_NAME } = process.env;
+import React from "react"
+import { Link, useLocation, useParams } from "react-router-dom"
+import { LogoSquare } from "../../icons"
+import { MobileMenu, SearchBar } from "./parts"
+const { SITE_NAME } = process.env
 
 const Navbar: React.FC = () => {
-  const menu = db.collections;
   return (
     <>
       <nav className="relative flex items-center justify-between p-4 lg:px-6">
         <div className="block flex-none md:hidden">
-          <MobileMenu data={menu} />
+          <MobileMenu />
         </div>
         <div className="flex w-full items-center justify-between">
           <div className="flex w-full md:w-1/3">
@@ -25,20 +22,14 @@ const Navbar: React.FC = () => {
                 {SITE_NAME}
               </div>
             </Link>
-            {!isEmpty(menu) ? (
-              <ul className="hidden gap-6 text-sm md:flex md:items-center">
-                {menu.slice(0, 3).map((item) => (
-                  <li key={item.title}>
-                    <Link
-                      to={`/categories/${item.id}`}
-                      className="text-neutral-500 underline-offset-4 hover:text-black hover:underline"
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
+            <ul className="hidden gap-8 text-lg md:flex md:items-end">
+              <Link
+                to={"/categories/all"}
+                className="text-neutral-500 underline-offset-4 hover:text-black hover:underline"
+              >
+                Catalog
+              </Link>
+            </ul>
           </div>
           <div className="hidden justify-center md:flex md:w-1/3">
             <SearchBar />
@@ -46,6 +37,7 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
     </>
-  );
-};
-export { Navbar };
+  )
+}
+
+export { Navbar }

@@ -3,9 +3,11 @@ import Filter from "../../components/ui/filter"
 import { ProductGridItems } from "../../components/ui/product-grid"
 import Sort from "../../components/ui/sort"
 import db from "../../lib/db.json"
+import { useParams } from "react-router-dom"
 
 const CategoriesModule: React.FC = () => {
   const [products, setProducts] = useState(db.products)
+const param = useParams()
 
   const handleCategoryChange = (category: string | null) => {
     if (category === "all") {

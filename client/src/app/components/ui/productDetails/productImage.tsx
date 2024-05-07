@@ -1,46 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
+import db from "../../../lib/db.json"
 
-const data = [
-  { id: 1, Src: "https://source.unsplash.com/random/800x800?summer" },
-  { id: 2, Src: "https://source.unsplash.com/random/800x800?summer&2" },
-  { id: 2, Src: "https://source.unsplash.com/random/800x800?summer&1" },
-];
-const ProductImage = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+interface Product {
+  id: string
+  url: string
+}
+
+const ProductImage: React.FC = () => {
+  const { id } = useParams<{ id: string }>() 
+  const [productImages, setProductImages] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const product = db.products.find(product => product.id === id)
+        if (product) {
+          setProductImages(product.photos)
+        }
+      } catch (error) {
+        console.error("Error fetching product images:", error)
+      }
+    }
+
+    fetchData()
+  }, [id])
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const nextImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === data.length - 1 ? 0 : prevIndex + 1
-    );
-  };
+    setCurrentImageIndex(prevIndex =>
+      prevIndex === productImages.length - 1 ? 0 : prevIndex + 1
+    )
+  }
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? data.length - 1 : prevIndex - 1
-    );
-  };
+    setCurrentImageIndex(prevIndex =>
+      prevIndex === 0 ? productImages.length - 1 : prevIndex - 1
+    )
+  }
 
   return (
     <div className="h-full w-full basis-full lg:basis-4/6">
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
-        <img
-          alt={`Product Image ${data[currentImageIndex].id}`}
-          decoding="async"
-          data-nimg="fill"
-          className="h-full w-full object-contain"
-          style={{
-            position: "absolute",
-            height: "100%",
-            width: "100%",
-            left: 0,
-            top: 0,
-            right: 0,
-            bottom: 0,
-            color: "transparent",
-          }}
-          sizes="(min-width: 1024px) 66vw, 100vw"
-          src={data[currentImageIndex].Src}
-        />
+        {productImages.length > 0 && (
+          <img
+            alt={`Product Image ${productImages[currentImageIndex].id}`}
+            decoding="async"
+            data-nimg="fill"
+            className="h-full w-full object-contain"
+            style={{
+              position: "absolute",
+              height: "100%",
+              width: "100%",
+              left: 0,
+              top: 0,
+              right: 0,
+              bottom: 0,
+              color: "transparent",
+            }}
+            sizes="(min-width: 1024px) 66vw, 100vw"
+            src={productImages[currentImageIndex].url}
+          />
+        )}
         <div className="absolute bottom-[15%] flex w-full justify-center">
           <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
             <button
@@ -93,7 +115,7 @@ const ProductImage = () => {
       </div>
 
       <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
-        {data.map((item, index) => (
+        {productImages.map((item, index) => (
           <li
             key={item.id}
             className="h-20 w-20"
@@ -102,9 +124,7 @@ const ProductImage = () => {
             <a aria-label="Enlarge product image" className="h-full w-full">
               <div
                 className={`group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border ${
-                  data[currentImageIndex].Src === item.Src
-                    ? "border-blue-600"
-                    : "bg-white "
+                  currentImageIndex === index ? "border-blue-600" : "bg-white"
                 } hover:border-blue-600 dark:bg-black border-2`}
               >
                 <img
@@ -115,7 +135,7 @@ const ProductImage = () => {
                   decoding="async"
                   data-nimg="1"
                   className="relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105 color:transparent"
-                  src={item.Src}
+                  src={item.url}
                 />
               </div>
             </a>
@@ -123,7 +143,7 @@ const ProductImage = () => {
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default ProductImage;
+export default ProductImage
