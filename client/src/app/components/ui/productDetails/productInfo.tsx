@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({ title }) => (
   <button
     aria-disabled={false}
     title={title}
-    className={`flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-3 py-2 mb-4 text-sm ring-1 ring-transparent`}
+    className={`flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-3 py-2 mb-4 text-xs ring-1 ring-transparent`}
   >
     {title}
   </button>
@@ -42,7 +42,9 @@ const ProductInfo = () => {
     <div className="basis-full lg:basis-2/6">
       {productDetails && (
         <div className="mb-6 flex flex-col border-b pb-6">
-          <h1 className="mb-6 text-5xl font-medium">{productDetails.title}</h1>
+          <h1 className="mb-6 md:text-5xl text-2xl font-medium">
+            {productDetails.title}
+          </h1>
           <div className="mr-auto w-auto rounded-full p-2 text-sm text-black">
             <p>
               <span className="ml-1 inline">
@@ -76,14 +78,10 @@ const ProductInfo = () => {
         </dt>
         {productDetails?.dimensions_with_price.map((product) => (
           <div key={product.id} className="flex flex-wrap gap-3">
-            <dd className="flex flex-wrap gap-3">
-              <Button
-                title={`Art-${product.id.slice(
-                  0,
-                  4
-                )}:  ${product.width.toString()} x ${product.length.toString()} x ${product.height.toString()}`}
-              />
-              <Button title={`${product.price} lei`} />
+            <dd className="flex flex-wrap gap-3 text-xs">
+              <b className="uppercase">Art-{product.id.slice(0, 4)}:</b>
+              {product.width.toString()} x {product.length.toString()} x{" "}
+              {product.height.toString()} - <i>{product.price} lei</i>
             </dd>
           </div>
         ))}

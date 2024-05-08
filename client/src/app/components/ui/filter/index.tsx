@@ -22,14 +22,14 @@ const Filter: React.FC<FilterProps> = ({ onCategoryChange }) => {
   };
 
   const toggleDropdown = () => {
-    setShowDropdown((prevState) => !prevState); // Toggle dropdown visibility
+    setShowDropdown((prevState) => !prevState);
   };
 
   return (
     <div className="order-first w-full flex-none md:max-w-[125px]">
       <nav>
         <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400">
-          Collections
+          Filter by
         </h3>
         <ul className="hidden md:block">
           {menu.map((item) => (

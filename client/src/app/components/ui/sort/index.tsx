@@ -27,7 +27,7 @@ const Sort: React.FC<SortProps> = ({ onSortChange }) => {
   };
 
   const toggleDropdown = () => {
-    setShowDropdown((prevState) => !prevState); // Toggle dropdown visibility
+    setShowDropdown((prevState) => !prevState);
   };
 
   return (

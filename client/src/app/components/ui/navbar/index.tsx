@@ -8,9 +8,6 @@ const Navbar: React.FC = () => {
   return (
     <>
       <nav className="relative flex items-center justify-between p-4 px-6">
-        {/* <div className="block flex-none md:hidden">
-          <MobileMenu />
-        </div> */}
         <div className="flex w-full items-center justify-between">
           <div className="flex w-2/3">
             <Link
