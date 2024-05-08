@@ -35,10 +35,7 @@ const RelatedProduct: FC<RelatedProductProps> = ({
                 {title}
               </h3>
               <p className="flex-none rounded-full bg-blue-600 p-2 text-white">
-                {price}
-                <span className="ml-1 inline hidden @[275px]/label:inline">
-                  USD
-                </span>
+                {price} lei
               </p>
             </div>
           </div>
@@ -70,14 +67,14 @@ const RelatedProducts: FC = () => {
   }, [id]);
 
   const relatedProductsData = db.products.filter(
-    (product) => product.description === productDetails?.description
+    (product) => product.category === productDetails?.category
   );
 
   return (
     <div className="py-8">
       <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
-      <ul className="flex w-full gap-4 overflow-x-auto pt-1">
-        {relatedProductsData.map((product) => (
+      <ul className="flex w-full gap-4 overflow-x-auto  pt-1">
+        {relatedProductsData.slice(0, 4).map((product) => (
           <RelatedProduct
             key={product.id}
             productId={product.id}

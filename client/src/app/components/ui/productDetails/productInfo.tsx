@@ -57,13 +57,16 @@ const ProductInfo = () => {
         <dt className="flex flex-wrap gap-3 mb-4 text-sm tracking-wide items-center">
           <b className="uppercase">Disponibilitate:</b>
           {productDetails?.availableOnDemand ? (
-            <p className="text-green-800 border-l-2">In Stock</p>
+            <p className="text-green-800">In Stock</p>
           ) : (
-            <p className="text-red-800 border-l-2">Nu este disponibil</p>
+            <p className="text-red-800">Nu este disponibil</p>
           )}
         </dt>
         <dt className="mb-4 text-sm  tracking-wide">
           <b className="uppercase">Producator:</b> {productDetails?.provider}
+        </dt>
+        <dt className="mb-4 text-sm  tracking-wide">
+          <b className="uppercase">Categorie:</b> {productDetails?.category}
         </dt>
         <dt className="mb-4 text-sm  tracking-wide">
           <b className="uppercase">Culori:</b> {productDetails?.color}

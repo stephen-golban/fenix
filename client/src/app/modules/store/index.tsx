@@ -1,18 +1,39 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Filter from "../../components/ui/filter";
 import { ProductGridItems } from "../../components/ui/product-grid";
 import Sort from "../../components/ui/sort";
 import db from "../../lib/db.json";
+import { Product } from "../../typings/product";
 
 const CategoriesModule: React.FC = () => {
-  const [products, setProducts] = useState(db.products);
+  const { id } = useParams<{ id: string }>();
+  const [products, setProducts] = useState<Product[]>(db.products);
+
+  useEffect(() => {
+    if (id !== undefined && id.trim() !== "") {
+      const filteredProducts = db.products.filter((product) => {
+        const lowerId = id.toLowerCase();
+        const lowerTitle = product.title.toLowerCase();
+        const matchesTitle = lowerTitle.includes(lowerId);
+        const matchesDimensionId = product.dimensions_with_price.some((dim) =>
+          dim.id.toLowerCase().includes(lowerId)
+        );
+        return matchesTitle || matchesDimensionId;
+      });
+
+      setProducts(filteredProducts);
+    } else {
+      setProducts(db.products);
+    }
+  }, [id]);
 
   const handleCategoryChange = (category: string | null) => {
     if (category === "all") {
       setProducts(db.products);
     } else {
       const filteredProducts = db.products.filter(
-        (product) => product.description === category
+        (product) => product.category === category
       );
       setProducts(filteredProducts);
     }

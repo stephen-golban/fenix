@@ -1,8 +1,8 @@
-import React from "react"
-import { Link, useLocation, useParams } from "react-router-dom"
-import { LogoSquare } from "../../icons"
-import { MobileMenu, SearchBar } from "./parts"
-const { SITE_NAME } = process.env
+import React from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { LogoSquare } from "../../icons";
+import { MobileMenu, SearchBar } from "./parts";
+const { SITE_NAME } = process.env;
 
 const Navbar: React.FC = () => {
   return (
@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
             </Link>
             <ul className="hidden gap-8 text-lg md:flex md:items-end">
               <Link
-                to={"/categories/all"}
+                to={"/categories/"}
                 className="text-neutral-500 underline-offset-4 hover:text-black hover:underline"
               >
                 Catalog
@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
     </>
-  )
-}
+  );
+};
 
-export { Navbar }
+export { Navbar };

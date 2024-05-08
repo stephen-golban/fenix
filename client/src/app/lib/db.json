@@ -20,9 +20,10 @@
   "products": [
     {
       "id": "0",
-      "title": "Divan",
+      "title": "Divan moale",
       "description": "divan",
       "availableOnDemand": true,
+      "category": "divan",
       "provider": "Comfort",
       "color": "red blue green",
       "photos": [
@@ -62,8 +63,9 @@
     },
     {
       "id": "1",
-      "title": "tumba",
+      "title": "Scaun",
       "description": "tumba",
+      "category": "tumba",
       "availableOnDemand": true,
       "provider": "Comfort",
       "color": "red blue green",
@@ -110,8 +112,9 @@
     },
     {
       "id": "2",
-      "title": "rafturi",
+      "title": "Masa",
       "description": "rafturi",
+      "category": "divan",
       "availableOnDemand": false,
       "provider": "Comfort",
       "color": "red blue green",
@@ -144,8 +147,9 @@
     },
     {
       "id": "3",
-      "title": "divan",
+      "title": "Scaf",
       "description": "divan",
+      "category": "divan",
       "availableOnDemand": true,
       "provider": "Comfort",
       "color": "red blue green",
@@ -178,8 +182,9 @@
     },
     {
       "id": "4",
-      "title": "tumba",
+      "title": "Tumba",
       "description": "tumba",
+      "category": "rafturi",
       "availableOnDemand": true,
       "provider": "Comfort",
       "color": "red blue green",
@@ -214,6 +219,7 @@
       "id": "5",
       "title": "rafturi",
       "description": "rafturi",
+      "category": "divan",
       "availableOnDemand": true,
       "provider": "Comfort",
       "color": "red blue green",
@@ -237,6 +243,76 @@
         },
         {
           "id": "0ceb21d1-e02d-404f-ac87-7b9bdb559bea",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "rafturi",
+      "description": "rafturi",
+      "category": "divan",
+      "availableOnDemand": true,
+      "provider": "Comfort",
+      "color": "red blue green",
+      "photos": [
+        {
+          "id": "c27e995a-437c-4781-9312-b772eaa173d9",
+          "url": "https://enter.online/images/product/2023/08/dulap-pentru-haine-glisant-mobildor-lux-aron-p-1300-00561408-291682.webp"
+        },
+        {
+          "id": "eed41c10-c2e2-451e-b97e-f9bd70ea9046",
+          "url": "https://enter.online/images/product/2023/08/dulap-pentru-haine-glisant-mobildor-lux-aron-p-1300-00561408-291682.webp"
+        }
+      ],
+      "dimensions_with_price": [
+        {
+          "id": "822222946935-a466-4634-9e32-b4d7a8140eb2",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 3000
+        },
+        {
+          "id": "11110ceb21d1-e02d-404f-ac87-7b9bdb559bea",
+          "width": 600,
+          "length": 800,
+          "height": 900,
+          "price": 2000
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "rafturi",
+      "description": "rafturi",
+      "category": "divan",
+      "availableOnDemand": true,
+      "provider": "Comfort",
+      "color": "red blue green",
+      "photos": [
+        {
+          "id": "c27e995a-437c-4781-9312-b772eaa173d9",
+          "url": "https://enter.online/images/product/2023/08/dulap-pentru-haine-glisant-mobildor-lux-aron-p-1300-00561408-291682.webp"
+        },
+        {
+          "id": "eed41c10-c2e2-451e-b97e-f9bd70ea9046",
+          "url": "https://enter.online/images/product/2023/08/dulap-pentru-haine-glisant-mobildor-lux-aron-p-1300-00561408-291682.webp"
+        }
+      ],
+      "dimensions_with_price": [
+        {
+          "id": "76582946935-a466-4634-9e32-b4d7a8140eb2",
+          "width": 300,
+          "length": 400,
+          "height": 500,
+          "price": 3000
+        },
+        {
+          "id": "736543340ceb21d1-e02d-404f-ac87-7b9bdb559bea",
           "width": 600,
           "length": 800,
           "height": 900,

@@ -11,6 +11,7 @@ const App = () => {
         {/* if user is authenticated the go to chats page else login page */}
         <Route path="/" element={<HomeModule />} />
         <Route path="/categories/:id" element={<CategoriesModule />} />
+        <Route path="/categories/" element={<CategoriesModule />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="*" element={<NotFoundModule />} />
       </Routes>

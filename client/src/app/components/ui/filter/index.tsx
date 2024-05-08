@@ -1,23 +1,23 @@
-import React, { useState } from "react"
-import db from "../../../lib/db.json"
+import React, { useState } from "react";
+import db from "../../../lib/db.json";
 
 interface MenuItem {
-  id: string
-  title: string
+  id: string;
+  title: string;
 }
 
 interface FilterProps {
-  onCategoryChange: (option: string) => void
+  onCategoryChange: (option: string) => void;
 }
 
 const Filter: React.FC<FilterProps> = ({ onCategoryChange }) => {
-  const menu: MenuItem[] = db.collections
-  const [activeItem, setActiveItem] = useState<MenuItem | null>(menu[0])
+  const menu: MenuItem[] = db.collections;
+  const [activeItem, setActiveItem] = useState<MenuItem | null>(menu[0]);
 
   const handleItemClick = (item: MenuItem) => {
-    setActiveItem(item)
-    onCategoryChange(item.id)
-  }
+    setActiveItem(item);
+    onCategoryChange(item.id);
+  };
 
   return (
     <div className="order-first w-full flex-none md:max-w-[125px]">
@@ -26,7 +26,7 @@ const Filter: React.FC<FilterProps> = ({ onCategoryChange }) => {
           Collections
         </h3>
         <ul className="hidden md:block">
-          {menu.map(item => (
+          {menu.map((item) => (
             <li
               key={item.id}
               className={`mt-2 flex text-black dark:text-black ${
@@ -67,7 +67,7 @@ const Filter: React.FC<FilterProps> = ({ onCategoryChange }) => {
         </ul>
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;
