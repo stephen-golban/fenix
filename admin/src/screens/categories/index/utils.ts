@@ -2,7 +2,7 @@ import type { TableColumnsType } from "antd";
 import type { Category } from "../../../typings/categories";
 
 const createTableColumns = (
-  render: (id: string) => JSX.Element
+  render: (record: Category) => JSX.Element
 ): TableColumnsType<Category> => {
   return [
     {
@@ -18,7 +18,7 @@ const createTableColumns = (
     {
       title: "Utilitati",
       key: "action",
-      render: (_, record) => render(record.id),
+      render: (_, record) => render(record),
     },
   ];
 };

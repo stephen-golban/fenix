@@ -3,7 +3,7 @@ import type { Product } from "../../../typings/product";
 import { PRODUCTS_MOCK } from "../../../mocks/products";
 
 const createTableColumns = (
-  render: (id: string) => JSX.Element
+  render: (record: Product) => JSX.Element
 ): TableColumnsType<Product> => {
   return [
     {
@@ -76,7 +76,7 @@ const createTableColumns = (
     {
       title: "Utilitati",
       key: "action",
-      render: (_, record) => render(record.id),
+      render: (_, record) => render(record),
     },
   ];
 };

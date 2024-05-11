@@ -1,19 +1,29 @@
 import { useNavigate } from "react-router-dom";
+import useAxiosRequest from "../../../../../api/hooks";
 
-import { Popconfirm, Space, Tooltip } from "antd";
+import { Popconfirm, Space, Tooltip, Button } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
+import type { Category } from "../../../../../typings/categories";
+
 interface ITableActions {
-  id: string;
+  data: Category;
+  onFinishAction(): void;
 }
 
-const TableActions: React.FC<ITableActions> = ({ id }) => {
+const TableActions: React.FC<ITableActions> = ({ data, onFinishAction }) => {
   const navigate = useNavigate();
+  const [call, { loading }] = useAxiosRequest(
+    `/categories/${data.id}`,
+    "delete"
+  );
 
   function onClickEdit() {
-    navigate(`/categories/edit/${id}`);
+    navigate(`/categories/edit/${data.id}`, { state: { title: data.title } });
   }
-  function onClickDelete() {}
+  async function onClickDelete() {
+    return await call(undefined, onFinishAction);
+  }
 
   const renderPopConfirmText = () => (
     <div>
@@ -28,7 +38,9 @@ const TableActions: React.FC<ITableActions> = ({ id }) => {
   return (
     <Space size="middle">
       <Tooltip placement="top" title="Modifica">
-        <EditOutlined onClick={onClickEdit} />
+        <Button onClick={onClickEdit}>
+          <EditOutlined />
+        </Button>
       </Tooltip>
 
       <Tooltip placement="top" title="Elimina">
@@ -38,7 +50,9 @@ const TableActions: React.FC<ITableActions> = ({ id }) => {
           onConfirm={onClickDelete}
           title={renderPopConfirmText}
         >
-          <DeleteOutlined onClick={onClickDelete} />
+          <Button loading={loading} danger onClick={onClickDelete}>
+            <DeleteOutlined />
+          </Button>
         </Popconfirm>
       </Tooltip>
     </Space>

@@ -7,10 +7,10 @@ import "./index.css";
 
 const LoggedOutLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const location = useLocation();
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useAuthStore((state) => state.token);
 
   if (isAuthenticated) {
-    return <Navigate to="/categorii" state={{ from: location }} replace />;
+    return <Navigate to="/categories" state={{ from: location }} replace />;
   }
   return (
     <div className="layout">

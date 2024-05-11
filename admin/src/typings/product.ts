@@ -14,9 +14,9 @@ export type Product = {
 };
 
 export type Photo = {
-  id: string;
+  id?: string;
   url: string;
-  productId: string;
+  productId?: string;
 };
 
 export type DimensionsWithPrice = {
@@ -26,4 +26,17 @@ export type DimensionsWithPrice = {
   height: number;
   price: number;
   productId: string;
+};
+
+export type ProductFormDefaultFieldValues = Pick<
+  Product,
+  | "title"
+  | "availableOnDemand"
+  | "description"
+  | "provider"
+  | "categoryId"
+  | "colors"
+> & {
+  dimensions_with_price: Omit<DimensionsWithPrice, "id" | "productId">;
+  photos: string[];
 };

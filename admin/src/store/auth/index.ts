@@ -9,7 +9,7 @@ import type { User } from "../../typings/app";
 
 export type AuthState = {
   user: User | null;
-  isAuthenticated: boolean;
+  token: string | null;
 };
 
 const persist_config: PersistOptions<AuthState> = {
@@ -21,19 +21,19 @@ const persist_config: PersistOptions<AuthState> = {
 const persisted = persist(() => {
   return {
     user: null,
-    isAuthenticated: false,
+    token: null,
   };
 }, persist_config);
 
 const useAuthStore = create<AuthState>()(persisted);
 
-function signin(user: User, cb: VoidFunction) {
-  useAuthStore.setState({ user, isAuthenticated: true });
+function signin(token: string, cb: VoidFunction) {
+  useAuthStore.setState({ token });
   cb();
 }
 
 function signout() {
-  useAuthStore.setState({ user: null, isAuthenticated: false });
+  useAuthStore.setState({ user: null, token: null });
 }
 
 export { signin, signout, useAuthStore };

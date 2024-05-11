@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 
-import type { CategoryFormFields } from "../../typings/categories";
+import type { Category, CategoryFormFields } from "../../typings/categories";
 
 interface CategoryFormProps {
   loading?: boolean;
@@ -14,12 +14,23 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
   onSubmit,
   defaultValues,
 }) => {
+  const [form] = Form.useForm<Category>();
+
   const handleFormSubmit = (data: CategoryFormFields) => {
     onSubmit(data);
+    if (!defaultValues) {
+      form.resetFields();
+    }
   };
 
   return (
-    <Form onFinish={handleFormSubmit} initialValues={defaultValues}>
+    <Form
+      form={form}
+      layout="vertical"
+      disabled={loading}
+      onFinish={handleFormSubmit}
+      initialValues={defaultValues}
+    >
       <Form.Item
         name="title"
         label="Nume categorie"

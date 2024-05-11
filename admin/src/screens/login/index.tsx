@@ -1,6 +1,7 @@
 import React from "react";
 
 import { signin } from "../../store";
+import useAxiosRequest from "../../api/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Button, Form, Input, type FormProps } from "antd";
@@ -16,13 +17,20 @@ const onFinishFailed: FormProps<LoginFieldType>["onFinishFailed"] = (
 const LoginScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [call, { loading }] = useAxiosRequest<{ access_token: string }>(
+    "/auth/login",
+    "post"
+  );
 
   const from = location.state?.from?.pathname || "/";
 
-  const onFinish: FormProps<LoginFieldType>["onFinish"] = (values) => {
-    signin(values, () => {
-      navigate(from, { replace: true });
-    });
+  const onFinish: FormProps<LoginFieldType>["onFinish"] = async (values) => {
+    return await call(
+      { username: values.email, pass: values.password },
+      ({ access_token }) => {
+        return signin(access_token, () => navigate(from, { replace: true }));
+      }
+    );
   };
 
   return (
@@ -60,7 +68,7 @@ const LoginScreen: React.FC = () => {
           type="primary"
           htmlType="submit"
           className="submit-btn"
-          loading={false}
+          loading={loading}
         >
           Login
         </Button>

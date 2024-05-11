@@ -1,11 +1,11 @@
 import { noop } from "lodash";
 import { ProductForm } from "../../../forms";
-import { PRODUCTS_MOCK } from "../../../mocks/products";
+import { useLocation } from "react-router-dom";
 
 const ViewProductScreen = () => {
-  return (
-    <ProductForm onSubmit={noop} defaultValues={PRODUCTS_MOCK[0]} viewOnly />
-  );
+  const { state } = useLocation();
+
+  return <ProductForm onSubmit={noop} defaultValues={state} viewOnly />;
 };
 
 export { ViewProductScreen };

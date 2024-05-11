@@ -1,29 +1,41 @@
 import { useNavigate } from "react-router-dom";
-import { Popconfirm, Space, Tooltip } from "antd";
+import useAxiosRequest from "../../../../../api/hooks";
+
+import { Button, Popconfirm, Space, Tooltip } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
+import type { Product } from "../../../../../typings/product";
+
 interface ITableActions {
-  id: string;
+  data: Product;
+  onFinishAction(): void;
 }
 
-const TableActions: React.FC<ITableActions> = ({ id }) => {
+const TableActions: React.FC<ITableActions> = ({ data, onFinishAction }) => {
   const navigate = useNavigate();
+  const [call, { loading }] = useAxiosRequest(`/product/${data.id}`, "delete");
 
   function onClickView() {
-    navigate(`/products/view/${id}`);
+    navigate(`/products/view/${data.id}`, { state: data });
   }
   function onClickEdit() {
-    navigate(`/products/edit/${id}`);
+    navigate(`/products/edit/${data.id}`, { state: data });
   }
-  function onClickDelete() {}
+  async function onClickDelete() {
+    return await call(undefined, onFinishAction);
+  }
 
   return (
     <Space size="middle">
       <Tooltip placement="top" title="Vezi">
-        <EyeOutlined onClick={onClickView} />
+        <Button onClick={onClickView}>
+          <EyeOutlined />
+        </Button>
       </Tooltip>
       <Tooltip placement="top" title="Modifica">
-        <EditOutlined onClick={onClickEdit} />
+        <Button onClick={onClickEdit}>
+          <EditOutlined />
+        </Button>
       </Tooltip>
 
       <Tooltip placement="top" title="Elimina">
@@ -33,7 +45,9 @@ const TableActions: React.FC<ITableActions> = ({ id }) => {
           onConfirm={onClickDelete}
           title="Sigur vrei sa elimini?"
         >
-          <DeleteOutlined onClick={onClickDelete} />
+          <Button danger loading={loading} onClick={onClickDelete}>
+            <DeleteOutlined />
+          </Button>
         </Popconfirm>
       </Tooltip>
     </Space>

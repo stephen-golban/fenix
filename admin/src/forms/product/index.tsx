@@ -1,175 +1,107 @@
-import React from "react";
+import React from 'react';
 
-import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
-import {
-  Form,
-  Input,
-  Button,
-  ColorPicker,
-  Space,
-  Tooltip,
-  Switch,
-  Select,
-  Upload,
-  UploadProps,
-  UploadFile,
-} from "antd";
+import useProductForm from './hooks';
+import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 
-import type { Photo, Product } from "../../typings/product";
-import { isEmpty } from "lodash";
+import { Form, Input, Button, Checkbox } from 'antd';
+import { ColorsField, PhotosField, CategoriesField, DimensionsField } from './parts';
 
-interface ProductFormProps {
+import type { Product } from '../../typings/product';
+
+interface IProductForm {
   loading?: boolean;
   viewOnly?: boolean;
-  defaultValues?: Product;
+  submitText?: string;
+  defaultValues?: Partial<Product>;
   onSubmit: (data: Product) => void;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({
-  loading,
-  onSubmit,
-  viewOnly,
-  defaultValues,
-}) => {
-  const [form] = Form.useForm<Product>();
-  const colors = Form.useWatch<string[]>("colors", { form });
-  const [fileList, setFileList] = React.useState<UploadFile[]>([]);
+const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defaultValues = {}, submitText = 'Trimite' }) => {
+  const { categories } = useProductForm();
 
-  const handleFormSubmit = (data: Product) => {
+  const {
+    reset,
+    watch,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<Product>({
+    defaultValues: {
+      title: defaultValues.title || '',
+      description: defaultValues.description || '',
+      availableOnDemand: defaultValues.availableOnDemand || false,
+      provider: defaultValues.provider || '',
+      photos: defaultValues.photos || [],
+      dimensions_with_price: defaultValues.dimensions_with_price || [],
+      categoryId: defaultValues.categoryId || '',
+      colors: defaultValues.colors || [],
+    },
+  });
+
+  const handleFormSubmit: SubmitHandler<Product> = data => {
     onSubmit(data);
+    if (!defaultValues) {
+      reset();
+    }
   };
 
-  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
-
-  const uploadButton = (
-    <button style={{ border: 0, background: "none" }} type="button">
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
-  );
-
   return (
-    <Form
-      onFinish={console.log}
-      initialValues={defaultValues}
-      form={form}
-      layout="vertical"
-    >
-      <Form.Item
-        name="title"
-        label="Nume produs"
-        rules={[{ required: true, message: "Please enter product title" }]}
-      >
-        <Input placeholder="Nume produs" disabled={viewOnly} />
-      </Form.Item>
-      <Form.Item
-        name="description"
-        label="Descriere produs"
-        rules={[
-          { required: true, message: "Please enter product description" },
-        ]}
-      >
-        <Input.TextArea placeholder="Descriere produs" disabled={viewOnly} />
-      </Form.Item>
-      <Form.Item
-        label="Provider"
-        name="provider"
-        rules={[{ required: true, message: "Please enter product provider" }]}
-      >
-        <Input placeholder="Provider" disabled={viewOnly} />
-      </Form.Item>
-      <Form.Item
-        label="Disponibilitate"
-        name="availableOnDemand"
-        valuePropName="checked"
-        rules={[{ required: true, message: "Please enter product provider" }]}
-      >
-        <Switch
-          disabled={viewOnly}
-          checkedChildren="Disponibil"
-          unCheckedChildren="Indisponibil"
+    <Form layout="vertical" disabled={viewOnly} onFinish={handleSubmit(handleFormSubmit)}>
+      <Form.Item label="Titlu" required validateStatus={errors.title ? 'error' : ''} help={errors.title?.message}>
+        <Controller
+          name="title"
+          control={control}
+          render={({ field }) => <Input {...field} placeholder="Introduceți titlul" />}
+          rules={{ required: 'Titlul este necesar' }}
         />
       </Form.Item>
-      <Form.Item
-        name="category"
-        label="Categorie"
-        rules={[{ required: true, message: "Please enter product provider" }]}
-      >
-        <Select
-          disabled={viewOnly}
-          fieldNames={{ value: "title" }}
-          options={[
-            { value: "jack", label: "Jack" },
-            { value: "lucy", label: "Lucy" },
-            { value: "Yiminghe", label: "yiminghe" },
-            { value: "Electronics", label: "Electronics" },
-          ]}
+
+      <Form.Item label="Descriere" required validateStatus={errors.description ? 'error' : ''} help={errors.description?.message}>
+        <Controller
+          name="description"
+          control={control}
+          render={({ field }) => <Input.TextArea {...field} placeholder="Introduceți descrierea" />}
+          rules={{ required: 'Descrierea este necesară' }}
         />
       </Form.Item>
-      {!isEmpty(colors) && (
-        <Form.List name="colors">
-          {(fields, { add, remove }) => (
-            <Space style={{ columnGap: 30 }} wrap>
-              {fields.map((field, index) => {
-                const color = colors[index];
-                return (
-                  <Form.Item key={field.key}>
-                    <Space>
-                      <ColorPicker disabled={viewOnly} defaultValue={color} />
-                      {!viewOnly && (
-                        <Button
-                          type="dashed"
-                          size="small"
-                          onClick={() => remove(index)}
-                        >
-                          <DeleteOutlined />
-                        </Button>
-                      )}
-                    </Space>
-                  </Form.Item>
-                );
-              })}
-              <Form.Item>
-                <Tooltip title="Mai adauga culori">
-                  <Button
-                    type="dashed"
-                    onClick={add}
-                    style={{ marginLeft: 20 }}
-                  >
-                    <PlusOutlined />
-                  </Button>
-                </Tooltip>
-              </Form.Item>
-            </Space>
+
+      <Form.Item label="Furnizor" required validateStatus={errors.provider ? 'error' : ''} help={errors.provider?.message}>
+        <Controller
+          name="provider"
+          control={control}
+          render={({ field }) => <Input {...field} placeholder="Introduceți furnizorul" />}
+          rules={{ required: 'Furnizorul este necesar' }}
+        />
+      </Form.Item>
+
+      <CategoriesField control={control} errors={errors} categories={categories} setValue={setValue} />
+
+      <Form.Item label="Disponibil la cerere">
+        <Controller
+          name="availableOnDemand"
+          control={control}
+          render={({ field }) => (
+            <Checkbox {...field} checked={field.value}>
+              Da
+            </Checkbox>
           )}
-        </Form.List>
-      )}
-
-      <Form.Item
-        name="category"
-        label="Categorie"
-        valuePropName="fileList"
-        getValueProps={(value: Photo) => ({ id: value.id, url: value.url })}
-        rules={[{ required: true, message: "Please enter product provider" }]}
-      >
-        <Upload
-          disabled={viewOnly}
-          listType="picture-card"
-          onChange={handleChange}
-          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-        >
-          {fileList.length >= 10 ? null : uploadButton}
-        </Upload>
+        />
       </Form.Item>
 
-      <Form.Item>
-        {!viewOnly && (
+      <ColorsField control={control} errors={errors} watch={watch} />
+
+      <DimensionsField control={control} errors={errors} />
+
+      <PhotosField errors={errors} control={control} />
+
+      {!viewOnly && (
+        <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
-            Salveaza
+            {submitText}
           </Button>
-        )}
-      </Form.Item>
+        </Form.Item>
+      )}
     </Form>
   );
 };
