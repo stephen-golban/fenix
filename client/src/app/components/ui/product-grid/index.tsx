@@ -1,12 +1,12 @@
-import { Grid } from "../../reusable"
-import { Link } from "react-router-dom"
+import { Grid } from "../../reusable";
+import { Link } from "react-router-dom";
 
-import type { Product } from "../../../typings"
+import type { Product } from "../../../typings";
 
 const ProductGridItems: React.FC<{ products: Product[] }> = ({ products }) => {
   return (
-    <>
-      {products.map(product => (
+    <div>
+      {products.map((product) => (
         <Grid.Item key={product.id} className="animate-fadeIn">
           <Link
             className="relative inline-block h-full w-full"
@@ -24,7 +24,7 @@ const ProductGridItems: React.FC<{ products: Product[] }> = ({ products }) => {
           </Link>
         </Grid.Item>
       ))}
-    </>
-  )
-}
-export { ProductGridItems }
+    </div>
+  );
+};
+export { ProductGridItems };

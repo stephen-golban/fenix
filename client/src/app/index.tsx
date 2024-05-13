@@ -3,10 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import { HomeModule, NotFoundModule, CategoriesModule } from "./modules";
 import { RootLayout } from "./components/layout";
 import Product from "./modules/product";
+import { ScrollToTop } from "./components/reusable";
 
 const App = () => {
   return (
     <RootLayout>
+      <ScrollToTop />
       <Routes>
         {/* if user is authenticated the go to chats page else login page */}
         <Route path="/" element={<HomeModule />} />

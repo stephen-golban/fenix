@@ -5,6 +5,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   theme: {
     extend: {
+      screens: {
+        xs: "450px", // Custom screen size for 'xs'
+      },
       fontFamily: {
         sans: ["var(--font-geist-sans)"],
       },
@@ -29,9 +32,6 @@ module.exports = {
         blink: "blink 1.4s both infinite",
       },
     },
-  },
-  future: {
-    hoverOnlyWhenSupported: true,
   },
   plugins: [
     require("@tailwindcss/container-queries"),
