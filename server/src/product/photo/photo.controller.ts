@@ -19,6 +19,7 @@ export class PhotoController {
     @UploadedFiles() file: Express.Multer.File,
     @Res() res: Response,
   ) {
+    console.log(33);
     const image = file[0];
     return res.status(200).send(await this.photoService.uploadPhoto(image));
   }

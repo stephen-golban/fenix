@@ -24,7 +24,8 @@ export class ProductService {
       description: createProductDto.description,
       availableOnDemand: createProductDto.availableOnDemand,
       provider: createProductDto.provider,
-      color: createProductDto.color,
+      categoryId: createProductDto.categoryId,
+      color: createProductDto.colors.join('%'),
     });
 
     await this.productRepository.save(product);
@@ -34,6 +35,7 @@ export class ProductService {
         width: dim.width,
         length: dim.length,
         height: dim.height,
+        price: dim.price,
         productId: product.id,
       });
       return this.dimensionsWithPriceRepository.save(dimension);
@@ -47,20 +49,31 @@ export class ProductService {
       return this.photoRepository.save(photoEntity);
     });
 
-    return await this.productRepository.findOne({
+    const currentProduct = await this.productRepository.findOne({
       where: { id: product.id },
     });
+    currentProduct['colors'] = currentProduct.color.split('%');
+    delete currentProduct.color;
+    return currentProduct;
   }
 
-  findAll() {
-    return this.productRepository.find();
+  async findAll() {
+    const products = await this.productRepository.find();
+
+    products.map((product) => {
+      product['colors'] = product.color.split('%');
+      delete product.color;
+      return product;
+    });
+    return products;
   }
 
-  findOne(id: string) {
-    return this.productRepository.findOne({
+  async findOne(id: string) {
+    const product = await this.productRepository.findOne({
       where: { id },
       relations: {
         photos: true,
+        category: true,
         dimensions_with_price: true,
       },
       select: {
@@ -74,6 +87,10 @@ export class ProductService {
           id: true,
           url: true,
         },
+        category: {
+          id: true,
+          title: true,
+        },
         dimensions_with_price: {
           id: true,
           width: true,
@@ -83,6 +100,9 @@ export class ProductService {
         },
       },
     });
+    product['colors'] = product.color.split('%');
+    delete product.color;
+    return product;
   }
 
   update(id: string, updateProductDto: UpdateProductDto) {

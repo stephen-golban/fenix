@@ -9,16 +9,16 @@ export class PhotoService {
     try {
       let url;
       const secret = this.generateRandomString(12);
-
+      console.log(22);
       const s3 = new AWS.S3({
-        endpoint: `https://eu2.contabostorage.com/0b56ce9974e047a0a28f48a2592629fd:image-storage`,
-        accessKeyId: '4ff6d037166658d583ddbb3c7d96c30c',
-        secretAccessKey: 'd7e060944abf4f017138a0c119908449',
+        endpoint: process.env.AMAZON_ENDPOINT,
+        accessKeyId: process.env.AMAZON_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY,
         s3BucketEndpoint: true,
       });
       console.log(image);
       const uploadParams = {
-        Bucket: '0b56ce9974e047a0a28f48a2592629fd:image-storage',
+        Bucket: process.env.AMAZON_BUCKET,
         Key: `${secret}.${image.originalname.split('.')[image.originalname.split('.').length - 1]}`,
         Body: image.buffer,
         ContentType: image.mimetype,

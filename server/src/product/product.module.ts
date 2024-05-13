@@ -21,8 +21,8 @@ import { AuthGuard } from './auth/auth.guard';
     TypeOrmModule.forFeature([Product, Photo, DimensionsWithPrice, Category]),
     JwtModule.register({
       global: true,
-      secret: 'qwertyuiop',
-      signOptions: { expiresIn: '1h' },
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   controllers: [

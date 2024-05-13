@@ -78,6 +78,8 @@ export class CreateProductDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  color: string;
+  @IsArray()
+  @ArrayMinSize(1)
+  @IsString({ each: true })
+  colors: string[];
 }
