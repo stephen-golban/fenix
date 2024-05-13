@@ -9,7 +9,6 @@ import { Category } from './product/entities/category.entity';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-console.log(process.env.DB_HOST);
 @Module({
   imports: [
     ProductModule,

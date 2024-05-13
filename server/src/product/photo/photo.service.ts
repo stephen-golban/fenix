@@ -1,6 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 @Injectable()
 export class PhotoService {
   constructor() {}

@@ -15,6 +15,9 @@ import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [
