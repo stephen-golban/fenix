@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import useAxiosRequest from "../../../../../api/hooks";
+import { useNavigate } from 'react-router-dom';
+import useAxiosRequest from '../../../../../api/hooks';
 
-import { Popconfirm, Space, Tooltip, Button } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Popconfirm, Space, Tooltip, Button } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-import type { Category } from "../../../../../typings/categories";
+import type { Category } from '../../../../../typings/categories';
 
 interface ITableActions {
   data: Category;
@@ -13,13 +13,10 @@ interface ITableActions {
 
 const TableActions: React.FC<ITableActions> = ({ data, onFinishAction }) => {
   const navigate = useNavigate();
-  const [call, { loading }] = useAxiosRequest(
-    `/categories/${data.id}`,
-    "delete"
-  );
+  const [call, { loading }] = useAxiosRequest(`/categories/${data.id}`, 'delete');
 
   function onClickEdit() {
-    navigate(`/categories/edit/${data.id}`, { state: { title: data.title } });
+    navigate(`/categories/edit/${data.id}`, { state: data });
   }
   async function onClickDelete() {
     return await call(undefined, onFinishAction);
@@ -28,10 +25,7 @@ const TableActions: React.FC<ITableActions> = ({ data, onFinishAction }) => {
   const renderPopConfirmText = () => (
     <div>
       <div>Sigur vrei sa elimini?</div>
-      <b style={{ fontSize: 11, color: "red" }}>
-        Daca stergi o categorie, toate produsele acestei categorii vor fi
-        sterse!
-      </b>
+      <b style={{ fontSize: 11, color: 'red' }}>Daca stergi o categorie, toate produsele acestei categorii vor fi sterse!</b>
     </div>
   );
 
@@ -44,13 +38,8 @@ const TableActions: React.FC<ITableActions> = ({ data, onFinishAction }) => {
       </Tooltip>
 
       <Tooltip placement="top" title="Elimina">
-        <Popconfirm
-          okText="Da"
-          cancelText="Nu"
-          onConfirm={onClickDelete}
-          title={renderPopConfirmText}
-        >
-          <Button loading={loading} danger onClick={onClickDelete}>
+        <Popconfirm okText="Da" cancelText="Nu" onConfirm={onClickDelete} title={renderPopConfirmText}>
+          <Button loading={loading} danger>
             <DeleteOutlined />
           </Button>
         </Popconfirm>

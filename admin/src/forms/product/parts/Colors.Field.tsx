@@ -5,12 +5,12 @@ import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { Control, Controller, FieldErrors, UseFormWatch } from 'react-hook-form';
 
-import type { Product } from '../../../typings/product';
+import type { ProductFormDefaultFieldValues } from '../../../typings/product';
 
 interface IColorsField {
-  watch: UseFormWatch<Product>;
-  errors: FieldErrors<Product>;
-  control: Control<Product, any>;
+  watch: UseFormWatch<ProductFormDefaultFieldValues>;
+  errors: FieldErrors<ProductFormDefaultFieldValues>;
+  control: Control<ProductFormDefaultFieldValues, any>;
 }
 
 const ColorsField: React.FC<IColorsField> = ({ watch, control, errors }) => {

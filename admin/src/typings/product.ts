@@ -1,4 +1,4 @@
-import { Category } from "./categories";
+import { Category } from './categories';
 
 export type Product = {
   id: string;
@@ -30,13 +30,8 @@ export type DimensionsWithPrice = {
 
 export type ProductFormDefaultFieldValues = Pick<
   Product,
-  | "title"
-  | "availableOnDemand"
-  | "description"
-  | "provider"
-  | "categoryId"
-  | "colors"
+  'title' | 'availableOnDemand' | 'description' | 'provider' | 'categoryId' | 'colors'
 > & {
-  dimensions_with_price: Omit<DimensionsWithPrice, "id" | "productId">;
+  dimensions_with_price: Omit<DimensionsWithPrice, 'id' | 'productId'>[];
   photos: string[];
 };

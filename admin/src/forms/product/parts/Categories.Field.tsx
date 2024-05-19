@@ -1,19 +1,20 @@
-import { Form, Select } from 'antd';
 import React from 'react';
-import { Control, Controller, FieldErrors, UseFormSetValue } from 'react-hook-form';
-import { Product } from '../../../typings/product';
-import { Category } from '../../../typings/categories';
+
+import { Form, Select } from 'antd';
+import { Control, Controller, FieldErrors } from 'react-hook-form';
+
+import type { Category } from '../../../typings/categories';
+import type { ProductFormDefaultFieldValues } from '../../../typings/product';
 
 interface ICategoriesField {
   categories: Array<Category>;
-  errors: FieldErrors<Product>;
-  control: Control<Product, any>;
-  setValue: UseFormSetValue<Product>;
+  errors: FieldErrors<ProductFormDefaultFieldValues>;
+  control: Control<ProductFormDefaultFieldValues, any>;
 }
 
 const { Option } = Select;
 
-const CategoriesField: React.FC<ICategoriesField> = ({ setValue, errors, control, categories }) => {
+const CategoriesField: React.FC<ICategoriesField> = ({ errors, control, categories }) => {
   const [defaultValue, setDefaultValue] = React.useState('');
   React.useEffect(() => {
     if (categories.length > 0 && !control._defaultValues.categoryId) {

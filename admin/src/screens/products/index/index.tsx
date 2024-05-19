@@ -1,15 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import { createTableColumns } from "./utils";
-import { useNavigate } from "react-router-dom";
-import useAxiosRequest from "../../../api/hooks";
+import { createTableColumns } from './utils';
+import { useNavigate } from 'react-router-dom';
+import useAxiosRequest from '../../../api/hooks';
 
-import { Button, Table } from "antd";
-import { TableActions } from "./parts";
-import { PlusOutlined } from "@ant-design/icons";
+import { Button, Table } from 'antd';
+import { TableActions } from './parts';
+import { PlusOutlined } from '@ant-design/icons';
 
-import type { TableProps } from "antd";
-import type { Product } from "../../../typings/product";
+import type { TableProps } from 'antd';
+import type { Product } from '../../../typings/product';
+import { useMount } from 'react-use';
 
 const ProductsScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -18,18 +19,15 @@ const ProductsScreen: React.FC = () => {
 
   const refetch = async () => await call(undefined, setProducts);
 
-  const [call, { loading }] = useAxiosRequest<Array<Product>>(
-    "/product",
-    "get"
-  );
+  const [call, { loading }] = useAxiosRequest<Array<Product>>('/product', 'get');
 
   function handleAdd() {
-    navigate("/products/create");
+    navigate('/products/create');
   }
 
-  const columns: TableProps<Product>["columns"] = createTableColumns((data) => (
-    <TableActions data={data} onFinishAction={refetch} />
-  ));
+  useMount(refetch);
+
+  const columns: TableProps<Product>['columns'] = createTableColumns(data => <TableActions data={data} onFinishAction={refetch} />);
 
   return (
     <div>

@@ -6,14 +6,15 @@ import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { ColorsField, PhotosField, CategoriesField, DimensionsField } from './parts';
 
-import type { Product } from '../../typings/product';
+import type { Product, ProductFormDefaultFieldValues } from '../../typings/product';
+import { isEmpty } from 'lodash';
 
 interface IProductForm {
   loading?: boolean;
   viewOnly?: boolean;
   submitText?: string;
   defaultValues?: Partial<Product>;
-  onSubmit: (data: Product) => void;
+  onSubmit: (data: ProductFormDefaultFieldValues) => void;
 }
 
 const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defaultValues = {}, submitText = 'Trimite' }) => {
@@ -24,26 +25,24 @@ const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defa
     watch,
     control,
     handleSubmit,
-    setValue,
     formState: { errors },
-  } = useForm<Product>({
+  } = useForm<ProductFormDefaultFieldValues>({
     defaultValues: {
       title: defaultValues.title || '',
-      description: defaultValues.description || '',
-      availableOnDemand: defaultValues.availableOnDemand || false,
-      provider: defaultValues.provider || '',
-      photos: defaultValues.photos || [],
-      dimensions_with_price: defaultValues.dimensions_with_price || [],
-      categoryId: defaultValues.categoryId || '',
       colors: defaultValues.colors || [],
+      provider: defaultValues.provider || '',
+      categoryId: defaultValues.categoryId || '',
+      description: defaultValues.description || '',
+      photos: defaultValues.photos?.map(item => item.url) || [],
+      availableOnDemand: defaultValues.availableOnDemand || false,
+      dimensions_with_price: defaultValues.dimensions_with_price || [],
     },
   });
 
-  const handleFormSubmit: SubmitHandler<Product> = data => {
+  const handleFormSubmit: SubmitHandler<ProductFormDefaultFieldValues> = data => {
     onSubmit(data);
-    if (!defaultValues) {
-      reset();
-    }
+
+    reset();
   };
 
   return (
@@ -75,7 +74,7 @@ const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defa
         />
       </Form.Item>
 
-      <CategoriesField control={control} errors={errors} categories={categories} setValue={setValue} />
+      <CategoriesField control={control} errors={errors} categories={categories} />
 
       <Form.Item label="Disponibil la cerere">
         <Controller

@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import useAxiosRequest from "../../../../../api/hooks";
+import { useNavigate } from 'react-router-dom';
+import useAxiosRequest from '../../../../../api/hooks';
 
-import { Button, Popconfirm, Space, Tooltip } from "antd";
-import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Button, Popconfirm, Space, Tooltip } from 'antd';
+import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-import type { Product } from "../../../../../typings/product";
+import type { Product } from '../../../../../typings/product';
 
 interface ITableActions {
   data: Product;
@@ -13,7 +13,7 @@ interface ITableActions {
 
 const TableActions: React.FC<ITableActions> = ({ data, onFinishAction }) => {
   const navigate = useNavigate();
-  const [call, { loading }] = useAxiosRequest(`/product/${data.id}`, "delete");
+  const [call, { loading }] = useAxiosRequest(`/product/${data.id}`, 'delete');
 
   function onClickView() {
     navigate(`/products/view/${data.id}`, { state: data });
@@ -39,13 +39,8 @@ const TableActions: React.FC<ITableActions> = ({ data, onFinishAction }) => {
       </Tooltip>
 
       <Tooltip placement="top" title="Elimina">
-        <Popconfirm
-          okText="Da"
-          cancelText="Nu"
-          onConfirm={onClickDelete}
-          title="Sigur vrei sa elimini?"
-        >
-          <Button danger loading={loading} onClick={onClickDelete}>
+        <Popconfirm okText="Da" cancelText="Nu" onConfirm={onClickDelete} title="Sigur vrei sa elimini?">
+          <Button danger loading={loading}>
             <DeleteOutlined />
           </Button>
         </Popconfirm>

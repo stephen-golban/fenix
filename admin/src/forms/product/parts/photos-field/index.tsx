@@ -1,47 +1,26 @@
 import React from 'react';
 
-import usePhotosField from './hooks';
 import { Controller, type Control, type FieldErrors } from 'react-hook-form';
 
-import { Form, Upload } from 'antd';
-import PhotoPreview from './Photo.Preview';
-import { PlusOutlined } from '@ant-design/icons';
+import { Form } from 'antd';
 
-import type { Product } from '../../../../typings/product';
+import type { ProductFormDefaultFieldValues } from '../../../../typings/product';
+import { UploadBtn } from './upload-btn';
 
 interface IPhotosField {
-  errors: FieldErrors<Product>;
-  control: Control<Product, any>;
+  errors: FieldErrors<ProductFormDefaultFieldValues>;
+  control: Control<ProductFormDefaultFieldValues, any>;
 }
 
 const PhotosField: React.FC<IPhotosField> = ({ errors, control }) => {
-  const { fileList, handleChange, handlePreview, previewImage, previewOpen, setPreviewImage, setPreviewOpen, uploadImage } =
-    usePhotosField(control);
-
   return (
     <Form.Item label="Fotografii" required validateStatus={errors.photos ? 'error' : ''} help={errors.photos?.message}>
       <Controller
         name="photos"
         control={control}
         rules={{ required: 'Fotografiile sunt necesare' }}
-        render={({ field: { onChange, value, ...field } }) => (
-          <Upload
-            {...field}
-            listType="picture-card"
-            fileList={fileList}
-            onChange={handleChange}
-            onPreview={handlePreview}
-            customRequest={options => uploadImage(value, onChange, options)}>
-            {fileList.length < 8 && (
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Adaugă</div>
-              </div>
-            )}
-          </Upload>
-        )}
+        render={({ field }) => <UploadBtn {...field} />}
       />
-      <PhotoPreview source={previewImage} visible={previewOpen} setPreviewImage={setPreviewImage} setPreviewOpen={setPreviewOpen} />
     </Form.Item>
   );
 };

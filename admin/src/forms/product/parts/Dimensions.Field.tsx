@@ -4,19 +4,19 @@ import { InputNumber, Button, Form, Space } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { type Control, Controller, type FieldErrors } from 'react-hook-form';
 
-import type { DimensionsWithPrice, Product } from '../../../typings/product';
+import type { ProductFormDefaultFieldValues } from '../../../typings/product';
 
 interface IDimensionsField {
-  errors: FieldErrors<Product>;
-  control: Control<Product, any>;
+  errors: FieldErrors<ProductFormDefaultFieldValues>;
+  control: Control<ProductFormDefaultFieldValues, any>;
 }
 
 const DimensionsField: React.FC<IDimensionsField> = ({ control, errors }) => {
-  function onAdd(value: DimensionsWithPrice[], onChange: (...event: any[]) => void) {
+  function onAdd(value: ProductFormDefaultFieldValues['dimensions_with_price'], onChange: (...event: any[]) => void) {
     const newSet = { width: 1, length: 1, height: 1, price: 1 };
     return onChange([...value, newSet]);
   }
-  function onRemove(value: DimensionsWithPrice[], onChange: (...event: any[]) => void, index: number) {
+  function onRemove(value: ProductFormDefaultFieldValues['dimensions_with_price'], onChange: (...event: any[]) => void, index: number) {
     const newDims = value.filter((_, i) => i !== index);
     onChange(newDims);
   }

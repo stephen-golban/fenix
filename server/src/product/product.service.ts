@@ -30,18 +30,20 @@ export class ProductService {
 
     await this.productRepository.save(product);
 
-    createProductDto.dimensions_with_price.forEach((dim) => {
-      const dimension = this.dimensionsWithPriceRepository.create({
-        width: dim.width,
-        length: dim.length,
-        height: dim.height,
-        price: dim.price,
-        productId: product.id,
-      });
-      return this.dimensionsWithPriceRepository.save(dimension);
-    });
+    const dimensionsPromises = createProductDto.dimensions_with_price.map(
+      (dim) => {
+        const dimension = this.dimensionsWithPriceRepository.create({
+          width: dim.width,
+          length: dim.length,
+          height: dim.height,
+          price: dim.price,
+          productId: product.id,
+        });
+        return this.dimensionsWithPriceRepository.save(dimension);
+      },
+    );
 
-    createProductDto.photos.forEach((photo) => {
+    const photosPromises = createProductDto.photos.map((photo) => {
       const photoEntity = this.photoRepository.create({
         url: photo,
         productId: product.id,
@@ -49,23 +51,70 @@ export class ProductService {
       return this.photoRepository.save(photoEntity);
     });
 
+    await Promise.all([...dimensionsPromises, ...photosPromises]);
+
     const currentProduct = await this.productRepository.findOne({
       where: { id: product.id },
+      relations: {
+        photos: true,
+        dimensions_with_price: true,
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        color: true,
+        provider: true,
+        availableOnDemand: true,
+        photos: {
+          id: true,
+          url: true,
+        },
+        dimensions_with_price: {
+          id: true,
+          width: true,
+          height: true,
+          length: true,
+          price: true,
+        },
+      },
     });
+
     currentProduct['colors'] = currentProduct.color.split('%');
     delete currentProduct.color;
     return currentProduct;
   }
 
   async findAll() {
-    const products = await this.productRepository.find();
+    const products = await this.productRepository.find({
+      relations: ['photos', 'dimensions_with_price'],
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        color: true,
+        categoryId: true,
+        provider: true,
+        availableOnDemand: true,
+        photos: {
+          id: true,
+          url: true,
+        },
+        dimensions_with_price: {
+          id: true,
+          width: true,
+          height: true,
+          length: true,
+          price: true,
+        },
+      },
+    });
 
-    products.map((product) => {
+    return products.map((product) => {
       product['colors'] = product.color.split('%');
       delete product.color;
       return product;
     });
-    return products;
   }
 
   async findOne(id: string) {
@@ -80,6 +129,7 @@ export class ProductService {
         id: true,
         title: true,
         description: true,
+        categoryId: true,
         color: true,
         provider: true,
         availableOnDemand: true,
