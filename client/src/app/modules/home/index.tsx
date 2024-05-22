@@ -57,7 +57,11 @@ const categories = [
 const HomeModule: React.FC = () => {
   return (
     <>
-      <Banner />
+      <Banner
+        title="Mobilier autohton"
+        description="Inspirație și sortiment diversificat pentru"
+        secondDescription="confortul casei tale!"
+      />
       <CategoriesGrid data={categories} />
       {/* <Hero products={db.products} /> */}
       <div className="container mx-auto px-4">
