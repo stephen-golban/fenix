@@ -44,5 +44,6 @@ dotenv.config();
       useClass: AuthGuard,
     },
   ],
+  exports: [ProductService],
 })
 export class ProductModule {}

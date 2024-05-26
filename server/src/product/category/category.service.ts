@@ -4,12 +4,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from '../entities/category.entity';
 import { CreateCategoryDto } from '../dto/create-category.dto';
+import { ProductService } from '../product.service';
 
 @Injectable()
 export class CategoryService {
   constructor(
     @InjectRepository(Category)
     private categoryRepository: Repository<Category>,
+    private productService: ProductService,
   ) {}
 
   async createCategory(
@@ -40,6 +42,20 @@ export class CategoryService {
   }
 
   async remove(id: string): Promise<void> {
+    const category = await this.categoryRepository.findOne({
+      where: { id },
+      relations: {
+        products: true,
+      },
+      select: {
+        products: {
+          id: true,
+        },
+      },
+    });
+    await category.products.map((product) =>
+      this.productService.remove(product.id),
+    );
     await this.categoryRepository.delete(id);
   }
 }

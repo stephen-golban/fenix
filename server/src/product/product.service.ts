@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -159,7 +159,23 @@ export class ProductService {
     return this.productRepository.update(id, updateProductDto);
   }
 
-  remove(id: string) {
-    return this.productRepository.softDelete(id);
+  async remove(id: string) {
+    const product = await this.productRepository.findOne({
+      where: { id },
+      relations: { photos: true, dimensions_with_price: true },
+      select: {
+        id: true,
+        photos: { id: true },
+        dimensions_with_price: { id: true },
+      },
+    });
+    if (!product) {
+      throw new NotFoundException(`Product with id ${id} does not exist!`);
+    }
+    product.photos.map((photo) => this.photoRepository.delete(photo.id));
+    product.dimensions_with_price.map((dimension) =>
+      this.dimensionsWithPriceRepository.delete(dimension.id),
+    );
+    return this.productRepository.delete(id);
   }
 }
