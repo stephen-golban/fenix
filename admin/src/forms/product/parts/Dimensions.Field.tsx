@@ -13,7 +13,7 @@ interface IDimensionsField {
 
 const DimensionsField: React.FC<IDimensionsField> = ({ control, errors }) => {
   function onAdd(value: ProductFormDefaultFieldValues['dimensions_with_price'], onChange: (...event: any[]) => void) {
-    const newSet = { width: 1, length: 1, height: 1, price: 1 };
+    const newSet = { width: 1000, length: 1000, height: 1000, price: 1000 };
     return onChange([...value, newSet]);
   }
   function onRemove(value: ProductFormDefaultFieldValues['dimensions_with_price'], onChange: (...event: any[]) => void, index: number) {
@@ -40,7 +40,7 @@ const DimensionsField: React.FC<IDimensionsField> = ({ control, errors }) => {
                     value={dim.width}
                     onChange={v => {
                       const newDims = [...value];
-                      newDims[index].width = v ?? 1;
+                      newDims[index].width = v ?? 1000;
                       onChange(newDims);
                     }}
                     placeholder="Introduceți lățimea"
@@ -53,7 +53,7 @@ const DimensionsField: React.FC<IDimensionsField> = ({ control, errors }) => {
                     value={dim.length}
                     onChange={v => {
                       const newDims = [...value];
-                      newDims[index].length = v ?? 1;
+                      newDims[index].length = v ?? 1000;
                       onChange(newDims);
                     }}
                     placeholder="Introduceți lungimea"
@@ -66,7 +66,7 @@ const DimensionsField: React.FC<IDimensionsField> = ({ control, errors }) => {
                     value={dim.height}
                     onChange={v => {
                       const newDims = [...value];
-                      newDims[index].height = v ?? 1;
+                      newDims[index].height = v ?? 1000;
                       onChange(newDims);
                     }}
                     placeholder="Introduceți înălțimea"
@@ -79,7 +79,7 @@ const DimensionsField: React.FC<IDimensionsField> = ({ control, errors }) => {
                     value={dim.price}
                     onChange={v => {
                       const newDims = [...value];
-                      newDims[index].price = v ?? 1;
+                      newDims[index].price = v ?? 1000;
                       onChange(newDims);
                     }}
                     placeholder="Introduceți prețul"

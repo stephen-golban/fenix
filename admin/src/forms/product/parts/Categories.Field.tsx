@@ -15,22 +15,14 @@ interface ICategoriesField {
 const { Option } = Select;
 
 const CategoriesField: React.FC<ICategoriesField> = ({ errors, control, categories }) => {
-  const [defaultValue, setDefaultValue] = React.useState('');
-  React.useEffect(() => {
-    if (categories.length > 0 && !control._defaultValues.categoryId) {
-      setDefaultValue(categories[0].id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categories]);
-
   return (
     <Form.Item label="Categorie" required help={errors.categoryId?.message} validateStatus={errors.categoryId ? 'error' : ''}>
       <Controller
         name="categoryId"
         control={control}
-        render={({ field: { value, ...field } }) => {
+        render={({ field }) => {
           return (
-            <Select {...field} placeholder="Selectați o categorie" value={value || defaultValue}>
+            <Select {...field} placeholder="Selectați o categorie">
               {categories.map(category => (
                 <Option key={category.id} value={category.id}>
                   {category.title}

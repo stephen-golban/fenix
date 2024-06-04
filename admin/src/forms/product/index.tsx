@@ -7,7 +7,6 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { ColorsField, PhotosField, CategoriesField, DimensionsField } from './parts';
 
 import type { Product, ProductFormDefaultFieldValues } from '../../typings/product';
-import { isEmpty } from 'lodash';
 
 interface IProductForm {
   loading?: boolean;
@@ -44,8 +43,6 @@ const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defa
 
     reset();
   };
-
-  console.log('photos', watch('photos'));
 
   return (
     <Form layout="vertical" disabled={viewOnly} onFinish={handleSubmit(handleFormSubmit)}>

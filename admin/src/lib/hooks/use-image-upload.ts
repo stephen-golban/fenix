@@ -3,12 +3,14 @@ import { UploadFile, UploadProps } from 'antd';
 import useAxiosRequest from '../../api/hooks';
 import type { AxiosProgressEvent } from 'axios';
 import { UploadChangeParam } from 'antd/es/upload';
-import { useMount } from 'react-use';
+import { ProductFormDefaultFieldValues } from '../../typings/product';
+
+type Photos = ProductFormDefaultFieldValues['photos'];
 
 interface UseImageUploadProps {
   multiple?: boolean;
-  value?: string | string[];
-  onChange: (urls: string | string[]) => void;
+  value: Photos;
+  onChange: (args: Photos) => void;
 }
 
 const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadProps) => {
@@ -16,46 +18,33 @@ const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadPro
 
   const [callSingle] = useAxiosRequest('/photo/upload', 'post');
 
-  useMount(() => {
-    if (value) {
-      const initialFileList = Array.isArray(value)
-        ? value.map(url => ({ url, uid: url, name: url }))
-        : [{ url: value, uid: value, name: value }];
-      setFileList(initialFileList);
-    }
-  });
-
   const customRequest: UploadProps['customRequest'] = async options => {
     const { onSuccess, file, onError, onProgress } = options;
 
-    const fmData = new FormData();
-    const config = {
-      headers: { 'content-type': 'multipart/form-data' },
-      onUploadProgress: (event: AxiosProgressEvent) => {
-        const percent = Math.floor((event.loaded / event.total!) * 100);
-        if (onProgress) {
-          onProgress({ percent });
-        }
-      },
-    };
-
-    fmData.append('image', file as File);
-
     try {
+      const fmData = new FormData();
+      const config = {
+        headers: { 'content-type': 'multipart/form-data' },
+        onUploadProgress: (event: AxiosProgressEvent) => {
+          const percent = Math.floor((event.loaded / event.total!) * 100);
+          if (onProgress) {
+            onProgress({ percent });
+          }
+        },
+      };
+
+      fmData.append('image', file as File);
+
       const res = await callSingle(fmData, undefined, config);
 
       if (res) {
         const url = res as string;
-        let updatedValue;
+        const F = file as UploadFile;
+        const newFile = { ...F, url };
 
-        if (multiple) {
-          updatedValue = Array.isArray(value) ? [url, ...value] : [url];
-        } else {
-          updatedValue = url;
-        }
+        onChange(multiple ? [...value, newFile] : [newFile]);
 
-        onChange(updatedValue);
-        onSuccess && onSuccess('Ok');
+        onSuccess && onSuccess(newFile);
       }
     } catch (err) {
       onError && onError({ message: err as unknown as string } as any);
@@ -63,12 +52,16 @@ const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadPro
   };
 
   const onRemove = async (file: UploadFile) => {
-    const item = Array.isArray(value) ? value[fileList.indexOf(file)] : value!;
-    const updatedFileList = fileList.filter(f => f.uid !== file.uid);
-    setFileList(updatedFileList);
-    const updatedValue = Array.isArray(value) ? value.filter(url => url !== item) : '';
-
-    onChange(updatedValue);
+    if (multiple) {
+      const index = fileList.indexOf(file);
+      const newFileList = fileList.slice();
+      newFileList.splice(index, 1);
+      setFileList(newFileList);
+      onChange(value.filter(v => v.uid !== file.uid));
+    } else {
+      onChange([]);
+      setFileList([]);
+    }
   };
 
   const onUploadChange = (info: UploadChangeParam<UploadFile>) => {
@@ -77,9 +70,9 @@ const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadPro
 
   return {
     fileList,
-    customRequest,
     onRemove,
     setFileList,
+    customRequest,
     onUploadChange,
   };
 };
