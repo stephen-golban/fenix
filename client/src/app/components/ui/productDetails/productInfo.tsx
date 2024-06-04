@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import db from "../../../lib/db.json";
 import { Product } from "../../../typings/product";
+import { Select } from "../../reusable";
 
 interface ButtonProps {
   title: string;
@@ -38,6 +39,15 @@ const ProductInfo = () => {
     fetchData();
   }, [id]);
 
+  const options = productDetails?.dimensions_with_price.map(
+    ({ id, ...label }) => {
+      return {
+        label,
+        value: id,
+      };
+    }
+  );
+
   return (
     <div className="basis-full lg:basis-2/6">
       {productDetails && (
@@ -73,18 +83,16 @@ const ProductInfo = () => {
         <dt className="mb-4 text-sm  tracking-wide">
           <b className="uppercase">Culori:</b> {productDetails?.color}
         </dt>
+
         <dt className="mb-4 text-sm  tracking-wide">
-          <b className="uppercase">Marimea:</b> Latimea x Lungimea x Inaltimea
+          {options && (
+            <Select
+              label="Dimensiuni:"
+              options={options}
+              onSelect={console.log}
+            />
+          )}
         </dt>
-        {productDetails?.dimensions_with_price.map((product) => (
-          <div key={product.id} className="flex flex-wrap gap-3">
-            <dd className="flex flex-wrap gap-3 text-xs">
-              <b className="uppercase">Art-{product.id.slice(0, 4)}:</b>
-              {product.width.toString()} x {product.length.toString()} x{" "}
-              {product.height.toString()} - <i>{product.price} lei</i>
-            </dd>
-          </div>
-        ))}
       </dl>
     </div>
   );
