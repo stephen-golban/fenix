@@ -33,9 +33,9 @@ const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defa
       provider: defaultValues.provider || '',
       categoryId: defaultValues.categoryId || '',
       description: defaultValues.description || '',
-      photos: defaultValues.photos?.map(item => item.url) || [],
       availableOnDemand: defaultValues.availableOnDemand || false,
       dimensions_with_price: defaultValues.dimensions_with_price || [],
+      photos: defaultValues.photos?.map(item => ({ uid: item.id, url: item.url, name: item.id })) || [],
     },
   });
 
@@ -44,6 +44,8 @@ const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defa
 
     reset();
   };
+
+  console.log('photos', watch('photos'));
 
   return (
     <Form layout="vertical" disabled={viewOnly} onFinish={handleSubmit(handleFormSubmit)}>

@@ -1,17 +1,14 @@
-import React from 'react';
-
 import { useImageUpload } from '../../lib/hooks';
 
 import { Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-const UploadBtn = React.forwardRef((props: any, ref: any) => {
+const UploadBtn = (props: any) => {
   const { onChange, value, isEditMode = false } = props;
   const { customRequest, fileList, onRemove, onUploadChange } = useImageUpload({ value, onChange, multiple: false });
 
   return (
     <Upload
-      ref={ref}
       maxCount={1}
       multiple={false}
       onRemove={onRemove}
@@ -22,6 +19,6 @@ const UploadBtn = React.forwardRef((props: any, ref: any) => {
       <Button icon={<UploadOutlined />}>{isEditMode ? 'Modifică' : 'Adaugă'}</Button>
     </Upload>
   );
-});
+};
 
 export { UploadBtn };

@@ -1,3 +1,4 @@
+import { UploadFile } from 'antd';
 import { Category } from './categories';
 
 export type Product = {
@@ -33,5 +34,5 @@ export type ProductFormDefaultFieldValues = Pick<
   'title' | 'availableOnDemand' | 'description' | 'provider' | 'categoryId' | 'colors'
 > & {
   dimensions_with_price: Omit<DimensionsWithPrice, 'id' | 'productId'>[];
-  photos: string[];
+  photos: UploadFile[];
 };

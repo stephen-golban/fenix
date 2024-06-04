@@ -23,7 +23,7 @@ const DimensionsField: React.FC<IDimensionsField> = ({ control, errors }) => {
 
   return (
     <Form.Item
-      label="Dimensiuni cu preț (cm)"
+      label="Dimensiuni cu preț (mm)"
       required
       validateStatus={errors.dimensions_with_price ? 'error' : ''}
       help={errors.dimensions_with_price?.message}>

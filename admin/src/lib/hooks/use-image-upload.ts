@@ -6,17 +6,15 @@ import { UploadChangeParam } from 'antd/es/upload';
 import { useMount } from 'react-use';
 
 interface UseImageUploadProps {
+  multiple?: boolean;
   value?: string | string[];
   onChange: (urls: string | string[]) => void;
-  multiple?: boolean;
 }
 
 const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadProps) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const [remove] = useAxiosRequest('/photo/remove', 'delete');
   const [callSingle] = useAxiosRequest('/photo/upload', 'post');
-  const [callMultiple] = useAxiosRequest('/photo/upload-multiple', 'post');
 
   useMount(() => {
     if (value) {
@@ -41,19 +39,22 @@ const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadPro
       },
     };
 
-    // Adding the current file to the fileList
-    const currentFileList = multiple ? [...fileList, file] : [file];
-
-    currentFileList.forEach(f => {
-      fmData.append(multiple ? 'images' : 'image', (f as UploadFile)?.originFileObj!);
-    });
+    fmData.append('image', file as File);
 
     try {
-      const res = await (multiple ? callMultiple : callSingle)(fmData, undefined, config);
+      const res = await callSingle(fmData, undefined, config);
 
       if (res) {
-        const urls = multiple ? (res as string[]) : [res as string];
-        onChange(multiple ? [...(value as string[]), ...urls] : urls[0]);
+        const url = res as string;
+        let updatedValue;
+
+        if (multiple) {
+          updatedValue = Array.isArray(value) ? [url, ...value] : [url];
+        } else {
+          updatedValue = url;
+        }
+
+        onChange(updatedValue);
         onSuccess && onSuccess('Ok');
       }
     } catch (err) {
@@ -62,17 +63,16 @@ const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadPro
   };
 
   const onRemove = async (file: UploadFile) => {
-    const item = Array.isArray(value) ? value[fileList.indexOf(file)] : value;
-    await remove({ url: item }, () => {
-      const updatedFileList = fileList.filter(f => f.uid !== file.uid);
-      setFileList(updatedFileList);
-      const list = (value as string[]).filter(url => url !== item);
-      onChange(multiple ? list : '');
-    });
+    const item = Array.isArray(value) ? value[fileList.indexOf(file)] : value!;
+    const updatedFileList = fileList.filter(f => f.uid !== file.uid);
+    setFileList(updatedFileList);
+    const updatedValue = Array.isArray(value) ? value.filter(url => url !== item) : '';
+
+    onChange(updatedValue);
   };
 
   const onUploadChange = (info: UploadChangeParam<UploadFile>) => {
-    setFileList(info.fileList);
+    setFileList(info.fileList.slice(0, multiple ? 10 : 1));
   };
 
   return {
