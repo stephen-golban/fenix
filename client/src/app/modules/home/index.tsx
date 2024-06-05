@@ -1,11 +1,5 @@
 import React, { Suspense } from "react";
-import {
-  Banner,
-  Carousel,
-  CategoriesGrid,
-  Hero,
-  Loader,
-} from "../../components/ui";
+import { Banner, Carousel, CategoriesGrid, Loader } from "../../components/ui";
 import useAxiosRequest from "../../api/hooks";
 import { useMount } from "react-use";
 import { LoadingModule } from "../loading";
