@@ -3,9 +3,10 @@ import React from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { Category } from "../../../typings";
 
 interface ICategoriesGrid {
-  data: { title: string; id: string; imageUrl: string }[];
+  data: Category[];
 }
 
 const CategoriesGrid: React.FC<ICategoriesGrid> = ({ data }) => {
@@ -39,9 +40,9 @@ const CategoriesGrid: React.FC<ICategoriesGrid> = ({ data }) => {
               <a href={category.id} className="block rounded-lg">
                 <img
                   className="w-full h-48 object-cover rounded-lg"
-                  src={category.imageUrl}
                   alt={category.title}
                   title={category.title}
+                  src={category.image_url}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-75 transition-opacity duration-300 rounded-lg">
                   <div className="text-white text-lg font-semibold text-center px-2">

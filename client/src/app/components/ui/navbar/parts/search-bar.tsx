@@ -23,7 +23,7 @@ const SearchBar = () => {
         key={searchParams[0].get("q")}
         type="text"
         name="search"
-        placeholder="Search for products..."
+        placeholder="Cauta produse..."
         autoComplete="off"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

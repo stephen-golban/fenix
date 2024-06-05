@@ -20,14 +20,6 @@ const Navbar: React.FC = () => {
           >
             +(373) 688-98-900
           </a>
-          <Link
-            to="/about"
-            className="flex items-center justify-center w-auto mr-6 ml-6"
-          >
-            <div className="ml-2 flex-none text-lg font-medium text-neutral-500  hover:text-black underline-offset-4 hover:underline">
-              About
-            </div>
-          </Link>
         </div>
         <div className="flex justify-center w-full lg:w-1/3 mt-4 lg:mt-0">
           <SearchBar />
