@@ -1,44 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import db from "../../../lib/db.json";
 import { Product } from "../../../typings/product";
 import { Select } from "../../reusable";
 
-interface ButtonProps {
-  title: string;
-}
-
-const Button: React.FC<ButtonProps> = ({ title }) => (
-  <button
-    aria-disabled={false}
-    title={title}
-    className={`flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-3 py-2 mb-4 text-xs ring-1 ring-transparent`}
-  >
-    {title}
-  </button>
-);
-
-const ProductInfo = () => {
-  const { id } = useParams<{ id: string }>();
-  const [productDetails, setProductDetails] = useState<Product | undefined>(
-    undefined
-  );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const product = db.products.find((product) => product.id === id);
-        if (product) {
-          setProductDetails(product);
-        }
-      } catch (error) {
-        console.error("Error fetching product details:", error);
-      }
-    };
-
-    fetchData();
-  }, [id]);
-
+const ProductInfo: React.FC<Product> = (productDetails) => {
   const options = productDetails?.dimensions_with_price.map(
     ({ id, ...label }) => {
       return {
@@ -57,10 +20,7 @@ const ProductInfo = () => {
           </h1>
           <div className="mr-auto w-auto rounded-full p-2 text-sm text-black">
             <p>
-              <span className="ml-1 inline">
-                {productDetails.description}, cel mai bun raport pret calitate
-                doar la MobIon SRL
-              </span>
+              <span className="ml-1 inline">{productDetails.description}</span>
             </p>
           </div>
         </div>
@@ -78,20 +38,24 @@ const ProductInfo = () => {
           <b className="uppercase">Producator:</b> {productDetails?.provider}
         </dt>
         <dt className="mb-4 text-sm  tracking-wide">
-          <b className="uppercase">Categorie:</b> {productDetails?.category}
+          <b className="uppercase">Categorie:</b>{" "}
+          {productDetails?.category.title}
         </dt>
-        <dt className="mb-4 text-sm  tracking-wide">
-          <b className="uppercase">Culori:</b> {productDetails?.color}
+        <dt className="mb-4 text-sm tracking-wide flex flex-wrap flex-row items-center gap-x-3">
+          <b className="uppercase">Culori:</b>{" "}
+          <div className="flex flex-row items-center gap-3">
+            {productDetails?.colors.map((item) => (
+              <div
+                key={item}
+                className="w-4 h-4 rounded-full"
+                style={{ backgroundColor: item }}
+              />
+            ))}
+          </div>
         </dt>
 
         <dt className="mb-4 text-sm  tracking-wide">
-          {options && (
-            <Select
-              label="Dimensiuni:"
-              options={options}
-              onSelect={console.log}
-            />
-          )}
+          {options && <Select label="Dimensiuni:" options={options} />}
         </dt>
       </dl>
     </div>

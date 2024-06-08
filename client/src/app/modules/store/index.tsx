@@ -3,16 +3,23 @@ import { useParams } from "react-router-dom";
 import Filter from "../../components/ui/filter";
 import { ProductGridItems } from "../../components/ui/product-grid";
 import Sort from "../../components/ui/sort";
-import db from "../../lib/db.json";
+
 import { Product } from "../../typings/product";
+import useAxiosRequest from "../../api/hooks";
+import { useMount } from "react-use";
 
 const CategoriesModule: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [products, setProducts] = useState<Product[]>(db.products);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const [call] = useAxiosRequest<Product[]>("/product", "get");
+
+  const refetch = async () => await call(undefined, setProducts);
+  useMount(refetch);
 
   useEffect(() => {
     if (id !== undefined && id.trim() !== "") {
-      const filteredProducts = db.products.filter((product) => {
+      const filteredProducts = products.filter((product) => {
         const lowerId = id.toLowerCase();
         const lowerTitle = product.title.toLowerCase();
         const matchesTitle = lowerTitle.includes(lowerId);
@@ -24,16 +31,17 @@ const CategoriesModule: React.FC = () => {
 
       setProducts(filteredProducts);
     } else {
-      setProducts(db.products);
+      refetch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleCategoryChange = (category: string | null) => {
     if (category === "all") {
-      setProducts(db.products);
+      refetch();
     } else {
-      const filteredProducts = db.products.filter(
-        (product) => product.category === category
+      const filteredProducts = products.filter(
+        (product) => product.category.title === category
       );
       setProducts(filteredProducts);
     }

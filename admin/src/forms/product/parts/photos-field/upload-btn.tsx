@@ -10,9 +10,9 @@ import { ProductFormDefaultFieldValues } from '../../../../typings/product';
 import { useMount, useUpdateEffect } from 'react-use';
 import { isEmpty } from 'lodash';
 
-interface IUploadBtn extends ControllerRenderProps<ProductFormDefaultFieldValues, 'photos'> {}
+interface IUploadBtn extends Omit<ControllerRenderProps<ProductFormDefaultFieldValues, 'photos'>, 'ref'> {}
 
-const UploadBtn: React.FC<IUploadBtn> = ({ onChange, ref, disabled, value }) => {
+const UploadBtn: React.FC<IUploadBtn> = ({ onChange, disabled, value }) => {
   const { customRequest, fileList, onRemove, onUploadChange, setFileList } = useImageUpload({ value, onChange, multiple: true });
 
   useMount(() => setFileList(value));
@@ -25,7 +25,6 @@ const UploadBtn: React.FC<IUploadBtn> = ({ onChange, ref, disabled, value }) => 
 
   return (
     <Upload
-      ref={ref}
       maxCount={10}
       fileList={fileList}
       onRemove={onRemove}

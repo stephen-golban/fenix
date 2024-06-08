@@ -26,8 +26,8 @@ const createTableColumns = (render: (record: Product) => JSX.Element): TableColu
       render: (_, record) => {
         return (
           <Space>
-            {record.photos.map(item => {
-              return <Image width={50} height={50} src={item.url} style={{ borderRadius: 5 }} />;
+            {record.photos.map((item, idx) => {
+              return <Image key={item.id + item.url + idx} width={50} height={50} src={item.url} style={{ borderRadius: 5 }} />;
             })}
           </Space>
         );
@@ -47,9 +47,10 @@ const createTableColumns = (render: (record: Product) => JSX.Element): TableColu
       dataIndex: 'colors',
       render: (_value, record) => {
         return (
-          <Space>
-            {record.colors.map(color => (
+          <Space key={record.id}>
+            {record.colors.map((color, idx) => (
               <div
+                key={color + idx}
                 style={{
                   backgroundColor: color.toLowerCase(),
                   width: 20,

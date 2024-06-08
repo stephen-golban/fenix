@@ -14,7 +14,7 @@ const CreateProductScreen = () => {
     };
     return await call(data, () => notification.success({ message: 'Produs adaugat cu success!' }));
   }
-  return <ProductForm onSubmit={onSubmit} loading={loading} />;
+  return <ProductForm onSubmit={onSubmit} loading={loading} isCreate />;
 };
 
 export { CreateProductScreen };

@@ -1,54 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import db from "../../../lib/db.json";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import React from "react";
+import { Product } from "../../../typings";
 
-interface Product {
-  id: string;
-  url: string;
+interface IProductImage {
+  data: Product["photos"];
 }
 
-const ProductImage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [productImages, setProductImages] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const product = db.products.find((product) => product.id === id);
-        if (product) {
-          setProductImages(product.photos);
-        }
-      } catch (error) {
-        console.error("Error fetching product images:", error);
-      }
-    };
-
-    fetchData();
-  }, [id]);
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const ProductImage: React.FC<IProductImage> = ({ data }) => {
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === productImages.length - 1 ? 0 : prevIndex + 1
+      prevIndex === data.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? productImages.length - 1 : prevIndex - 1
+      prevIndex === 0 ? data.length - 1 : prevIndex - 1
     );
   };
 
   return (
     <div className="h-full w-full basis-full lg:basis-4/6">
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
-        {productImages.length > 0 && (
+        {data.length > 0 && (
           <img
-            alt={`Product Image ${productImages[currentImageIndex].id}`}
+            alt={`Product Image ${data[currentImageIndex].id}`}
             decoding="async"
             data-nimg="fill"
-            className="h-full w-full object-contain"
+            className="h-full w-full object-cover"
             style={{
               position: "absolute",
               height: "100%",
@@ -60,7 +42,7 @@ const ProductImage: React.FC = () => {
               color: "transparent",
             }}
             sizes="(min-width: 1024px) 66vw, 100vw"
-            src={productImages[currentImageIndex].url}
+            src={data[currentImageIndex].url}
           />
         )}
         <div className="absolute bottom-0 flex w-full justify-center">
@@ -115,7 +97,7 @@ const ProductImage: React.FC = () => {
       </div>
 
       <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
-        {productImages.map((item, index) => (
+        {data.map((item, index) => (
           <li
             key={item.id}
             className="h-20 w-20"

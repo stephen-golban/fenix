@@ -1,9 +1,21 @@
 import { Link } from "react-router-dom";
-import db from "../../../lib/db.json";
 import { Grid } from "../../reusable";
+import React from "react";
+import { Product } from "../../../typings";
+import useAxiosRequest from "../../../api/hooks";
+import { Loader } from "../loader";
+import { useMount } from "react-use";
 
 const Carousel = () => {
-  const products = db.products.filter((item) => item.description === "divan");
+  const [products, setProducts] = React.useState<Product[]>([]);
+
+  const [call, { loading }] = useAxiosRequest<Product[]>("/product", "get");
+
+  useMount(async () => await call(undefined, setProducts));
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (!products?.length) return null;
 

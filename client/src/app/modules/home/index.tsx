@@ -10,8 +10,6 @@ const HomeModule: React.FC = () => {
 
   const [call, { loading }] = useAxiosRequest<Category[]>("/categories", "get");
 
-  console.log(categories);
-
   useMount(async () => await call(undefined, setCategories));
 
   if (loading) {

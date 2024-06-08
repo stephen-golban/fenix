@@ -19,7 +19,7 @@ const PhotosField: React.FC<IPhotosField> = ({ errors, control }) => {
         name="photos"
         control={control}
         rules={{ required: 'Fotografiile sunt necesare' }}
-        render={({ field }) => <UploadBtn {...field} />}
+        render={({ field: { ref, ...field } }) => <UploadBtn {...field} />}
       />
     </Form.Item>
   );

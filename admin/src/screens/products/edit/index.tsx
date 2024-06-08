@@ -11,14 +11,17 @@ const EditProductScreen = () => {
   const [product, setProduct] = useState<Product>();
 
   const [call, { loading }] = useAxiosRequest(`/product/${id}`, 'get');
-  const [update, { loading: updateLoading }] = useAxiosRequest(`/product/${id}`, 'patch');
+  const [update, { loading: updateLoading }] = useAxiosRequest<Product>(`/product/${id}`, 'patch');
 
   async function onSubmit(args: ProductFormDefaultFieldValues) {
     const data = {
       ...args,
       photos: args.photos.map(item => item.url),
     };
-    return await update(data, () => notification.success({ message: 'Produs modificat cu success!' }));
+    return await update(data, res => {
+      setProduct(res);
+      notification.success({ message: 'Produs modificat cu success!' });
+    });
   }
 
   useMount(async () => await call(undefined, setProduct));

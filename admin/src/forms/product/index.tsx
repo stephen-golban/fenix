@@ -12,12 +12,15 @@ interface IProductForm {
   loading?: boolean;
   viewOnly?: boolean;
   submitText?: string;
+  isCreate?: boolean;
   defaultValues?: Partial<Product>;
   onSubmit: (data: ProductFormDefaultFieldValues) => void;
 }
 
-const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defaultValues = {}, submitText = 'Trimite' }) => {
-  const { categories } = useProductForm();
+const ProductForm: React.FC<IProductForm> = props => {
+  const { loading, onSubmit, viewOnly, defaultValues = {}, submitText = 'Trimite', isCreate } = props;
+
+  const { categories, prepareInitialValues } = useProductForm();
 
   const {
     reset,
@@ -26,22 +29,15 @@ const ProductForm: React.FC<IProductForm> = ({ loading, onSubmit, viewOnly, defa
     handleSubmit,
     formState: { errors },
   } = useForm<ProductFormDefaultFieldValues>({
-    defaultValues: {
-      title: defaultValues.title || '',
-      colors: defaultValues.colors || [],
-      provider: defaultValues.provider || '',
-      categoryId: defaultValues.categoryId || '',
-      description: defaultValues.description || '',
-      availableOnDemand: defaultValues.availableOnDemand || false,
-      dimensions_with_price: defaultValues.dimensions_with_price || [],
-      photos: defaultValues.photos?.map(item => ({ uid: item.id, url: item.url, name: item.id })) || [],
-    },
+    defaultValues: prepareInitialValues(defaultValues),
   });
 
   const handleFormSubmit: SubmitHandler<ProductFormDefaultFieldValues> = data => {
     onSubmit(data);
 
-    reset();
+    if (isCreate) {
+      reset();
+    }
   };
 
   return (

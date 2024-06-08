@@ -1,7 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import db from "../../../lib/db.json";
+import { Link } from "react-router-dom";
 import { Product } from "../../../typings/product";
+import React, { Suspense } from "react";
+import useAxiosRequest from "../../../api/hooks";
+import { useMount } from "react-use";
+import { LoadingModule } from "../../../modules";
+import { Loader } from "../loader";
 
 interface RelatedProductProps {
   imgSrc: string;
@@ -10,7 +13,7 @@ interface RelatedProductProps {
   productId: string;
 }
 
-const RelatedProduct: FC<RelatedProductProps> = ({
+const RelatedProduct: React.FC<RelatedProductProps> = ({
   imgSrc,
   title,
   price,
@@ -45,46 +48,43 @@ const RelatedProduct: FC<RelatedProductProps> = ({
   );
 };
 
-const RelatedProducts: FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [productDetails, setProductDetails] = useState<Product | undefined>(
-    undefined
-  );
+const RelatedProducts: React.FC<Product> = (productDetails) => {
+  const [products, setProducts] = React.useState<Product[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const product = db.products.find((product) => product.id === id);
-        if (product) {
-          setProductDetails(product);
-        }
-      } catch (error) {
-        console.error("Error fetching product details:", error);
-      }
-    };
+  const [call, { loading }] = useAxiosRequest<Product[]>("/product", "get");
 
-    fetchData();
-  }, [id]);
+  const refetch = async () => await call(undefined, setProducts);
+  useMount(refetch);
 
-  const relatedProductsData = db.products.filter(
-    (product) => product.category === productDetails?.category
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!products) {
+    return null;
+  }
+
+  const relatedProductsData = products.filter(
+    (product) => product?.category?.title === productDetails?.category?.title
   );
 
   return (
-    <div className="py-8">
-      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
-      <ul className="flex w-full gap-4 overflow-x-auto  pt-1">
-        {relatedProductsData.slice(0, 4).map((product) => (
-          <RelatedProduct
-            key={product.id}
-            productId={product.id}
-            imgSrc={product.photos[0].url}
-            title={product.title}
-            price={product.dimensions_with_price[0].price.toString()}
-          />
-        ))}
-      </ul>
-    </div>
+    <Suspense fallback={<LoadingModule />}>
+      <div className="py-8">
+        <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+        <ul className="flex w-full gap-4 overflow-x-auto  pt-1">
+          {relatedProductsData.slice(0, 4).map((product) => (
+            <RelatedProduct
+              key={product.id}
+              productId={product.id}
+              imgSrc={product.photos[0].url}
+              title={product.title}
+              price={product.dimensions_with_price[0].price.toString()}
+            />
+          ))}
+        </ul>
+      </div>
+    </Suspense>
   );
 };
 

@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import { useMount } from "react-use";
-import { createTableColumns } from "./utils";
-import { useNavigate } from "react-router-dom";
-import useAxiosRequest from "../../../api/hooks";
+import { useMount } from 'react-use';
+import { createTableColumns } from './utils';
+import { useNavigate } from 'react-router-dom';
+import useAxiosRequest from '../../../api/hooks';
 
-import { Button, Table } from "antd";
-import { TableActions } from "./parts";
-import { PlusOutlined } from "@ant-design/icons";
+import { Button, Table } from 'antd';
+import { TableActions } from './parts';
+import { PlusOutlined } from '@ant-design/icons';
 
-import type { TableProps } from "antd";
-import type { Category } from "../../../typings/categories";
+import type { TableProps } from 'antd';
+import type { Category } from '../../../typings/categories';
 
 const CategoriesScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -18,20 +18,15 @@ const CategoriesScreen: React.FC = () => {
 
   const refetch = async () => await call(undefined, setCategories);
 
-  const [call, { loading }] = useAxiosRequest<Array<Category>>(
-    "/categories",
-    "get"
-  );
+  const [call, { loading }] = useAxiosRequest<Array<Category>>('/categories', 'get');
 
   useMount(refetch);
 
   function handleAdd() {
-    navigate("/categories/create");
+    navigate('/categories/create');
   }
 
-  const columns: TableProps<Category>["columns"] = createTableColumns(
-    (data) => <TableActions data={data} onFinishAction={refetch} />
-  );
+  const columns: TableProps<Category>['columns'] = createTableColumns(data => <TableActions data={data} onFinishAction={refetch} />);
 
   return (
     <div>

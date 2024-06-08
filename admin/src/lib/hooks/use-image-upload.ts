@@ -17,6 +17,7 @@ const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadPro
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const [callSingle] = useAxiosRequest('/photo/upload', 'post');
+  const [removePhoto] = useAxiosRequest('/product/photo', 'delete');
 
   const customRequest: UploadProps['customRequest'] = async options => {
     const { onSuccess, file, onError, onProgress } = options;
@@ -53,11 +54,17 @@ const useImageUpload = ({ value, onChange, multiple = false }: UseImageUploadPro
 
   const onRemove = async (file: UploadFile) => {
     if (multiple) {
-      const index = fileList.indexOf(file);
-      const newFileList = fileList.slice();
-      newFileList.splice(index, 1);
-      setFileList(newFileList);
-      onChange(value.filter(v => v.uid !== file.uid));
+      await removePhoto(
+        undefined,
+        () => {
+          const index = fileList.indexOf(file);
+          const newFileList = fileList.slice();
+          newFileList.splice(index, 1);
+          setFileList(newFileList);
+          onChange(value.filter(v => v.uid !== file.uid));
+        },
+        { additionalUrl: `/${file.uid}` },
+      );
     } else {
       onChange([]);
       setFileList([]);
