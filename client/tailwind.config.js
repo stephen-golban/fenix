@@ -5,6 +5,14 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   theme: {
     extend: {
+      colors: {
+        "light-gray": "#E5E5E5",
+        primary: "#054C73",
+        font: "#333333",
+        pale: "#DFE9F4",
+        paragraph: "#AFADB5",
+        "pale-light": "#F2F5FF",
+      },
       screens: {
         xs: "450px", // Custom screen size for 'xs'
       },

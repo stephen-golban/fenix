@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 import type { Product } from "../../../typings";
 
-const ProductGridItems: React.FC<{ products: Product[] }> = ({ products }) => {
+const ProductGrid: React.FC<{ data: Product[] }> = ({ data }) => {
   return (
-    <div>
-      {products.map((product) => (
+    <>
+      {data.map((product) => (
         <Grid.Item key={product.id} className="animate-fadeIn">
           <Link
-            className="relative inline-block h-full w-full"
             to={`/product/${product.id}`}
+            className="relative inline-block h-full w-full"
           >
             <Grid.Item.Tile
               alt={product.title}
@@ -24,7 +24,7 @@ const ProductGridItems: React.FC<{ products: Product[] }> = ({ products }) => {
           </Link>
         </Grid.Item>
       ))}
-    </div>
+    </>
   );
 };
-export { ProductGridItems };
+export { ProductGrid };

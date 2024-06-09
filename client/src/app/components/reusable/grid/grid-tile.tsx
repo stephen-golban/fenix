@@ -1,19 +1,19 @@
-import React from "react"
+import React from "react";
 
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { Label } from "../label"
-import { Img, type ImgProps } from "react-image"
+import { Label } from "../label";
+import { Img, type ImgProps } from "react-image";
 
 interface IGridItemTile extends ImgProps {
-  isInteractive?: boolean
-  fill?: boolean
-  active?: boolean
+  isInteractive?: boolean;
+  fill?: boolean;
+  active?: boolean;
   label?: {
-    title: string
-    amount: number
-    position?: "bottom" | "center"
-  }
+    title: string;
+    amount: number;
+    position?: "bottom" | "center";
+  };
 }
 
 const GridItemTile: React.FC<IGridItemTile> = ({
@@ -26,10 +26,10 @@ const GridItemTile: React.FC<IGridItemTile> = ({
   return (
     <div
       className={clsx(
-        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 ",
+        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-primary ",
         {
           relative: label,
-          "border-2 border-blue-600": active,
+          "border-2 border-primary": active,
           "border-neutral-200": !active,
         }
       )}
@@ -52,7 +52,7 @@ const GridItemTile: React.FC<IGridItemTile> = ({
         />
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export { GridItemTile }
+export { GridItemTile };

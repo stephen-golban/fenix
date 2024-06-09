@@ -1,17 +1,22 @@
-import { HeroItem } from "./hero-item";
+import React from "react";
+import "./index.style.css";
 
-import type { Product } from "../../../typings";
-
-interface IHero {
-  products: Product[];
-}
-
-const Hero: React.FC<IHero> = ({ products }) => {
+const Hero: React.FC = () => {
   return (
-    <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
-      <HeroItem size="full" item={products[0]} priority={true} />
-      <HeroItem size="half" item={products[1]} priority={true} />
-      <HeroItem size="half" item={products[2]} />
+    <section className="hero relative flex justify-center items-center h-[749px] bg-cover bg-center">
+      <div className="relative z-10 p-6 md:p-12 bg-pale rounded-lg shadow-lg max-w-xl md:max-w-2xl md:text-left md:absolute md:right-60 font-medium mx-3 md:mx-0">
+        <p className="text-xs md:text-sm text-font uppercase">Noua Apariție</p>
+        <h1 className="text-2xl md:text-4xl font-bold text-primary mt-5">
+          Descoperiți Noua Noastră Colecție
+        </h1>
+        <p className="text-sm md:text-base text-font my-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
+          tellus, luctus nec ullamcorper mattis.
+        </p>
+        <button className="mt-4 bg-primary text-white py-3 px-10 rounded-full shadow-lg uppercase">
+          Vezi Acum
+        </button>
+      </div>
     </section>
   );
 };

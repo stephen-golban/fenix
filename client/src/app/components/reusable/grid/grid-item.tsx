@@ -11,6 +11,7 @@ const GridItem: IGridItem = ({ className, ...props }) => {
   return (
     <li
       {...props}
+      style={{ listStyleType: "none" }}
       className={clsx("aspect-square transition-opacity", className)}
     >
       {props.children}

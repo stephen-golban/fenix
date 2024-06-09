@@ -23,7 +23,7 @@ const ProductImage: React.FC<IProductImage> = ({ data }) => {
   };
 
   return (
-    <div className="h-full w-full basis-full lg:basis-4/6">
+    <div className="h-full w-full basis-full lg:basis-1/3 px-2 md:px-0">
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {data.length > 0 && (
           <img
@@ -45,7 +45,7 @@ const ProductImage: React.FC<IProductImage> = ({ data }) => {
             src={data[currentImageIndex].url}
           />
         )}
-        <div className="absolute bottom-0 flex w-full justify-center">
+        <div className="absolute bottom-2 flex w-full justify-center">
           <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur">
             <button
               aria-label="Previous product image"

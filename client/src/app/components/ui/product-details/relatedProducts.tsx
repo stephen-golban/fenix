@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import { Product } from "../../../typings/product";
 import React, { Suspense } from "react";
-import useAxiosRequest from "../../../api/hooks";
-import { useMount } from "react-use";
 import { LoadingModule } from "../../../modules";
-import { Loader } from "../loader";
+import { isEmpty } from "lodash";
 
 interface RelatedProductProps {
   imgSrc: string;
@@ -48,30 +46,21 @@ const RelatedProduct: React.FC<RelatedProductProps> = ({
   );
 };
 
-const RelatedProducts: React.FC<Product> = (productDetails) => {
-  const [products, setProducts] = React.useState<Product[]>([]);
-
-  const [call, { loading }] = useAxiosRequest<Product[]>("/product", "get");
-
-  const refetch = async () => await call(undefined, setProducts);
-  useMount(refetch);
-
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (!products) {
+const RelatedProducts: React.FC<{
+  products: Product[];
+  categoryId: string;
+}> = ({ products, categoryId }) => {
+  const relatedProductsData = products.filter(
+    (product) => product?.category?.id === categoryId
+  );
+  if (isEmpty(relatedProductsData)) {
     return null;
   }
-
-  const relatedProductsData = products.filter(
-    (product) => product?.category?.title === productDetails?.category?.title
-  );
 
   return (
     <Suspense fallback={<LoadingModule />}>
       <div className="py-8">
-        <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+        <h2 className="mb-4 text-2xl font-bold">Produse Asemănătoare</h2>
         <ul className="flex w-full gap-4 overflow-x-auto  pt-1">
           {relatedProductsData.slice(0, 4).map((product) => (
             <RelatedProduct

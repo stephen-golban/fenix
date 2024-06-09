@@ -1,38 +1,52 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const SearchBar = () => {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const debounceTimeout = useRef<any>(null);
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    navigate(
-      `/categories/${encodeURIComponent(searchQuery.trim().toLowerCase())}`
-    );
+  const handleInputChange = (e: any) => {
+    const query = e.target.value.trim().toLowerCase();
+    setSearchQuery(query);
+
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+
+    debounceTimeout.current = setTimeout(() => {
+      if (query) {
+        navigate(`/categories?q=${encodeURIComponent(query)}`);
+      } else {
+        navigate("/categories");
+      }
+    }, 300); // Adjust the delay as needed
   };
 
+  useEffect(() => {
+    setSearchQuery(initialQuery);
+  }, [initialQuery]);
+
   return (
-    <form
-      onSubmit={handleSearch}
-      className="w-max-[550px] relative w-full lg:w-80 xl:w-full"
-    >
+    <div className="relative w-full md:min-w-[500px]">
+      <div className="absolute left-0 top-0 ml-3 flex h-full items-center">
+        <MagnifyingGlassIcon className="h-5" color="#054C73" />
+      </div>
       <input
-        key={searchParams[0].get("q")}
+        key={initialQuery}
         type="text"
         name="search"
         placeholder="Cauta produse..."
         autoComplete="off"
         value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full rounded-lg border bg-white pl-4 pr-8 py-2 text-sm text-black placeholder:text-neutral-500"
+        onChange={handleInputChange}
+        className="w-full rounded-xs border-primary/10 border bg-white pl-10 pr-8 py-3 text-sm text-primary placeholder:text-primary"
       />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
-        <MagnifyingGlassIcon className="h-4" />
-      </div>
-    </form>
+    </div>
   );
 };
+
 export { SearchBar };

@@ -1,18 +1,13 @@
-import { Link } from "react-router-dom";
-import { Banner } from "../../components/ui/banner";
+import { RootLayout } from "../../components/layout";
 import "./index.css";
+import img from "../../assets/hero.jpg";
 
 const About: React.FC = () => {
   return (
-    <div>
-      <Banner
-        title="Despre noi"
-        description="Compania FENIX S.R.L. de putin timp pe piata"
-        secondDescription="cu oportunitati mari !"
-      />
+    <RootLayout>
       <div className="w-full p-10 flex flex-col lg:flex-row items-center  justify-center text-center space-y-5 lg:space-y-0 lg:space-x-5">
         <div className="w-full lg:w-1/2">
-          <p>
+          <p className="text-font text-lg md:text-xl">
             Mobilerul potrivit redefinește un interior și vă oferă senzația de
             confort și comoditate. Este frumos, dar și practic. Este creat
             conform cerințelor și așteptărilor dvs., dar și pe gustul întregii
@@ -23,7 +18,7 @@ const About: React.FC = () => {
           </p>
 
           <br />
-          <p>
+          <p className="text-font text-lg md:text-xl">
             Astăzi, mii de oameni cunosc și preferă compania noastră! Canapelele
             „Confort”, într-o diversitate uimitoare, precum și celelalte piese
             de mobilier, pot fi întâlnite în case și birouri de aici și de
@@ -31,11 +26,7 @@ const About: React.FC = () => {
             Cahul, București, Moscova… și lista poate continua.
           </p>
         </div>
-        <img
-          className="w-full lg:w-1/2"
-          src="https://confort.md/image/cache/catalog/categories/Pagina%20principala/Mobila%20Corp%20Site-576x324.jpg"
-          alt="Mobilier"
-        />
+        <img className="w-full lg:w-1/2" src={img} alt="Mobilier" />
       </div>
       <div className="showroom">
         <h1 className="ml-2 mr-2 text-white text-3xl sm:text-4xl lg:text-5xl">
@@ -46,7 +37,7 @@ const About: React.FC = () => {
           La Adresa: Matei Basarab 5/5
         </p>
       </div>
-    </div>
+    </RootLayout>
   );
 };
 

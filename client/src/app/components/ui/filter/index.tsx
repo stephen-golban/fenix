@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import db from "../../../lib/db.json";
+import React, { useEffect } from "react";
+import { Category } from "../../../typings";
 
 interface MenuItem {
   id: string;
@@ -7,13 +7,20 @@ interface MenuItem {
 }
 
 interface FilterProps {
+  categories: Category[];
   onCategoryChange: (option: string) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ onCategoryChange }) => {
-  const menu: MenuItem[] = db.collections;
-  const [activeItem, setActiveItem] = useState<MenuItem | null>(menu[0]);
-  const [showDropdown, setShowDropdown] = useState(false);
+const Filter: React.FC<FilterProps> = ({ categories, onCategoryChange }) => {
+  const menu: MenuItem[] = [{ id: "Toate", title: "Toate" }, ...categories];
+
+  const [activeItem, setActiveItem] = React.useState<MenuItem>(menu[0]);
+  const [showDropdown, setShowDropdown] = React.useState(false);
+
+  useEffect(() => {
+    onCategoryChange(menu[0].id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleItemClick = (item: MenuItem) => {
     setActiveItem(item);
@@ -29,18 +36,18 @@ const Filter: React.FC<FilterProps> = ({ onCategoryChange }) => {
     <div className="order-first w-full flex-none md:max-w-[125px]">
       <nav>
         <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400">
-          Filter by
+          Filtrează după
         </h3>
         <ul className="hidden md:block">
           {menu.map((item) => (
             <li
               key={item.id}
               className={`mt-2 flex text-black dark:text-black ${
-                activeItem === item ? "font-bold" : ""
+                activeItem.id === item.id ? "font-bold" : ""
               }`}
             >
               <p
-                className="w-full text-sm underline-offset-4 hover:underline"
+                className="w-full text-sm underline-offset-4 hover:underline cursor-pointer"
                 onClick={() => handleItemClick(item)}
               >
                 {item.title}
@@ -54,7 +61,7 @@ const Filter: React.FC<FilterProps> = ({ onCategoryChange }) => {
               className="flex w-full items-center justify-between rounded border border-black/30 px-4 py-2 text-sm dark:border-white/30 cursor-pointer"
               onClick={toggleDropdown}
             >
-              <div>{activeItem ? activeItem.title : "All"}</div>
+              <div>{activeItem ? activeItem.title : "Toate"}</div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -78,7 +85,7 @@ const Filter: React.FC<FilterProps> = ({ onCategoryChange }) => {
                   <li
                     key={item.id}
                     className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
-                      activeItem === item ? "font-bold" : ""
+                      activeItem.id === item.id ? "font-bold" : ""
                     }`}
                     onClick={() => handleItemClick(item)}
                   >

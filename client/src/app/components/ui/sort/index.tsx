@@ -10,9 +10,9 @@ interface SortProps {
 
 const Sort: React.FC<SortProps> = ({ onSortChange }) => {
   const sortOptions: SortOption[] = [
-    { label: "Trending" },
-    { label: "Price: Low to high" },
-    { label: "Price: High to low" },
+    { label: "Populare" },
+    { label: "Preț: De la mic la mare" },
+    { label: "Preț: De la mare la mic" },
   ];
 
   const [activeItem, setActiveItem] = useState<string | null>(
@@ -34,7 +34,7 @@ const Sort: React.FC<SortProps> = ({ onSortChange }) => {
     <div className="order-none flex-none md:order-last md:w-[125px]">
       <nav>
         <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400">
-          Sort by
+          Sorteaza dupa
         </h3>
         <ul className="hidden md:block">
           {sortOptions.map((option, index) => (
