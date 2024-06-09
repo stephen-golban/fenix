@@ -41,37 +41,41 @@ function useStoreModule() {
 
   const loading = loadingProducts || loadingCategories;
 
-  useEffect(() => {
+  const applyFiltersAndSort = () => {
     let filtered = products;
 
-    if (categoryId) {
-      if (categoryId === "Toate") {
-        filtered = products;
-      } else {
-        filtered = products.filter(
-          (product) => product.categoryId === categoryId
-        );
-      }
-    } else {
-      const query = searchParams.get("q");
-      if (query) {
-        const lowerQuery = query.toLowerCase();
-        filtered = products.filter((product) => {
-          const lowerTitle = product.title.toLowerCase();
-          const matchesTitle = lowerTitle.includes(lowerQuery);
-          const matchesDimensionId = product.dimensions_with_price.some((dim) =>
-            dim.id.toLowerCase().includes(lowerQuery)
-          );
-          return matchesTitle || matchesDimensionId;
-        });
-      }
+    // Filter by category
+    if (categoryId && categoryId !== "Toate") {
+      filtered = filtered.filter(
+        (product) => product.categoryId === categoryId
+      );
     }
 
+    // Filter by query
+    const query = searchParams.get("q");
+    if (query) {
+      const lowerQuery = query.toLowerCase();
+      filtered = filtered.filter((product) => {
+        const lowerTitle = product.title.toLowerCase();
+        const matchesTitle = lowerTitle.includes(lowerQuery);
+        const matchesDimensionId = product.dimensions_with_price.some((dim) =>
+          dim.id.toLowerCase().includes(lowerQuery)
+        );
+        return matchesTitle || matchesDimensionId;
+      });
+    }
+
+    // Sort the products
     if (sortOption) {
       filtered = sortProducts(filtered, sortOption);
     }
 
     setFilteredProducts(filtered);
+  };
+
+  useEffect(() => {
+    applyFiltersAndSort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, products, categoryId, sortOption]);
 
   const handleCategoryChange = (category: string | null) => {

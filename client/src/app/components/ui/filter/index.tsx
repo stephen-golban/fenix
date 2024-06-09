@@ -30,7 +30,7 @@ const Filter: React.FC<FilterProps> = ({ categories, onCategoryChange }) => {
       setActiveItem(menu[0]);
       onCategoryChange(menu[0].id);
     }
-  }, [categoryId, menu, onCategoryChange]);
+  }, [categoryId]);
 
   const handleItemClick = (item: MenuItem) => {
     setActiveItem(item);
