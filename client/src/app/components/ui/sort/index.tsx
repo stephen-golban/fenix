@@ -10,7 +10,6 @@ interface SortProps {
 
 const Sort: React.FC<SortProps> = ({ onSortChange }) => {
   const sortOptions: SortOption[] = [
-    { label: "Populare" },
     { label: "Preț: De la mic la mare" },
     { label: "Preț: De la mare la mic" },
   ];
@@ -40,7 +39,7 @@ const Sort: React.FC<SortProps> = ({ onSortChange }) => {
           {sortOptions.map((option, index) => (
             <li
               key={index}
-              className={`mt-2 flex text-sm text-black ${
+              className={`mt-2 flex text-sm text-black cursor-pointer ${
                 activeItem === option.label ? "font-bold" : ""
               }`}
             >

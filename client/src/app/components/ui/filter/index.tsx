@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Category } from "../../../typings";
 
 interface MenuItem {
@@ -12,20 +13,34 @@ interface FilterProps {
 }
 
 const Filter: React.FC<FilterProps> = ({ categories, onCategoryChange }) => {
+  const { id: categoryId } = useParams(); // Extract category ID from URL parameters
+  const navigate = useNavigate();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const menu: MenuItem[] = [{ id: "Toate", title: "Toate" }, ...categories];
-
   const [activeItem, setActiveItem] = React.useState<MenuItem>(menu[0]);
   const [showDropdown, setShowDropdown] = React.useState(false);
 
   useEffect(() => {
-    onCategoryChange(menu[0].id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (categoryId) {
+      const foundCategory =
+        menu.find((item) => item.id === categoryId) || menu[0];
+      setActiveItem(foundCategory);
+      onCategoryChange(foundCategory.id);
+    } else {
+      setActiveItem(menu[0]);
+      onCategoryChange(menu[0].id);
+    }
+  }, [categoryId, menu, onCategoryChange]);
 
   const handleItemClick = (item: MenuItem) => {
     setActiveItem(item);
     onCategoryChange(item.id);
     setShowDropdown(false);
+    if (item.id === "Toate") {
+      navigate("/categories");
+    } else {
+      navigate(`/categories/${item.id}`);
+    }
   };
 
   const toggleDropdown = () => {

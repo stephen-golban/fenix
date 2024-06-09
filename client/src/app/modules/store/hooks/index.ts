@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Category, Product } from "../../../typings";
 import useAxiosRequest from "../../../api/hooks";
 import { useMount } from "react-use";
 
 function useStoreModule() {
+  const { id: categoryId } = useParams();
   const [searchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [sortOption, setSortOption] = useState<string | null>(null);
 
   const [callProducts, { loading: loadingProducts }] = useAxiosRequest<
     Product[]
@@ -40,23 +42,37 @@ function useStoreModule() {
   const loading = loadingProducts || loadingCategories;
 
   useEffect(() => {
-    const query = searchParams.get("q");
-    if (query) {
-      const lowerQuery = query.toLowerCase();
-      const filtered = products.filter((product) => {
-        const lowerTitle = product.title.toLowerCase();
-        const matchesTitle = lowerTitle.includes(lowerQuery);
-        const matchesDimensionId = product.dimensions_with_price.some((dim) =>
-          dim.id.toLowerCase().includes(lowerQuery)
-        );
-        return matchesTitle || matchesDimensionId;
-      });
+    let filtered = products;
 
-      setFilteredProducts(filtered);
+    if (categoryId) {
+      if (categoryId === "Toate") {
+        filtered = products;
+      } else {
+        filtered = products.filter(
+          (product) => product.categoryId === categoryId
+        );
+      }
     } else {
-      setFilteredProducts(products); // Reset to original products if no filter
+      const query = searchParams.get("q");
+      if (query) {
+        const lowerQuery = query.toLowerCase();
+        filtered = products.filter((product) => {
+          const lowerTitle = product.title.toLowerCase();
+          const matchesTitle = lowerTitle.includes(lowerQuery);
+          const matchesDimensionId = product.dimensions_with_price.some((dim) =>
+            dim.id.toLowerCase().includes(lowerQuery)
+          );
+          return matchesTitle || matchesDimensionId;
+        });
+      }
     }
-  }, [searchParams, products]);
+
+    if (sortOption) {
+      filtered = sortProducts(filtered, sortOption);
+    }
+
+    setFilteredProducts(filtered);
+  }, [searchParams, products, categoryId, sortOption]);
 
   const handleCategoryChange = (category: string | null) => {
     if (category === "Toate" || !category) {
@@ -67,13 +83,24 @@ function useStoreModule() {
       );
       setFilteredProducts(filtered);
     }
+    if (sortOption) {
+      setFilteredProducts((prevFilteredProducts) =>
+        sortProducts(prevFilteredProducts, sortOption)
+      );
+    }
   };
 
   const handleSortChange = (option: string) => {
-    let sortedProducts = [...filteredProducts];
-    if (option === "Populare") {
-      sortedProducts.sort(() => Math.random() - 0.5);
-    } else if (option === "Preț: De la mic la mare") {
+    setSortOption(option);
+    setFilteredProducts((prevFilteredProducts) =>
+      sortProducts(prevFilteredProducts, option)
+    );
+  };
+
+  const sortProducts = (productsToSort: Product[], option: string) => {
+    let sortedProducts = [...productsToSort];
+
+    if (option === "Preț: De la mic la mare") {
       sortedProducts.sort((a, b) => {
         return (
           Number(a.dimensions_with_price[0].price) -
@@ -88,7 +115,7 @@ function useStoreModule() {
         );
       });
     }
-    setFilteredProducts(sortedProducts);
+    return sortedProducts;
   };
 
   return {

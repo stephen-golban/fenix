@@ -19,24 +19,24 @@ const CategoriesModule: React.FC = () => {
 
   return (
     <RootLayout loading={loading}>
-      {isEmpty(products) ? (
-        <div className="flex items-center justify-center min-h-[70vh] w-full">
-          Nu a fost gasit niciun produs :(
-        </div>
-      ) : (
-        <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 py-4 text-font md:flex-row">
-          <Filter
-            categories={categories}
-            onCategoryChange={handleCategoryChange}
-          />
+      <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 py-4 text-font md:flex-row">
+        <Filter
+          categories={categories}
+          onCategoryChange={handleCategoryChange}
+        />
+        {isEmpty(products) ? (
+          <div className="flex items-center justify-center min-h-[70vh] w-full">
+            Nu a fost gasit niciun produs :(
+          </div>
+        ) : (
           <div className="order-last min-h-screen w-full md:order-none">
             <div className="grid grid-flow-row gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <ProductGrid data={products} />
             </div>
           </div>
-          <Sort onSortChange={handleSortChange} />
-        </div>
-      )}
+        )}
+        <Sort onSortChange={handleSortChange} />
+      </div>
     </RootLayout>
   );
 };
