@@ -1,10 +1,10 @@
-import { LoggedInLayout } from "../../layouts";
-import { useAuthStore } from "../../store";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { LoggedInLayout } from '../../layouts';
+import { useAuthStore } from '../../store';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 function ProtectedRoute() {
   const location = useLocation();
-  const isAuthenticated = useAuthStore((state) => state.token);
+  const isAuthenticated = useAuthStore(state => state.token);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;

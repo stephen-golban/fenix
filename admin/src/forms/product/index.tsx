@@ -36,7 +36,7 @@ const ProductForm: React.FC<IProductForm> = props => {
     onSubmit(data);
 
     if (isCreate) {
-      reset();
+      // reset();
     }
   };
 
@@ -57,6 +57,13 @@ const ProductForm: React.FC<IProductForm> = props => {
           control={control}
           render={({ field }) => <Input.TextArea {...field} placeholder="Introduceți descrierea" />}
           rules={{ required: 'Descrierea este necesară' }}
+        />
+      </Form.Item>
+      <Form.Item label="Tip material" validateStatus={errors.description ? 'error' : ''} help={errors.description?.message}>
+        <Controller
+          name="material_type"
+          control={control}
+          render={({ field }) => <Input {...field} placeholder="Introduceți tipul de material" />}
         />
       </Form.Item>
 

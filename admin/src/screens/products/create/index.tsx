@@ -7,10 +7,10 @@ import { ProductFormDefaultFieldValues } from '../../../typings/product';
 const CreateProductScreen = () => {
   const [call, { loading }] = useAxiosRequest('/product', 'post');
 
-  async function onSubmit(args: ProductFormDefaultFieldValues) {
+  async function onSubmit({ photos, ...args }: ProductFormDefaultFieldValues) {
     const data = {
       ...args,
-      photos: args.photos.map(item => item.url),
+      photos: photos.map(item => item.url),
     };
     return await call(data, () => notification.success({ message: 'Produs adaugat cu success!' }));
   }

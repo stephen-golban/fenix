@@ -1,11 +1,6 @@
-import { LoggedOutLayout } from "../layouts";
-import {
-  Navigate,
-  Route,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from "react-router-dom";
-import { ProtectedRoute } from "./protected-route";
+import { LoggedOutLayout } from '../layouts';
+import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { ProtectedRoute } from './protected-route';
 import {
   LoginScreen,
   CategoriesScreen,
@@ -15,7 +10,7 @@ import {
   EditProductScreen,
   ViewProductScreen,
   ProductsScreen,
-} from "../screens";
+} from '../screens';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,8 +35,8 @@ const router = createBrowserRouter(
         <Route path="/products/edit/:id" element={<EditProductScreen />} />
         <Route path="/products/view/:id" element={<ViewProductScreen />} />
       </Route>
-    </>
-  )
+    </>,
+  ),
 );
 
 export default router;

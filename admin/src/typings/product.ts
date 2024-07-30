@@ -5,6 +5,7 @@ export type Product = {
   id: string;
   title: string;
   description: string;
+  material_type: string;
   availableOnDemand: boolean;
   provider: string;
   photos: Photo[];
@@ -22,16 +23,23 @@ export type Photo = {
 
 export type DimensionsWithPrice = {
   id: string;
-  width: number;
   length: number;
+  extension: number;
+  width: number;
+  depth: number;
   height: number;
+  diameter: number;
+  thickness: number;
+  sleeping_space: string; // Format: 'width x length'
+  external_width: number;
+  internal_width: number;
   price: number;
   productId: string;
 };
 
 export type ProductFormDefaultFieldValues = Pick<
   Product,
-  'title' | 'availableOnDemand' | 'description' | 'provider' | 'categoryId' | 'colors'
+  'title' | 'availableOnDemand' | 'description' | 'provider' | 'categoryId' | 'colors' | 'material_type'
 > & {
   dimensions_with_price: Omit<DimensionsWithPrice, 'id' | 'productId'>[];
   photos: UploadFile[];

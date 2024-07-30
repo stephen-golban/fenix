@@ -20,6 +20,7 @@ function useProductForm() {
       provider: input.provider || '',
       categoryId: input.categoryId || '',
       description: input.description || '',
+      material_type: input.material_type || '',
       availableOnDemand: input.availableOnDemand || false,
       dimensions_with_price: input.dimensions_with_price || [],
       photos: input.photos?.map(item => ({ uid: item.id, url: item.url, name: item.id })) || [],

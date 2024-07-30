@@ -1,6 +1,5 @@
 import { Image, Space, TableColumnsType, Tag } from 'antd';
 import type { Product } from '../../../typings/product';
-import { PRODUCTS_MOCK } from '../../../mocks/products';
 
 const createTableColumns = (render: (record: Product) => JSX.Element): TableColumnsType<Product> => {
   return [
@@ -71,6 +70,4 @@ const createTableColumns = (render: (record: Product) => JSX.Element): TableColu
   ];
 };
 
-const createTableData = (): Product[] => PRODUCTS_MOCK;
-
-export { createTableColumns, createTableData };
+export { createTableColumns };
