@@ -37,3 +37,13 @@
   outline: 0;
   background-color: #ffffff; /* var(--ant-input-active-bg) */
 }
+
+.input:disabled,
+.input[disabled] {
+  color: rgba(0, 0, 0, 0.25); /* var(--ant-color-text-disabled) */
+  background-color: rgba(0, 0, 0, 0.04); /* var(--ant-color-bg-container-disabled) */
+  border-color: #d9d9d9; /* var(--ant-color-border) */
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+}

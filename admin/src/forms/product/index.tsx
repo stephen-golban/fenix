@@ -36,7 +36,7 @@ const ProductForm: React.FC<IProductForm> = props => {
     onSubmit(data);
 
     if (isCreate) {
-      // reset();
+      reset();
     }
   };
 
