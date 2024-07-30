@@ -10,10 +10,10 @@ const Banner: React.FC = () => {
       <div className="flex flex-col md:flex-row items-center gap-x-4 mb-4 md:mb-0">
         <img src={freeDelivery} alt="Livrare Gratuită" className="h-10 w-10" />
         <div className="text-center md:text-left">
-          <h3 className="text-lg font-semibold text-primary">
-            Livrare Gratuită
-          </h3>
-          <p className="text-gray-600">La comenzile peste 2500 MDL.</p>
+          <h3 className="text-lg font-semibold text-primary">Livrare Rapidă</h3>
+          <p className="text-gray-600">
+            Livram clientului cat mai repede posibil.
+          </p>
         </div>
       </div>
       <div className="flex flex-col md:flex-row items-center gap-x-4 mb-4 md:mb-0">

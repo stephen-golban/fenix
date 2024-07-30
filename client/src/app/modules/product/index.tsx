@@ -40,7 +40,6 @@ const ProductModule = () => {
 
   const loading = loadingProducts || loadingProduct;
 
-  console.log(products);
   return (
     <RootLayout loading={loading || !product}>
       <div className="container mx-auto">

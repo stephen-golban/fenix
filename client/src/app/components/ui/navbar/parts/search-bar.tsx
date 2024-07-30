@@ -33,7 +33,7 @@ const SearchBar = () => {
   return (
     <div className="relative w-full md:min-w-[500px]">
       <div className="absolute left-0 top-0 ml-3 flex h-full items-center">
-        <MagnifyingGlassIcon className="h-5" color="#054C73" />
+        <MagnifyingGlassIcon className="h-5" color="black" />
       </div>
       <input
         key={initialQuery}
@@ -43,7 +43,7 @@ const SearchBar = () => {
         autoComplete="off"
         value={searchQuery}
         onChange={handleInputChange}
-        className="w-full rounded-xs border-primary/10 border bg-white pl-10 pr-8 py-3 text-sm text-primary placeholder:text-primary"
+        className="w-full rounded-xs border-black/10 border bg-white pl-10 pr-8 py-3 text-sm outline-none"
       />
     </div>
   );

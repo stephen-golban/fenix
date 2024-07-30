@@ -33,8 +33,9 @@ const ProductSection: React.FC<{ data: Product[] }> = ({ data }) => {
             Cateva dintre produsele noastre
           </h3>
           <p className="text-lg sm:text-xl mt-4">
-            Pellentesque etiam blandit in tincidunt at donec. Eget ipsum
-            dignissim placerat nisi, adipiscing mauris non purus parturient.
+            Fiecare piesă este creată cu grijă pentru detalii și un stil unic,
+            aducând un plus de rafinament oricărui spațiu. Sunați-ne acum și
+            transformați-vă casa într-un loc deosebit.
           </p>
         </div>
         <div className="mt-12 px-5">

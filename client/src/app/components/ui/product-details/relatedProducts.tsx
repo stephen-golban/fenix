@@ -20,7 +20,7 @@ const RelatedProduct: React.FC<RelatedProductProps> = ({
   return (
     <li className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
       <Link className="relative h-full w-full" to={`/product/${productId}`}>
-        <div className="related-products group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 relative border-neutral-200">
+        <div className="related-products group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-primary relative border-neutral-200">
           <img
             alt={title}
             loading="lazy"

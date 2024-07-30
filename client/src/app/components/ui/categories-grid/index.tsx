@@ -21,16 +21,16 @@ const CategoriesGrid: React.FC<ICategoriesGrid> = ({ data }) => {
         Inspirație și sortiment diversificat pentru confortul casei tale!
       </p>
       <div className="flex justify-center mt-4">
-        <a
-          href="https://confort.md/ro/catalog-produse"
-          className="flex font-semibold self-center opacity-80 uppercase hover:opacity-100 transition-opacity items-center"
+        <Link
+          to="/categories"
+          className="flex font-semibold self-center opacity-80 uppercase hover:opacity-100 transition-opacity items-center hover:text-primary/70"
         >
           Catalogul de produse
           <ChevronRightIcon
             className="w-4 h-4 font-bold ml-2"
             strokeWidth={2}
           />
-        </a>
+        </Link>
       </div>
       <ul className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 px-4 sm:px-0">
         {data.map((category) => (

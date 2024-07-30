@@ -42,9 +42,16 @@ export type Photo = {
 
 export type DimensionsWithPrice = {
   id: string;
-  width: number;
   length: number;
+  extension: number;
+  width: number;
+  depth: number;
   height: number;
+  diameter: number;
+  thickness: number;
+  sleeping_space: string; // Format: 'width x length'
+  external_width: number;
+  internal_width: number;
   price: number;
   productId: string;
 };

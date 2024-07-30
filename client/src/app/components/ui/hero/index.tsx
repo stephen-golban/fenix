@@ -10,8 +10,8 @@ const Hero: React.FC = () => {
           Descoperiți Noua Noastră Colecție
         </h1>
         <p className="text-sm md:text-base text-font my-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-          tellus, luctus nec ullamcorper mattis.
+          Descoperiți noua noastră colecție, inspirată de cele mai recente
+          tendințe în design interior.
         </p>
         <button className="mt-4 bg-primary text-white py-3 px-10 rounded-full shadow-lg uppercase">
           Vezi Acum

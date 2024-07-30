@@ -106,8 +106,8 @@ const ProductImage: React.FC<IProductImage> = ({ data }) => {
             <a aria-label="Enlarge product image" className="h-full w-full">
               <div
                 className={`group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border ${
-                  currentImageIndex === index ? "border-blue-600" : "bg-white"
-                } hover:border-blue-600 border-2`}
+                  currentImageIndex === index ? "border-primary" : "bg-white"
+                } hover:border-primary border-2`}
               >
                 <img
                   alt={`Product Image ${item.id}`}
