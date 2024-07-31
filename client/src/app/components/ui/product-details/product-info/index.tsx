@@ -26,6 +26,10 @@ const ProductInfo: React.FC<Product> = (productDetails) => {
               </div>
             </dt>
             <dt className="flex flex-wrap gap-3 mb-4 text-sm tracking-wide items-center">
+              <b className="uppercase">Tip material:</b>
+              <p className=" font-semibold">{productDetails.material_type}</p>
+            </dt>
+            <dt className="flex flex-wrap gap-3 mb-4 text-sm tracking-wide items-center">
               <b className="uppercase">Disponibilitate:</b>
               {productDetails.availableOnDemand ? (
                 <p className="text-green-800 font-semibold">Disponibil</p>
@@ -35,10 +39,11 @@ const ProductInfo: React.FC<Product> = (productDetails) => {
             </dt>
             <dt className="mb-4 text-sm tracking-wide">
               <b className="uppercase">Categorie:</b>{" "}
-              <Link to={`/categories/${productDetails.categoryId}`}>
-                <a className="font-semibold ml-2 underline hover:text-primary">
-                  {productDetails.category.title}
-                </a>
+              <Link
+                to={`/categories/${productDetails.categoryId}`}
+                className="font-semibold ml-2 underline hover:text-primary"
+              >
+                {productDetails.category.title}
               </Link>
             </dt>
           </dl>

@@ -12,6 +12,14 @@ body {
   outline: orange;
 }
 
+.ql-toolbar {
+  display: none;
+}
+.ql-container {
+  width: 100%;
+  border: 0 !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

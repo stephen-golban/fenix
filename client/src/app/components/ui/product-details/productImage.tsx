@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from "react";
+import { Image } from "antd";
 import { Product } from "../../../typings";
 
 interface IProductImage {
@@ -24,25 +25,15 @@ const ProductImage: React.FC<IProductImage> = ({ data }) => {
 
   return (
     <div className="h-full w-full basis-full lg:basis-1/3 px-2 md:px-0">
-      <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
+      <div className="relative aspect-video h-full max-h-[550px] w-full overflow-hidden">
         {data.length > 0 && (
-          <img
+          <Image
             alt={`Product Image ${data[currentImageIndex].id}`}
             decoding="async"
             data-nimg="fill"
-            className="h-full w-full object-cover"
-            style={{
-              position: "absolute",
-              height: "100%",
-              width: "100%",
-              left: 0,
-              top: 0,
-              right: 0,
-              bottom: 0,
-              color: "transparent",
-            }}
-            sizes="(min-width: 1024px) 66vw, 100vw"
             src={data[currentImageIndex].url}
+            className="h-full w-full object-cover"
+            sizes="(min-width: 1024px) 66vw, 100vw"
           />
         )}
         <div className="absolute bottom-2 flex w-full justify-center">
@@ -109,7 +100,7 @@ const ProductImage: React.FC<IProductImage> = ({ data }) => {
                   currentImageIndex === index ? "border-primary" : "bg-white"
                 } hover:border-primary border-2`}
               >
-                <img
+                <Image
                   alt={`Product Image ${item.id}`}
                   loading="lazy"
                   width="80"

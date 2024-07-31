@@ -7,6 +7,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { ColorsField, PhotosField, CategoriesField, DimensionsField } from './parts';
 
 import type { Product, ProductFormDefaultFieldValues } from '../../typings/product';
+import RichTextarea from './parts/rich-textarea';
 
 interface IProductForm {
   loading?: boolean;
@@ -55,7 +56,7 @@ const ProductForm: React.FC<IProductForm> = props => {
         <Controller
           name="description"
           control={control}
-          render={({ field }) => <Input.TextArea {...field} placeholder="Introduceți descrierea" />}
+          render={({ field }) => <RichTextarea {...field} placeholder="Introduceți descrierea" />}
           rules={{ required: 'Descrierea este necesară' }}
         />
       </Form.Item>

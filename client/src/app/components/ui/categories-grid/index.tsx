@@ -38,7 +38,7 @@ const CategoriesGrid: React.FC<ICategoriesGrid> = ({ data }) => {
             <Link to={`/categories/${category.id}`}>
               <div className="block rounded-lg">
                 <img
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full h-52 object-cover rounded-lg"
                   alt={category.title}
                   title={category.title}
                   src={category.image_url}

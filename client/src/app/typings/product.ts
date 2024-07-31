@@ -27,6 +27,7 @@ export type Product = {
   description: string;
   availableOnDemand: boolean;
   provider: string;
+  material_type?: string;
   photos: Photo[];
   dimensions_with_price: DimensionsWithPrice[];
   categoryId: string;
