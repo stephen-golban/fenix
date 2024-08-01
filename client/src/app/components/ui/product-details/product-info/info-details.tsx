@@ -12,9 +12,11 @@ const InfoDetails: React.FC<{ productDetails: Product }> = ({
     <h1 className="text-2xl md:text-3xl lg:text-5xl font-medium">
       {productDetails.title}
     </h1>
-    <dt className="flex flex-wrap gap-3 text-sm tracking-wide items-center">
+    <dt className="flex flex-wrap gap-3 text-sm tracking-wide items-center mt-2">
       <b className="uppercase">Cod produs:</b>
-      <p className="text-red-700 text-xs font-bold">{productDetails.id}</p>
+      <p className="text-red-700 text-xs font-bold">
+        {productDetails.id.split("-")[0]}
+      </p>
     </dt>
     <div className="rounded-full p-2 pl-0 text-sm mt-6">
       <ReactQuill
