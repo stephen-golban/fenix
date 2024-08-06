@@ -1,12 +1,19 @@
 import { Image, Space, TableColumnsType, Tag } from 'antd';
 import type { Product } from '../../../typings/product';
+import { isEmpty } from 'lodash';
 
 const createTableColumns = (render: (record: Product) => JSX.Element): TableColumnsType<Product> => {
   return [
     {
       key: 'id',
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: 'productCode',
+      sorter: (a: Product, b: Product) => {
+        const numA = parseInt(a.productCode, 10);
+        const numB = parseInt(b.productCode, 10);
+        return numA - numB;
+      },
+      defaultSortOrder: 'ascend',
     },
     {
       key: 'title',
@@ -23,13 +30,12 @@ const createTableColumns = (render: (record: Product) => JSX.Element): TableColu
       title: 'Imagini',
       dataIndex: 'photos',
       render: (_, record) => {
-        return (
-          <Space>
-            {record.photos.map((item, idx) => {
-              return <Image key={item.id + item.url + idx} width={50} height={50} src={item.url} style={{ borderRadius: 5 }} />;
-            })}
-          </Space>
-        );
+        const hasImage = !isEmpty(record.photos);
+
+        const thumbnail = record.photos[0]?.url || '';
+        const NoImg = require('../../../assets/no-img-available.jpeg');
+
+        return <Space>{<Image width={50} height={50} src={hasImage ? thumbnail : NoImg} style={{ borderRadius: 5 }} />}</Space>;
       },
     },
     {

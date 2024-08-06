@@ -1,15 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { Link } from "react-router-dom";
-import { Product } from "../../../typings";
+
 import { useMediaQuery } from "react-responsive";
+
+import { Link } from "react-router-dom";
+import { OptimizedImage } from "../../reusable";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
+import type { ProductsApiResponse } from "../../../typings";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-const ProductSection: React.FC<{ data: Product[] }> = ({ data }) => {
-  const [preparedData, setPreparedData] = React.useState(data.slice(0, 12));
+const ProductSection: React.FC<ProductsApiResponse> = ({ data }) => {
+  const [preparedData, setPreparedData] = React.useState(data.slice(0, 8));
 
   const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
 
@@ -17,7 +21,7 @@ const ProductSection: React.FC<{ data: Product[] }> = ({ data }) => {
     if (isMobile) {
       setPreparedData(data.slice(0, 6));
     } else {
-      setPreparedData(data.slice(0, 12));
+      setPreparedData(data.slice(0, 8));
     }
   }, [isMobile]);
 
@@ -50,10 +54,10 @@ const ProductSection: React.FC<{ data: Product[] }> = ({ data }) => {
                   className="relative group"
                   data-aos="zoom-in-up"
                 >
-                  <img
+                  <OptimizedImage
                     alt={product.title}
-                    className="w-full block rounded-md"
                     src={product.photos[0].url}
+                    className="w-full block rounded-md"
                   />
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white w-full h-full absolute top-0 left-0 bg-black/30 flex items-center justify-center flex-col rounded-md">
                     <button className="bg-primary mt-6 text-white text-base font-bold py-3 px-7 rounded-full">

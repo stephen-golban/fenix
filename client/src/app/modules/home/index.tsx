@@ -8,16 +8,15 @@ import {
 } from "../../components/ui";
 import useAxiosRequest from "../../api/hooks";
 import { useMount } from "react-use";
-import { Category, Product } from "../../typings";
+import { Category, ProductsApiResponse } from "../../typings";
 import { RootLayout } from "../../components/layout";
 
 const HomeModule: React.FC = () => {
-  const [products, setProducts] = React.useState<Product[]>([]);
   const [categories, setCategories] = React.useState<Category[]>([]);
+  const [products, setProducts] = React.useState<ProductsApiResponse>();
 
-  const [callProducts, { loading: loadingProducts }] = useAxiosRequest<
-    Product[]
-  >("/product", "get");
+  const [callProducts, { loading: loadingProducts }] =
+    useAxiosRequest<ProductsApiResponse>("/product", "get");
   const [getCategories, { loading: loadingCategories }] = useAxiosRequest<
     Category[]
   >("/categories", "get");
@@ -47,7 +46,7 @@ const HomeModule: React.FC = () => {
       <Banner />
       <CategoriesGrid data={categories} />
       <FeaturedSection />
-      <ProductSection data={products} />
+      {products && <ProductSection {...products} />}
     </RootLayout>
   );
 };

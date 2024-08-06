@@ -6,6 +6,7 @@ export type Product = {
   title: string;
   description: string;
   material_type: string;
+  productCode: string;
   availableOnDemand: boolean;
   provider: string;
   photos: Photo[];

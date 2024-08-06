@@ -44,7 +44,7 @@ const ProductsScreen: React.FC = () => {
   const debounceSearch = React.useCallback(
     debounce((value: string) => {
       if (value) {
-        const filteredData = allProducts.filter(entry => entry.id.includes(value) || entry.title.includes(value));
+        const filteredData = allProducts.filter(entry => entry.productCode.includes(value) || entry.title.includes(value));
         setProducts(filteredData);
       } else {
         setProducts(allProducts);
@@ -73,7 +73,7 @@ const ProductsScreen: React.FC = () => {
           placeholder="Cauta produse dupa cod sau dupa titlu"
         />
       </div>
-      <Table columns={columns} loading={loading} dataSource={products} style={{ marginTop: 20 }} />
+      <Table columns={columns} loading={loading} dataSource={products} style={{ marginTop: 20 }} rowKey="id" />
     </div>
   );
 };

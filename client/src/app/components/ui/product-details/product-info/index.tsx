@@ -1,20 +1,31 @@
 import React from "react";
 
 import InfoTable from "./info-table";
-import InfoDetails from "./info-details";
 
 import type { Product } from "../../../../typings";
 import { Link } from "react-router-dom";
+import ReactQuill from "react-quill";
 
 const ProductInfo: React.FC<Product> = (productDetails) => {
   return (
     <div className="basis-full lg:basis-3/6 text-font p-4 lg:p-8">
       {productDetails && (
         <>
-          <InfoDetails productDetails={productDetails} />
+          <div className="mb-6 flex flex-col border-b pb-6">
+            <h1 className="text-2xl md:text-3xl lg:text-5xl font-medium">
+              {productDetails.title}
+            </h1>
+            <dt className="flex flex-wrap gap-3 text-sm tracking-wide items-center mt-2">
+              <b className="uppercase">Cod produs:</b>
+              <p className="text-red-700 text-xs font-bold">
+                {productDetails.id.split("-")[0]}
+              </p>
+            </dt>
+          </div>
+
           <dl className="mb-6">
             <dt className="mb-4 text-sm tracking-wide">
-              <b className="uppercase">Disponibil in urmatoarele culori:</b>
+              <b className="uppercase">Culori:</b>
               <div className="flex flex-row items-center mt-2 gap-2">
                 {productDetails.colors.map((item) => (
                   <div
@@ -25,10 +36,7 @@ const ProductInfo: React.FC<Product> = (productDetails) => {
                 ))}
               </div>
             </dt>
-            <dt className="flex flex-wrap gap-3 mb-4 text-sm tracking-wide items-center">
-              <b className="uppercase">Tip material:</b>
-              <p className=" font-semibold">{productDetails.material_type}</p>
-            </dt>
+
             <dt className="flex flex-wrap gap-3 mb-4 text-sm tracking-wide items-center">
               <b className="uppercase">Disponibilitate:</b>
               {productDetails.availableOnDemand ? (
@@ -37,6 +45,7 @@ const ProductInfo: React.FC<Product> = (productDetails) => {
                 <p className="text-red-800 font-semibold">Nu este disponibil</p>
               )}
             </dt>
+
             <dt className="mb-4 text-sm tracking-wide">
               <b className="uppercase">Categorie:</b>{" "}
               <Link
@@ -46,8 +55,22 @@ const ProductInfo: React.FC<Product> = (productDetails) => {
                 {productDetails.category.title}
               </Link>
             </dt>
+
+            <dt className="flex flex-wrap gap-3 mb-4 text-sm tracking-wide items-center">
+              <b className="uppercase">Tip material:</b>
+              <p className=" font-semibold">{productDetails.material_type}</p>
+            </dt>
+            <InfoTable productDetails={productDetails} />
+
+            <div className="rounded-full p-2 pl-0 text-sm mt-6">
+              <ReactQuill
+                style={{ width: "100%" }}
+                readOnly
+                theme="snow"
+                value={productDetails.description}
+              />
+            </div>
           </dl>
-          <InfoTable productDetails={productDetails} />
         </>
       )}
     </div>

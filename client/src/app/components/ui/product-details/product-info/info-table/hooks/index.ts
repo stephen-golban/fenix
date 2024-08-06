@@ -1,7 +1,6 @@
 import { useMemo } from "react";
-
 import type { Product } from "../../../../../../typings";
-import { isEmpty, isNaN } from "lodash";
+import { isEmpty } from "lodash";
 
 const formatPriceToMDL = (price: number) => {
   return new Intl.NumberFormat("ro-MD", {
@@ -45,7 +44,8 @@ export const useProductOptions = (productDetails: Product) => {
             sleeping_space,
             price,
           })
-        ) || [],
+        )
+        .sort((a, b) => a.price - b.price) || [],
     [productDetails]
   );
 

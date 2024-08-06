@@ -21,12 +21,21 @@ export type ProductVariant = {
   price: Money;
 };
 
+export type ProductsApiResponse = {
+  count: number;
+  limit: number;
+  page: number;
+  totalPages: number;
+  data: Product[];
+};
+
 export type Product = {
   id: string;
   title: string;
   description: string;
   availableOnDemand: boolean;
   provider: string;
+  productCode: string;
   material_type?: string;
   photos: Photo[];
   dimensions_with_price: DimensionsWithPrice[];

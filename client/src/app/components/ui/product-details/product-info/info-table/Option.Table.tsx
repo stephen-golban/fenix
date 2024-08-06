@@ -16,7 +16,7 @@ const OptionTable: React.FC<{
   getAvailableColumns: (option: any) => any;
   formatPriceToMDL: (price: number) => string;
 }> = ({ option, index, getAvailableColumns, formatPriceToMDL }) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(index === 0);
   const [unit, setUnit] = useState<string>("mm");
 
   const availableColumns = getAvailableColumns(option);
