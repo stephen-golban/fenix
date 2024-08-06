@@ -1,6 +1,14 @@
 import { UploadFile } from 'antd';
 import { Category } from './categories';
 
+export type ProductsApiResponse = {
+  count: number;
+  limit: number;
+  page: number;
+  totalPages: number;
+  data: Product[];
+};
+
 export type Product = {
   id: string;
   title: string;

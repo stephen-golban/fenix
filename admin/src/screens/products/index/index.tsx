@@ -9,25 +9,38 @@ import { PlusOutlined } from '@ant-design/icons';
 import { debounce } from 'lodash';
 
 import type { TableProps } from 'antd';
-import type { Product } from '../../../typings/product';
+import type { Product, ProductsApiResponse } from '../../../typings/product';
 import { useMount } from 'react-use';
 
 const ProductsScreen: React.FC = () => {
   const navigate = useNavigate();
   const [query, setQuery] = React.useState('');
-  const [products, setProducts] = React.useState<Array<Product>>([]);
-  const [allProducts, setAllProducts] = React.useState<Array<Product>>([]);
+  const [products, setProducts] = React.useState<Product[]>([]);
+  const [allProducts, setAllProducts] = React.useState<Product[]>([]);
+  const [totalProducts, setTotalProducts] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [pageSize] = React.useState(10); // Fixed page size
 
-  const [call, { loading }] = useAxiosRequest<Array<Product>>('/product', 'get');
+  const [call, { loading }] = useAxiosRequest<ProductsApiResponse>('/product', 'get');
 
-  const refetch = async () => {
-    await call(undefined, res => {
-      setProducts(res);
-      setAllProducts(res);
-    });
+  const fetchProducts = async (page: number, limit: number) => {
+    try {
+      const response = await call(undefined, undefined, { additionalUrl: `?page=${page}&limit=${limit}` });
+      setProducts(response?.data || []);
+      setAllProducts(response?.data || []);
+      setTotalProducts((response?.totalPages || 0) * limit);
+    } catch (error) {
+      console.error('Failed to load products:', error);
+    }
   };
 
-  useMount(refetch);
+  const refetch = () => {
+    fetchProducts(currentPage, pageSize);
+  };
+
+  useMount(() => {
+    fetchProducts(currentPage, pageSize);
+  });
 
   const handleAdd = () => {
     navigate('/products/create');
@@ -59,6 +72,11 @@ const ProductsScreen: React.FC = () => {
     };
   }, [debounceSearch]);
 
+  const handleTableChange = (pagination: any) => {
+    setCurrentPage(pagination.current);
+    fetchProducts(pagination.current, pageSize);
+  };
+
   return (
     <div>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', columnGap: 20 }}>
@@ -73,7 +91,20 @@ const ProductsScreen: React.FC = () => {
           placeholder="Cauta produse dupa cod sau dupa titlu"
         />
       </div>
-      <Table columns={columns} loading={loading} dataSource={products} style={{ marginTop: 20 }} rowKey="id" />
+      <Table
+        pagination={{
+          current: currentPage,
+          pageSize: pageSize,
+          total: totalProducts,
+          showSizeChanger: false, // Size changer removed
+        }}
+        columns={columns}
+        loading={loading}
+        dataSource={products}
+        onChange={handleTableChange}
+        style={{ marginTop: 20 }}
+        rowKey="id"
+      />
     </div>
   );
 };

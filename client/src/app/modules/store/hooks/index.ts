@@ -25,8 +25,8 @@ function useStoreModule() {
     async (pageNumber: number) => {
       setLoading(true);
       try {
-        const response = await callProducts({
-          params: { page: pageNumber, limit: 20 },
+        const response = await callProducts(undefined, undefined, {
+          additionalUrl: `?page=${pageNumber}&limit=${16}`,
         });
         if (response) {
           const newProducts = response.data;
@@ -50,8 +50,8 @@ function useStoreModule() {
   const fetchMoreProducts = useCallback(async () => {
     setLoadingMore(true);
     try {
-      const response = await callProducts({
-        params: { page: page + 1, limit: 20 },
+      const response = await callProducts(undefined, undefined, {
+        additionalUrl: `?page=${page + 1}&limit=${16}`,
       });
       if (response) {
         const newProducts = response.data;
