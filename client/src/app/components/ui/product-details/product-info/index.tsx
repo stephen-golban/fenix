@@ -18,7 +18,7 @@ const ProductInfo: React.FC<Product> = (productDetails) => {
             <dt className="flex flex-wrap gap-3 text-sm tracking-wide items-center mt-2">
               <b className="uppercase">Cod produs:</b>
               <p className="text-red-700 text-xs font-bold">
-                {productDetails.id.split("-")[0]}
+                #{productDetails.productCode}
               </p>
             </dt>
           </div>

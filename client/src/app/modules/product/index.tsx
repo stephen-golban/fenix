@@ -4,41 +4,25 @@ import { useParams } from "react-router-dom";
 import useAxiosRequest from "../../api/hooks";
 import { Product } from "../../typings";
 import { useMount } from "react-use";
-import { ProductImage, ProductInfo, ProductRelated } from "../../components/ui";
-import { isEmpty } from "lodash";
+import { ProductImage, ProductInfo } from "../../components/ui";
 
 const ProductModule = () => {
   const { id } = useParams<{ id: string }>();
 
   const [product, setProduct] = React.useState<Product>();
-  const [products, setProducts] = React.useState<Product[]>([]);
 
-  const [call, { loading: loadingProduct }] = useAxiosRequest<Product>(
-    `/product/${id}`,
-    "get"
-  );
-  const [callProducts, { loading: loadingProducts }] = useAxiosRequest<
-    Product[]
-  >("/product", "get");
+  const [call, { loading }] = useAxiosRequest<Product>(`/product/${id}`, "get");
 
   useMount(async () => {
     try {
-      const [productResponse, productsResponse] = await Promise.all([
-        call(),
-        callProducts(),
-      ]);
+      const productResponse = await call();
       if (productResponse) {
         setProduct(productResponse);
-      }
-      if (productsResponse) {
-        setProducts(productsResponse);
       }
     } catch (error) {
       console.error("Failed to load products or product:", error);
     }
   });
-
-  const loading = loadingProducts || loadingProduct;
 
   return (
     <RootLayout loading={loading || !product}>
@@ -77,12 +61,6 @@ const ProductModule = () => {
             COD PRODUS
           </i>
         </p>
-        {!isEmpty(products) && (
-          <ProductRelated
-            products={products}
-            categoryId={product?.categoryId || ""}
-          />
-        )}
       </div>
     </RootLayout>
   );
