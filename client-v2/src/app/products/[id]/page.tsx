@@ -1,17 +1,7 @@
 import { ImageGallery, ProductInfo } from "@/components";
-import {
-  Alert,
-  AlertDescription,
-  Button,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui";
+import { Alert, AlertDescription } from "@/components/ui";
 import { client } from "@/lib";
-import { InfoIcon, Star, Truck } from "lucide-react";
-import { PortableText } from "next-sanity";
+import { InfoIcon } from "lucide-react";
 
 async function getData(id: string) {
   const query = `*[_type == "product" && _id == "${id}"][0] {

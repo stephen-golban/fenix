@@ -19,7 +19,6 @@ import Link from "next/link";
 import { Truck, ShieldCheck, AlertTriangle } from "lucide-react";
 
 const ProductInfo: React.FC<{ data: any }> = ({ data }) => {
-  console.log(data);
   return (
     <Card className="basis-full lg:basis-3/6 text-font p-4 lg:p-8">
       <CardHeader className="mb-6 flex flex-col border-b pb-6">
@@ -59,13 +58,7 @@ const ProductInfo: React.FC<{ data: any }> = ({ data }) => {
           </dt>
 
           <dt className="mb-4 text-sm tracking-wide">
-            <b className="uppercase">Categorie:</b>{" "}
-            <Link
-              href={`/categories/${data.categoryId}`}
-              className="font-semibold ml-2 underline hover:text-primary"
-            >
-              {data.category.title}
-            </Link>
+            <b className="uppercase">Categorie:</b> {data.category.title}
           </dt>
 
           <dt className="flex flex-wrap gap-3 mb-4 text-sm tracking-wide items-center">
