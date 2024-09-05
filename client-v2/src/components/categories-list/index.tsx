@@ -3,10 +3,12 @@ import Link from "next/link";
 import { Card, CardContent, Alert, AlertDescription } from "@/components/ui";
 import Image from "next/image";
 import Skeleton from "@/components/skeleton";
-import { client, urlFor } from "@/lib";
+
 import DOMPurify from "isomorphic-dompurify";
 import Pagination from "@/components/pagination";
 import { InfoIcon } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const CATEGORIES_PER_PAGE = 8;
 
@@ -32,12 +34,12 @@ const CategoriesList = async ({
     image,
   }`;
 
-  const categories = await client.fetch(categoryQuery);
+  const categories = await client.fetch(categoryQuery, { revalidate: 3600 });
 
   const totalCountQuery = searchParams?.name
     ? `count(*[_type == "category" && title match "${searchParams.name}*"])`
     : `count(*[_type == "category"])`;
-  const totalCount = await client.fetch(totalCountQuery);
+  const totalCount = await client.fetch(totalCountQuery, { revalidate: 3600 });
 
   const currentPage = searchParams?.page ? parseInt(searchParams.page) : 0;
   const hasNext = (currentPage + 1) * limit < totalCount;

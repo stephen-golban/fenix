@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { client, urlFor } from "@/lib";
+
 import { groq } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +7,8 @@ import React from "react";
 
 import { Alert, AlertDescription, Button, Card, CardContent } from "../ui";
 import { InfoIcon } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const FeaturedProducts: React.FC = async () => {
   const query = groq`*[_type == "product"]{
@@ -19,7 +21,7 @@ const FeaturedProducts: React.FC = async () => {
       },
     }`;
 
-  const res = await client.fetch(query, { categoryId: "" });
+  const res = await client.fetch(query, { categoryId: "", revalidate: 3600 });
 
   if (res.length === 0) {
     return (

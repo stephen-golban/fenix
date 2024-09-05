@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { urlFor } from "@/lib";
+import { urlFor } from "@/sanity/lib/image";
 
 interface IImageGallery {
   images: any[];

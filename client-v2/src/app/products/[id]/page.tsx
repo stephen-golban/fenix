@@ -1,6 +1,6 @@
 import { ImageGallery, ProductInfo } from "@/components";
 import { Alert, AlertDescription } from "@/components/ui";
-import { client } from "@/lib";
+import { client } from "@/sanity/lib/client";
 import { InfoIcon } from "lucide-react";
 
 async function getData(id: string) {
@@ -11,11 +11,9 @@ async function getData(id: string) {
     }
   }`;
 
-  const data = await client.fetch(query);
+  const data = await client.fetch(query, { revalidate: 3600 });
   return data;
 }
-
-export const dynamic = "force-dynamic";
 
 export default async function ProductPge({
   params,

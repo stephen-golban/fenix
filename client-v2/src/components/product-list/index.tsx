@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import Pagination from "../pagination";
-import { client, urlFor } from "@/lib/sanity";
+
 import { groq } from "next-sanity";
 import { Badge, Card, CardContent, Alert, AlertDescription } from "../ui";
 import { InfoIcon } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const PRODUCT_PER_PAGE = 8;
 
@@ -78,7 +80,7 @@ const ProductList = async ({
       productCode
     } ${sortOrder} [${paginationParams.start}...${paginationParams.start + paginationParams.end}]`;
 
-  const res = await client.fetch(query, { categoryId });
+  const res = await client.fetch(query, { categoryId, revalidate: 3600 });
 
   if (res.length === 0) {
     return (
