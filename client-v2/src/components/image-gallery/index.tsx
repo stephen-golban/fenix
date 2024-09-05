@@ -24,22 +24,22 @@ const ImageGallery: React.FC<IImageGallery> = ({ images }) => {
   };
 
   return (
-    <div className="h-full w-full basis-full lg:basis-1/3 px-2 md:px-0">
-      <div className="relative aspect-video h-full max-h-[550px] w-full overflow-hidden">
+    <div className="w-full px-2 md:px-4 lg:px-0 lg:basis-1/3">
+      <div className="relative aspect-square sm:aspect-video w-full max-h-[350px] sm:max-h-[450px] lg:max-h-[550px] overflow-hidden">
         {images.length > 0 && (
           <Image
             alt={`Product Image ${currentImageIndex}`}
             src={urlFor(images[currentImageIndex]).url()}
             layout="fill"
             objectFit="contain"
-            sizes="(min-width: 1024px) 66vw, 100vw"
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           />
         )}
-        <div className="absolute bottom-2 flex w-full justify-center">
-          <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur">
+        <div className="absolute bottom-2 left-0 right-0 flex justify-center">
+          <div className="mx-auto flex h-10 sm:h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur">
             <button
               aria-label="Previous product image"
-              className="h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black flex items-center justify-center"
+              className="h-full px-4 sm:px-6 transition-all ease-in-out hover:scale-110 hover:text-black flex items-center justify-center"
               onClick={prevImage}
             >
               <svg
@@ -50,7 +50,7 @@ const ImageGallery: React.FC<IImageGallery> = ({ images }) => {
                 stroke="currentColor"
                 aria-hidden="true"
                 data-slot="icon"
-                className="h-5"
+                className="h-4 sm:h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -59,10 +59,10 @@ const ImageGallery: React.FC<IImageGallery> = ({ images }) => {
                 ></path>
               </svg>
             </button>
-            <div className="mx-1 h-6 w-px bg-neutral-500"></div>
+            <div className="mx-1 h-5 sm:h-6 w-px bg-neutral-500"></div>
             <button
               aria-label="Next product image"
-              className="h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black flex items-center justify-center"
+              className="h-full px-4 sm:px-6 transition-all ease-in-out hover:scale-110 hover:text-black flex items-center justify-center"
               onClick={nextImage}
             >
               <svg
@@ -73,7 +73,7 @@ const ImageGallery: React.FC<IImageGallery> = ({ images }) => {
                 stroke="currentColor"
                 aria-hidden="true"
                 data-slot="icon"
-                className="h-5"
+                className="h-4 sm:h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -86,14 +86,17 @@ const ImageGallery: React.FC<IImageGallery> = ({ images }) => {
         </div>
       </div>
 
-      <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
+      <ul className="my-4 sm:my-8 lg:my-12 flex items-center justify-center gap-2 overflow-x-auto py-1 lg:mb-0">
         {images.map((image, index) => (
           <li
             key={index}
-            className="h-20 w-20"
+            className="h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0"
             onClick={() => setCurrentImageIndex(index)}
           >
-            <a aria-label="Enlarge product image" className="h-full w-full">
+            <a
+              aria-label="Enlarge product image"
+              className="h-full w-full block"
+            >
               <div
                 className={`group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border ${
                   currentImageIndex === index ? "border-primary" : "bg-white"
