@@ -6,7 +6,7 @@ export const client = createClient({
   projectId: "tjz04mdk",
   dataset: "production",
   apiVersion: "2023-09-01",
-  apiHost: "https://fenix-test.sanity.studio",
+  // apiHost: "https://fenix-test.sanity.studio",
   useCdn: true,
 });
 

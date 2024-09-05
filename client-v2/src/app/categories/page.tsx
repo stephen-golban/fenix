@@ -1,6 +1,8 @@
 import React from "react";
 import { CategoriesList } from "@/components";
 
+export const dynamic = "force-dynamic";
+
 const CategoriesPage = ({ searchParams }: { searchParams: any }) => {
   return (
     <div className="container mx-auto px-4 py-8">

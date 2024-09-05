@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import { Filter, ProductList, Skeleton } from "@/components";
 
+export const dynamic = "force-dynamic";
+
 export default async function CategoryPage({
   params,
   searchParams,

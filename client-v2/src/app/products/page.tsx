@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 import { Filter, ProductList, Skeleton } from "@/components";
 
+export const dynamic = "force-dynamic";
+
 const ProductsPage = ({ searchParams }: { searchParams: any }) => {
   return (
     <div className="container mx-auto px-4 py-8">
