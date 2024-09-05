@@ -4,12 +4,6 @@ const categorySchema = {
   title: "Categorie",
   fields: [
     {
-      name: "slug",
-      type: "slug",
-      title: "Slug",
-      options: { source: "title" },
-    },
-    {
       name: "title",
       type: "string",
       title: "Titlu",
