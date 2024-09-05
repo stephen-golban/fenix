@@ -6,7 +6,7 @@ import { Footer, Navbar } from "@/components";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Fenix - Livrare în toată Moldova",
+  title: "Fenix - Livrare rapidă și de înaltă calitate",
   description:
     "Descoperiți o gamă largă de mobilier elegant și de înaltă calitate pentru casa dvs. la Fenix.",
 };
