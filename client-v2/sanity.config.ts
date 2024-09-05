@@ -4,9 +4,9 @@
  * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
  */
 
+import { defineConfig } from "sanity";
 import { visionTool } from "@sanity/vision";
 import { colorInput } from "@sanity/color-input";
-import { defineConfig, SchemaPluginOptions } from "sanity";
 import { structureTool } from "sanity/structure";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
