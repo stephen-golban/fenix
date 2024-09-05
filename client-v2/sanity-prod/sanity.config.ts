@@ -8,7 +8,7 @@ export default defineConfig({
   name: 'default',
   title: 'fenix',
 
-  projectId: 'tjz04mdk',
+  projectId: 'j613c5os',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool(), colorInput()],

@@ -2,8 +2,8 @@ import {defineCliConfig} from 'sanity/cli'
 
 export default defineCliConfig({
   api: {
-    projectId: 'tjz04mdk',
+    projectId: 'j613c5os',
     dataset: 'production',
   },
-  studioHost: 'fenix-test',
+  studioHost: 'fenix-md',
 })
