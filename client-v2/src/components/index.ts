@@ -1,0 +1,11 @@
+export { default as Hero } from "./hero";
+export { default as Navbar } from "./navbar";
+export { default as Footer } from "./footer";
+export { default as Filter } from "./filter";
+export { default as Skeleton } from "./skeleton";
+export { default as Pagination } from "./pagination";
+export { default as ProductList } from "./product-list";
+export { default as ProductInfo } from "./product-info";
+export { default as ImageGallery } from "./image-gallery";
+export { default as CategoriesList } from "./categories-list";
+export { default as FeaturedProducts } from "./featured-products";
