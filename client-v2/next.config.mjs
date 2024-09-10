@@ -7,7 +7,7 @@ const nextConfig = {
         hostname: "images.pexels.com",
       },
       {
-        // protocol: "https",
+        protocol: "https",
         hostname: "cdn.sanity.io",
       },
       {
