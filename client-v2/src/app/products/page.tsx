@@ -1,9 +1,17 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Filter, ProductList, Skeleton } from "@/components";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { productsQuery } from "@/sanity/lib/queries";
 
-export const dynamic = "force-dynamic";
+export default async function ProductsPage({
+  searchParams,
+}: {
+  searchParams: any;
+}) {
+  const data = await sanityFetch({
+    query: productsQuery(searchParams?.categoryId, 16, searchParams),
+  });
 
-const ProductsPage = ({ searchParams }: { searchParams: any }) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">
@@ -13,11 +21,9 @@ const ProductsPage = ({ searchParams }: { searchParams: any }) => {
       </h1>
       <Filter />
       {/* PRODUSE */}
-      <Suspense fallback={<Skeleton />}>
-        <ProductList searchParams={searchParams} />
-      </Suspense>
+      <React.Suspense fallback={<Skeleton />}>
+        <ProductList data={data} limit={16} searchParams={searchParams} />
+      </React.Suspense>
     </div>
   );
-};
-
-export default ProductsPage;
+}

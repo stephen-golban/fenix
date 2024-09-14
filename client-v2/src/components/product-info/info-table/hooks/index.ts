@@ -21,7 +21,7 @@ export const useProductOptions = (dimensions_with_price: any) => {
         )
         .map(
           ({
-            id,
+            _key,
             length,
             width,
             height,
@@ -32,7 +32,7 @@ export const useProductOptions = (dimensions_with_price: any) => {
             sleeping_space,
             price,
           }: any) => ({
-            id,
+            id: _key,
             length,
             width,
             height,

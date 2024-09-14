@@ -11,15 +11,18 @@ const InfoTable: React.FC<{ data: any }> = ({ data }) => {
       <h2 className="text-lg font-semibold mb-4">DIMENSIUNI DISPONIBILE:</h2>
 
       <div className="space-y-4">
-        {options.map((option: any, index: number) => (
-          <OptionTable
-            key={option.id}
-            option={option}
-            index={index}
-            getAvailableColumns={getAvailableColumns}
-            formatPriceToMDL={formatPriceToMDL}
-          />
-        ))}
+        {options.map((option: any, index: number) => {
+          // console.log(option);
+          return (
+            <OptionTable
+              key={option.id + index}
+              option={option}
+              index={index}
+              getAvailableColumns={getAvailableColumns}
+              formatPriceToMDL={formatPriceToMDL}
+            />
+          );
+        })}
       </div>
     </div>
   );

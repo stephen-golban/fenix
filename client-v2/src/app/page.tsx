@@ -1,20 +1,29 @@
-import {
-  CategoriesList,
-  FeaturedProducts,
-  Hero,
-  ProductList,
-  Skeleton,
-} from "@/components";
-
-import { Button } from "@/components/ui";
-import { ChevronRight, Sparkles } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { ChevronRight, Sparkles } from "lucide-react";
+
 import { Suspense } from "react";
+import { Button } from "@/components/ui";
+import CategoriesList from "@/components/categories-list";
+import { FeaturedProducts, Hero, Skeleton } from "@/components";
 
-export const dynamic = "force-dynamic";
+import {
+  categoriesQuery,
+  categoriesCountQuery,
+  featuredProductsQuery,
+} from "@/sanity/lib/queries";
 
-const HomePage = () => {
+export default async function Page() {
+  const [categories, totalCount, featuredProducts] = await Promise.all([
+    sanityFetch({
+      query: categoriesQuery({}, 12),
+    }),
+    sanityFetch({ query: categoriesCountQuery() }),
+    sanityFetch({ query: featuredProductsQuery }),
+  ]);
+
   return (
     <div className="w-full">
       <Hero />
@@ -29,14 +38,18 @@ const HomePage = () => {
           </p>
           <Button variant="link" asChild className="mb-8 sm:mb-12">
             <Link
-              href="/products"
+              href="/categories"
               className="flex items-center uppercase text-base sm:text-lg"
             >
-              Catalogul de produse
+              Vezi toate categoriile
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
             </Link>
           </Button>
-          <CategoriesList />
+          <CategoriesList
+            hasPagination={false}
+            categories={categories}
+            totalCount={totalCount}
+          />
         </div>
       </section>
       <section className="py-16 md:py-32 bg-cover bg-center">
@@ -50,10 +63,6 @@ const HomePage = () => {
               și stilate. Colecția noastră este concepută pentru a aduce confort
               și frumusețe în casa ta.
             </p>
-            <Button variant="default" size="lg" className="mt-4 sm:mt-6">
-              <span>MAI MULTE</span>
-              <ChevronRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-            </Button>
           </div>
           <div className="w-full md:w-1/2 flex justify-center md:justify-end">
             <div className="relative">
@@ -62,7 +71,7 @@ const HomePage = () => {
                 alt="Înfrumusețează-ți spațiul"
                 width={500}
                 height={300}
-                className="rounded-lg max-w-full h-auto shadow-2xl"
+                className="rounded-lg w-auto h-auto shadow-2xl"
               />
               <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-primary text-white p-2 sm:p-4 rounded-full shadow-lg">
                 <Sparkles className="h-4 w-4 sm:h-6 sm:w-6" />
@@ -74,11 +83,9 @@ const HomePage = () => {
 
       <div className="mt-12 sm:mt-16 md:mt-24 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <Suspense fallback={<Skeleton />}>
-          <FeaturedProducts />
+          <FeaturedProducts products={featuredProducts} />
         </Suspense>
       </div>
     </div>
   );
-};
-
-export default HomePage;
+}

@@ -1,88 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
+
+import { isEmpty } from "lodash";
+import { urlForImage } from "@/sanity/lib/utils";
+
 import Pagination from "../pagination";
-
-import { groq } from "next-sanity";
-import { Badge, Card, CardContent, Alert, AlertDescription } from "../ui";
 import { InfoIcon } from "lucide-react";
-import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
+import { Badge, Card, CardContent, Alert, AlertDescription } from "../ui";
 
-const PRODUCT_PER_PAGE = 8;
+import type { Product } from "../../../sanity.types";
 
 const ProductList = async ({
-  categoryId = "",
-  limit = PRODUCT_PER_PAGE,
+  data,
+  limit = 8,
   searchParams,
 }: {
-  categoryId?: string;
-  limit?: number;
+  data?: Product[];
   searchParams?: any;
+  limit?: number;
 }) => {
-  // Extract sort parameter from searchParams and validate it
-  const sortOrder = (() => {
-    switch (searchParams?.sort) {
-      case "asc price":
-        return "| order(dimensions_with_price[0].price asc)";
-      case "desc price":
-        return "| order(dimensions_with_price[0].price desc)";
-      case "asc lastUpdated":
-        return "| order(productCode asc)";
-      case "desc lastUpdated":
-        return "| order(productCode desc)";
-      default:
-        return ""; // No valid sort option; ignore the sort
-    }
-  })();
-
-  // Extract availability parameter from searchParams
-  const availabilityFilter = (() => {
-    switch (searchParams?.availability) {
-      case "inStock":
-        return "&& availableOnDemand == true";
-      case "outOfStock":
-        return "&& availableOnDemand == false";
-      default:
-        return ""; // No availability filter
-    }
-  })();
-
-  // Extract name filter from searchParams
-  const nameFilter = searchParams?.name
-    ? `&& title match "${searchParams.name}*"`
-    : "";
-
-  // Adjust pagination parameters
-  const paginationParams = {
-    start: searchParams?.page ? parseInt(searchParams.page) * limit : 0,
-    end: limit,
-  };
-
-  // Combine the query with sorting, availability filtering, name filtering, and pagination
-  const query = groq`*[_type == "product" ${
-    categoryId
-      ? `&& references(*[_type=="category" && _id == $categoryId]._id)`
-      : ""
-  } ${availabilityFilter} ${nameFilter}]{
-      _id,
-      title,
-      mainPhoto {
-        asset -> {
-          url
-        }
-      },
-      availableOnDemand,
-      description,
-      category -> {
-        title
-      },
-      dimensions_with_price,
-      productCode
-    } ${sortOrder} [${paginationParams.start}...${paginationParams.start + paginationParams.end}]`;
-
-  const res = await client.fetch(query, { categoryId, revalidate: 3600 });
-
-  if (res.length === 0) {
+  if (isEmpty(data) || !data) {
     return (
       <div className="flex justify-center items-center h-64">
         <Alert variant="default" className="max-w-md">
@@ -96,11 +33,17 @@ const ProductList = async ({
     );
   }
 
+  const paginationParams = {
+    end: limit,
+    start: searchParams?.page ? parseInt(searchParams.page) * limit : 0,
+  };
+
   return (
     <>
       <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {res.map((product: any) => {
-          const isTitleTooLong = product.title.length > 30;
+        {data.map((product) => {
+          const title = product.title || "";
+          const isTitleTooLong = title.length > 30;
           return (
             <Card
               key={product._id}
@@ -110,12 +53,18 @@ const ProductList = async ({
                 <Link href={`/products/${product._id}`}>
                   <div className="relative">
                     <Image
-                      className="w-full h-48 object-cover"
-                      alt={product.title}
-                      title={product.title}
-                      src={urlFor(product.mainPhoto).url()}
+                      className="object-cover"
+                      alt={title}
+                      title={title}
                       width={400}
-                      height={192}
+                      height={200}
+                      priority
+                      src={
+                        urlForImage(product.mainPhoto)
+                          ?.width(400)
+                          .height(200)
+                          .url() as string
+                      }
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-3 group-hover:bg-opacity-60 transition-opacity duration-300">
                       <Badge
@@ -134,7 +83,7 @@ const ProductList = async ({
                             {product.title}
                           </div>
                           <div className="bg-primary text-white px-2 py-1 rounded-md text-xs font-semibold whitespace-nowrap">
-                            {product.dimensions_with_price[0]?.price} MDL
+                            {product.dimensions_with_price?.[0]?.price} MDL
                           </div>
                         </div>
                         {isTitleTooLong && (
@@ -151,15 +100,13 @@ const ProductList = async ({
           );
         })}
       </div>
-      {searchParams?.name && (
-        <div className="mt-6">
-          <Pagination
-            currentPage={Math.floor(paginationParams.start / PRODUCT_PER_PAGE)}
-            hasPrev={paginationParams.start > 0}
-            hasNext={res.length === PRODUCT_PER_PAGE}
-          />
-        </div>
-      )}
+      <div className="mt-6">
+        <Pagination
+          currentPage={Math.floor(paginationParams.start / limit)}
+          hasPrev={paginationParams.start > 0}
+          hasNext={data.length === limit}
+        />
+      </div>
     </>
   );
 };

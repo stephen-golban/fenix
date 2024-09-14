@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
+import Image from "next/legacy/image";
+import { urlForImage } from "@/sanity/lib/utils";
 
 interface IImageGallery {
   images: any[];
@@ -29,8 +29,9 @@ const ImageGallery: React.FC<IImageGallery> = ({ images }) => {
         {images.length > 0 && (
           <Image
             alt={`Product Image ${currentImageIndex}`}
-            src={urlFor(images[currentImageIndex]).url()}
+            src={urlForImage(images[currentImageIndex])?.url() as string}
             layout="fill"
+            priority
             objectFit="contain"
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           />
@@ -104,9 +105,9 @@ const ImageGallery: React.FC<IImageGallery> = ({ images }) => {
               >
                 <Image
                   alt={`Product Image ${index}`}
-                  src={urlFor(image).url()}
                   width={80}
                   height={80}
+                  src={urlForImage(image)?.width(80).height(80).url() as string}
                   className="relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105"
                 />
               </div>
